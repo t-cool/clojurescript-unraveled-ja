@@ -6,7 +6,7 @@
 
 ## 目的
 
-Lisp方言の Clojure(Script) の普及のため。
+Lisp方言 Clojure(Script) の普及のため。
 
 ## 手段
 
