@@ -4,11 +4,11 @@
 
 ## 目的
 
-Lisp方言 Clojure(Script) の普及のため。
+Lisp方言 Clojure(Script) 普及のため。
 
 ## 手段
 
-ClojureScript Unraveled の邦訳を作成後、(電子)書籍を出版します。
+ClojureScript Unraveled の邦訳を出版します。
 
 ## 原著について
 
