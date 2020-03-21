@@ -9,7 +9,7 @@
 本書はプログラミングの入門書ではありません。少なくとも 1 つ以上プログラミング言語の経験がある読者を想定しています。ただし、Clojure や関数型言語の経験は想定していません。誰にも馴染みのない ClojureScript の理論的な基盤について言及するときは参考文献を紹介します。
 
 #@# Since the ClojureScript documentation is good but sparse, we wanted to write a　compendium of reference information and extensive examples to serve as a　ClojureScript primer as well as a series of practical how-to's. This document will　evolve with the ClojureScript language, both as a reference of the language features　and as a sort of cookbook with practical programming recipes.
-ClojureScript の公式ドキュメントは良質ですが、全ての内容を網羅していません。そこで私たちは、ClojureScript の入門書として、また実用的な手引として活用できる全集を書くことにしました。本書は ClojureScript の変化に合わせて更新します。ClojureScriptの全集として、また実用的な開発レシピとして本書を活用してください。
+ClojureScript の公式ドキュメントは良質ですが少ないので、私たちは ClojureScript 入門者に役立つ参考情報と広範な例、そして一連の実用的な手法をまとめた全集を書こうと思いました。本書は ClojureScript 言語と共に進化します。言語機能の参考文献として、また実用的なプログラミング例を含む手引き書として利用できます。
 
 #@# You'll get the most out of this book if you:
 
