@@ -212,7 +212,7 @@ ClojureScript の文字列で特異な点は、Lisp の構文に由来するも�
 
 //emlist{
 "This is a multiline
-      string in  ClojureScript ."
+      string in ClojureScript."
 //}
 
 === 文字
@@ -642,7 +642,7 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 (def my-variadic-set #(set %&))
 
 (my-variadic-set 1 2 2)
-;; => #{1 2 }
+;; => #{1 2}
 //}
 
 
@@ -836,10 +836,8 @@ ClojureScript には ALGOL のような変数の概念がありませんが、�
 //emlist{
 (let [x (inc 1)
       y (+ x 1)]
-    (println "Simple message from the body of a let ")
-    (* x y))
-;; Simple message from the body of a let 
-;; => 6
+  (println "Simple message from the body of a let")
+  (* x y))
 //}
 
 #@# In the preceding example, the symbol x is bound to the value `(inc 1)`, which comes out to 2 , and the symbol y is bound to the sum of x and 1 , which comes out to 3. Given those bindings, the expressions `(println "Simple message from the body of a  let ")` and `(* x y)` are evaluated.
@@ -1075,7 +1073,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (reduce (fn [acc word] (+ acc (count word)))
-         0 ["ant" "bee" "crab" "duck"])
+        0 ["ant" "bee" "crab" "duck"])
 ;; => 14
 //}
 
@@ -1104,7 +1102,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //emlist{
 (for [x [1 2 3]]
   [x (* x x)])
-;; => ([1 1] [ 2  4] [3 9])
+;; => ([1 1] [2 4] [3 9])
 //}
 
 #@# In this example, x is bound to each of the items in the vector `[1 2 3]` in turn, and returns a new sequence of two-item vectors with the original item squared.
@@ -1304,7 +1302,7 @@ ClojureScript による抽象化で中心的な概念の 1 つに シーケン�
 ;; => 1 
       
 (rest [1 2 3])
-;; => ( 2  3)
+;; => (2 3)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
@@ -2138,17 +2136,17 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 セットの要素に順序をつけて扱うには、マップの場合と同様に、sorted-set 関数と sorted-set-by 関数が用意されています。マップの sorted-map と sorted-map-by に似ています。
 
 //emlist{
-(def unordered-set #{[0] [1] [ 2]})
-;; => #{[0] [ 2] [1]}
+(def unordered-set #{[0] [1] [2]})
+;; => #{[0] [2] [1]}
 
 (seq unordered-set)
-;; => ([0] [ 2] [1])
+;; => ([0] [2] [1])
 
-(def ordered-set (sorted-set [0] [1] [ 2]))
-;; =># {[0] [1] [ 2]}
+(def ordered-set (sorted-set [0] [1] [2]))
+;; =># {[0] [1] [2]}
 
 (seq ordered-set)
-;; => ([0] [1] [ 2])
+;; => ([0] [1] [2])
 //}
 
 ===== キュー
@@ -2194,7 +2192,7 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 ;; => 1 
 
 (pop pq)
-;; => #queue [ 2  3]
+;; => #queue [2 3]
 
 (conj pq 4)
 ;; => #queue [1 2 3 4]
@@ -2264,7 +2262,7 @@ destructuring は let での束縛に限定されないことに注意してく�
   {:first fst
    :snd snd
    :rest more})
-;; => {:first 0, :snd 1 , :rest (2 3 4 5 6 7 8 9)}
+;; => {:first 0, :snd 1, :rest (2 3 4 5 6 7 8 9)}
 //}
 
 #@# Notice how the value in the 0 index got bound to fst, the value in the 1 index got bound to snd, and the sequence of elements from 2 onwards got bound to the more symbol.
@@ -2279,9 +2277,9 @@ destructuring は let での束縛に限定されないことに注意してく�
    :snd snd
    :rest more
    :original original})
-;; => {:first 0, :snd 1 , 
-;;      :rest (2 3 4 5 6 7 8 9),
-;;      :original (0 1 2 3 4 5 6 7 8 9)}
+;; => {:first 0, :snd 1,
+;;     :rest (2 3 4 5 6 7 8 9),
+;;     :original (0 1 2 3 4 5 6 7 8 9)}
 //}
 
 #@# Not only can indexed sequences be destructured, but associative data can also be destructured. Its destructuring binding form is represented as a map instead of a vector, where the keys are the symbols we want to bind values to and the values are the keys that we want to look up in the associative data structure.  let 's see an example:
@@ -3545,7 +3543,7 @@ deftype の構文とよく似ています。実際には、型を定義するた
 また、マップと同様に、レコードは最初に定義されていないフィールドを追加できます。
 
 //emlist{
-(def person2  (assoc person :age 92))
+(def person2 (assoc person :age 92))
 
 (:age person2)
 ;; => 92 
@@ -4165,7 +4163,6 @@ reset! 関数は、アトムに含まれる値を新しい値で置き換えま�
 (remove-watch a :logger)
 //}
 
-
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 === Volatile
@@ -4192,8 +4189,8 @@ Volatile の API はアトムのものとよく似ています。それらは、
 
 (vswap! ciri update :age inc)
 ;; {:name "Cirilla", :lastname "Fiona", :age 21}
-(vreset! ciri {:name "Cirilla", :lastname "Fiona", :age 22 })
-;; {:name "Cirilla", :lastname "Fiona", :age 22 }
+(vreset! ciri {:name "Cirilla", :lastname "Fiona", :age 22})
+;; {:name "Cirilla", :lastname "Fiona", :age 22}
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
