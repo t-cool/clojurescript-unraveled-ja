@@ -22,7 +22,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 
 //emlist{
 (+ 1 2 3)
-;; ==> 6
+;; => 6
 //}
 
 #@# In the example above, we're applying the addition function + to the arguments 1 , 2 and 3. ClojureScript allows many unusual characters like ? or - in symbol names, which makes it easier to read:
@@ -30,7 +30,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 
 //emlist{
 (zero? 0)
-;; ==> true
+;; => true
 //}
 
 #@# To distinguish function calls from lists of data items, we can quote lists to keep them from being evaluated.  The quoted lists will be treated as data instead of as a function call:
@@ -47,7 +47,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 
 
 //emlist{
-'(+ 1 2 3)  ;; ==> (+ 1 2 3)
+'(+ 1 2 3)  ;; => (+ 1 2 3)
 //}
 
 #@# ClojureScript uses more than lists for its syntax. The full details will be covered later, but here is an example of the usage of a vector (enclosed in brackets) for defining local bindings:
@@ -60,7 +60,7 @@ ClojureScript ではリスト以外の構文も使います。詳細な説明は
       y 2 
       z 3]
   (+ x y z))
-;; ==> 6
+;; => 6
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -130,7 +130,7 @@ keyword 関数によりキーワードを作成することも可能です。以
 
 //emlist{
 (keyword "foo")
-;; ==> :foo
+;; => :foo
 //}
 
 #@# When prefixing keywords with a double colon ::, the keyword will be prepended by the name of the current namespace. Note that namespacing keywords affects equality comparisons.
@@ -138,10 +138,10 @@ keyword 関数によりキーワードを作成することも可能です。以
 
 //emlist{
 ::foo
-;; ==> :cljs.user/foo
+;; => :cljs.user/foo
 
 (= ::foo :foo)
-;; ==> false
+;; => false
 //}
 
 #@# Another alternative is to include the namespace in the keyword literal, this is useful when creating namespaced keywords for other namespaces:
@@ -149,7 +149,7 @@ keyword 関数によりキーワードを作成することも可能です。以
 
 //emlist{
 :cljs.unraveled/foo
-;; ==> :cljs.unraveled/foo
+;; => :cljs.unraveled/foo
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
@@ -161,7 +161,7 @@ keyword 関数は 2 つの引数をとることができます。第 1 引数で
 
 //emlist{
 (keyword "cljs.unraveled" "foo")
-;; ==> :cljs.unraveled/foo
+;; => :cljs.unraveled/foo
 //}
 
 
@@ -200,7 +200,7 @@ my-special-swap!
 
 #@# There is almost nothing new we can explain about strings that you don't already know. In  ClojureScript , they work the same as in any other language. One point of interest, however, is that they are immutable.
 #@# In this case they are the same as in  JavaScript :
-文字列については特に説明することはありません。ClojureScript は、他の言語と同じように動作します。ただし、文字列が不可変である点に注意してください。
+文字列については特に説明することはありません。ClojureScript は、他の言語と同じように動作します。ただし、文字列が不変である点に注意してください。
 この点は JavaScript と同じです。
 
 //emlist{
@@ -212,7 +212,7 @@ ClojureScript の文字列で特異な点は、Lisp の構文に由来するも�
 
 //emlist{
 "This is a multiline
-      string in  ClojureScript ."
+      string in ClojureScript."
 //}
 
 === 文字
@@ -248,7 +248,7 @@ ClojureScript の文字列で特異な点は、Lisp の構文に由来するも�
 #@# ClojureScript comes with many types of collections. The main difference between ClojureScript collections and collections in other languages is that they are persistent and immutable.
 #@# Before moving on to these (possibly) unknown concepts, we'll present a high-level overview of existing collection types in  ClojureScript .
 あるプログラミング言語について詳しく知るためには、その言語でコレクションがどのように抽象化されているかを知る必要があります。ClojureScript にも当てはまります。
-ClojureScript のコレクションには多くの型があります。ClojureScript が他の言語のコレクションと違うのは、コレクションが永続的で不可変であることです。
+ClojureScript のコレクションには多くの型があります。ClojureScript が他の言語のコレクションと違うのは、コレクションが永続的で不変であることです。
 詳しい説明に入る前に ClojureScript のコレクションに存在する型について概要を見ましょう。
 
 ===== リスト
@@ -278,10 +278,10 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 //emlist{
 (inc 1)
-;; ==> 2
+;; => 2
       
 '(inc 1)
-;; ==> (inc 1)
+;; => (inc 1)
 //}
 
 #@# As you can see, if you evaluate `(inc 1)` without prefixing it with ', it will resolve the inc symbol to the *inc* function and will execute it with 1 as the first argument, returning the value 2 .
@@ -294,10 +294,10 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 //emlist{
 (list 1 2 3 4 5)
-;; ==> (1 2 3 4 5)
+;; => (1 2 3 4 5)
 
 (list :foo :bar 2)
-;; ==> (:foo :bar 2)
+;; => (:foo :bar 2)
 //}
 
 #@# Lists have the peculiarity that they are very efficient if you access them sequentially or access their first elements, but a list is not a very good option if you need random (index) access to its elements.
@@ -338,10 +338,10 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 //emlist{
 (vector 1 2 3)
-;; ==> [1 2 3]
+;; => [1 2 3]
 
 (vector "blah" 3.5 nil)
-;; ==> ["blah" 3.5 nil]
+;; => ["blah" 3.5 nil]
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
@@ -383,10 +383,10 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 //emlist{
 #{1 2 3 :foo :bar}
-;; ==> #{1 :bar 3 :foo 2 }
+;; => #{1 :bar 3 :foo 2 }
 
 (set [1 2 1 3 1 4 1 5])
-;; ==> #{1 2 3 4 5}
+;; => #{1 2 3 4 5}
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
@@ -409,7 +409,7 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 #@#  vars
 
 #@# ClojureScript is a mostly functional language that focuses on immutability. Because of that, it does not have the concept of  var iables as you know them in most other programming languages. The closest analogy to  variables are the  variables you define in algebra; when you say `x == 6` in mathematics, you are saying that you want the symbol x to stand for the number six.
-ClojureScript は関数型プログラミング言語であり、不可変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で x == 6 というときには、x というシンボルが 6 を表すということを意味します。
+ClojureScript は関数型プログラミング言語であり、不変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で x == 6 というときには、x というシンボルが 6 を表すということを意味します。
 
 #@# In  ClojureScript ,  var s are represented by symbols and store a single value together with metadata.
 #@# You can define a var using the def special form:
@@ -443,7 +443,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 
 //emlist{
 (inc 1)
-;; ==> 2 
+;; => 2 
 //}
 
 #@# In the example above, inc is a function and is part of the ClojureScript runtime, and 1 is the first argument for the inc function.
@@ -451,7 +451,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 
 //emlist{
 (+ 1 2 3)
-;; ==> 6
+;; => 6
 //}
 
       
@@ -487,7 +487,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 
 //emlist{
 ((fn [x] (* x x)) 5)
-;; ==> 25
+;; => 25
 //}
 
 #@#  let 's start creating named functions. But what does a _named function_ really mean? It is very simple; in  ClojureScript , functions are first-class and behave like any other value, so naming a function is done by simply binding the function to a symbol:
@@ -497,7 +497,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 (def square (fn [x] (* x x)))
 
 (square 12)
-;; ==> 144
+;; => 144
 //}
 
 #@# ClojureScript also offers the defn macro as a little syntactic sugar for making function definition more idiomatic:
@@ -557,10 +557,10 @@ ClojureScript は任意の数の引数をとる関数を定義することがで
 
 //emlist{
 (myinc 1)
-;; ==> 2 
+;; => 2 
 
 (myinc 1 3)
-;; ==> 4
+;; => 4
 
 (myinc 1 3 3)
 ;; Compiler error
@@ -591,7 +591,7 @@ Arity の概念を本書で説明することは、本書の範囲を超えて�
   (set params))
       
 (my-variadic-set 1 2 3 1)
-;; ==> #{1 2 3}
+;; => #{1 2 3}
 //}
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
@@ -616,7 +616,7 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 (def average #(/ (+ %1 %2) 2))
 
 (average 3 4)
-;; ==> 3.5
+;; => 3.5
 //}
 
 #@# The preceding definition is shorthand for:
@@ -626,7 +626,7 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 (def average-longer (fn [a b] (/ (+ a b) 2)))
 
 (average-longer 7 8)
-;; ==> 7.5
+;; => 7.5
 //}
 
 #@# The % 1 , % 2 ... %N are simple markers for parameter positions that are implicitly declared when the reader macro will be interpreted and converted to a fn expression.
@@ -642,7 +642,7 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 (def my-variadic-set #(set %&))
 
 (my-variadic-set 1 2 2)
-;; ==> #{1 2 }
+;; => #{1 2}
 //}
 
 
@@ -680,10 +680,10 @@ ClojureScript において if は文ではなく式であり、3 つの引数を
     0))
 
 (discount 30)
-;; ==> 0
+;; => 0
 
 (discount 130)
-;; ==> 0.05
+;; => 0.05
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
@@ -711,10 +711,9 @@ if 式には複数の条件を追加するための else if の部分がない�
     (< x 0) "negative"
     :else "zero"))
       
-(mypos? 0)　　;; ==> "zero"
-      
+(mypos? 0)　　;; => "zero"
 
-(mypos? -2)　;; ==> "negative"
+(mypos? -2)　;; => "negative"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
@@ -736,10 +735,10 @@ if 式には複数の条件を追加するための else if の部分がない�
     "Unknown"))
       
 (translate-lang-code "en")
-;; ==> "English"
+;; => "English"
       
 (translate-lang-code "fr")
-;; ==> "Unknown"
+;; => "Unknown"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -770,10 +769,10 @@ case は、前例の condp と同様の使い方をします。主な違いは�
     "Unknown"))
 
 (translate-lang-code "en")
-;; ==> "English"
+;; => "English"
 
 (translate-lang-code "fr")
-;; ==> "Unknown"
+;; => "Unknown"
 //}
 
 
@@ -793,7 +792,7 @@ callable プロトコル(IFn については後述)を実装する能力と一�
 (def valid? #{1 2 3})
 
 (filter valid? (range 110))
-;; ==> (1 2 3)
+;; => (1 2 3)
 //}
 
 #@# This works because a set returns either the value itself for all contained elements or nil:
@@ -803,10 +802,10 @@ callable プロトコル(IFn については後述)を実装する能力と一�
 
 //emlist{
 (valid? 1)
-;; ==> 1 
+;; => 1 
 
 (valid? 4)
-;; ==> nil
+;; => nil
 //}
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
@@ -832,15 +831,13 @@ callable プロトコル(IFn については後述)を実装する能力と一�
 ClojureScript には ALGOL のような変数の概念がありませんが、ローカル(local)はあります。ローカルはイミュータブルであり、変更しようとするとエラーが発生します。
 
 #@# Locals are defined with the let expression. The expression starts with a vector as the first parameter followed by an arbitrary number of expressions. The first parameter (the vector) should contain an arbitrary number of pairs that give a _binding form_ (usually a symbol) followed by an expression whose value will be bound to this new local for the remainder of the let expression.
-ローカルは let 式で定義されます。let 式は、最初のパラメータとしてベクトルで始まり、その後に任意の数の式が続きます。最初のパラメータのベクトルには束縛フォームを与えて、その let 内のローカルで有効な名前と値のペアを宣言します。
+ローカルは let 式で定義されます。let 式は、最初のパラメータとしてベクタで始まり、その後に任意の数の式が続きます。最初のパラメータのベクタには束縛フォームを与えて、その let 内のローカルで有効な名前と値のペアを宣言します。
 
 //emlist{
 (let [x (inc 1)
       y (+ x 1)]
-    (println "Simple message from the body of a let ")
-    (* x y))
-;; Simple message from the body of a let 
-;; ==> 6
+  (println "Simple message from the body of a let")
+  (* x y))
 //}
 
 #@# In the preceding example, the symbol x is bound to the value `(inc 1)`, which comes out to 2 , and the symbol y is bound to the sum of x and 1 , which comes out to 3. Given those bindings, the expressions `(println "Simple message from the body of a  let ")` and `(* x y)` are evaluated.
@@ -864,7 +861,7 @@ do は任意の数の式を含むことができますが、最後に評価さ�
   (+ 1 2))
 ;; hello world
 ;; hola mundo
-;; ==> 3
+;; => 3
 //}
 
 #@# The body of the let expression, explained in the previous section, is very similar to the do expression in that it allows multiple expressions. In fact, the let has an implicit do.
@@ -911,7 +908,7 @@ loop は、空の可能性のある束縛のリスト(letとの対称性に注�
 ;; Looping with 1 
 ;; Looping with 2 
 ;; Done looping!
-;; ==> nil
+;; => nil
 //}
 
 #@# In the above snippet, we bind the name x to the value 0 and execute the body. Since the condition is not met the first time, it's rerun with recur, incrementing the binding value with the inc function. We do this once more until the condition is met and, since there aren't any more recur calls, exit the loop.
@@ -935,7 +932,7 @@ recur を使うことができるのは loop だけではありません。関�
 ;; Looping with 1 
 ;; Looping with 2 
 ;; Done looping!
-;; ==> nil
+;; => nil
 //}
 
 
@@ -983,7 +980,7 @@ recur を使うことができるのは loop だけではありません。関�
 
 //emlist{
 (map inc [0 1 2])
-;; ==> (1 2 3)
+;; => (1 2 3)
 //}
 
 #@# The first parameter for map can be _any_ function that takes one argument and returns a value.  For example, if you had a graphing application and you wanted to graph the equation `y&# 1 60;==&# 1 60;3x&# 1 60;+&# 1 60;5` for a set of _x_ values, you could get the _y_ values like this:
@@ -993,7 +990,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 (defn y-value [x] (+ (* 3 x) 5))
 
 (map y-value [1 2 3 4 5])
-;; ==> (8 11 14 17 20)
+;; => (8 11 14 17 20)
 //}
 
 #@# If your function is short, you can use an anonymous function instead, either the normal or short syntax:
@@ -1001,10 +998,10 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
  
 //emlist{
 (map (fn [x] (+ (* 3 x) 5)) [1 2 3 4 5])
-;; ==> (8 1 1 1 4 1 7 2 0)
+;; => (8 1 1 1 4 1 7 2 0)
 
 (map #(+ (* 3 %) 5) [1 2 3 4 5])
-;; ==> (8 1 1 1 4 1 7 2 0)
+;; => (8 1 1 1 4 1 7 2 0)
 //}
 
 #@# For filtering the values of a data structure we use the filter function, which takes a predicate and a sequence and gives a new sequence with only the elements that returned true for the given predicate:
@@ -1023,7 +1020,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (filter odd? [1 2 3 4])
-;; ==> (1 3)
+;; => (1 3)
 //}
 
 #@# Again, you can use any function that returns true or false as the first argument to filter.  Here is an example that keeps only words less than five characters long. (The count function returns the length of its argument.)
@@ -1031,7 +1028,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (filter (fn [word] (< (count word) 5)) ["ant" "baboon" "crab" "duck" "echidna" "fox"])
-;; ==> ("ant" "crab" "duck" "fox")
+;; => ("ant" "crab" "duck" "fox")
 //}
 
 #@# Converting an iterable to a single value, accumulating the intermediate result at every step of the iteration can be achieved with reduce, which takes a function for accumulating values, an optional initial value and a collection:
@@ -1039,7 +1036,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (reduce + 0 [1 2 3 4])
-;; ==> 10
+;; => 10
 //}
 
 #@# Yet again, you can provide your own function as the first argument to reduce , but your function must have _two_ parameters. The first one is the "accumulated value" and the second parameter is the collection item being processed. The function returns a value that becomes the accumulator for the next item in the list.  For example, here is how you would find the sum of squares of a set of numbers (this is an important calculation in statistics). Using a separate function:
@@ -1051,7 +1048,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
   (+ accumulator (* item item)))
 
 (reduce sum-squares 0 [3 4 5])
-;; ==> 50
+;; => 50
 //}
 
 #@# ...and with an anonymous function:
@@ -1059,7 +1056,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (reduce (fn [acc item] (+ acc (* item item))) 0 [3 4 5])
-;; ==> 50
+;; => 50
 //}
 
 #@# Here is a reduce that finds the total number of characters in a set of words:
@@ -1076,22 +1073,22 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 
 //emlist{
 (reduce (fn [acc word] (+ acc (count word)))
-         0 ["ant" "bee" "crab" "duck"])
-;; ==> 14
+        0 ["ant" "bee" "crab" "duck"])
+;; => 14
 //}
 
 #@# We have not used the short syntax here because, although it requires less typing, it can be less readable, and when you are starting with a new language, it's important to be able to read what you wrote! If you are comfortable with the short syntax, feel free to use it.
 上の例では、短い構文を使っていません。なぜなら、短い構文を使うとタイピング数を減らせますが、コードの可読性が低下する可能性があるからです。新しい言語を始めるときは、自分が書いたものを後で読めることは重要です。もし短い構文に慣れている場合は、この構文を使用してください。
 
 #@# Remember to choose your starting value for the accumulator carefully. If you wanted to use reduce to find the product of a series of numbers, you would have to start with one rather than zero, otherwise all the numbers would be multiplied by zero!
-アキュミュレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
+アキュムレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
 
 //emlist{
 ;; wrong starting value
-(reduce * 0 [3 4 5])　　;; ==> 0
+(reduce * 0 [3 4 5])　　;; => 0
       
 ;; correct starting accumulator
-(reduce * 1 [3 4 5])　　;; ==> 60
+(reduce * 1 [3 4 5])　　;; => 60
 //}
 
 ===== for によるシーケンス内包表記
@@ -1105,11 +1102,11 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //emlist{
 (for [x [1 2 3]]
   [x (* x x)])
-;; ==> ([1 1] [ 2  4] [3 9])
+;; => ([1 1] [2 4] [3 9])
 //}
 
 #@# In this example, x is bound to each of the items in the vector `[1 2 3]` in turn, and returns a new sequence of two-item vectors with the original item squared.
-この例では、x は [1 2 3] の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクトルの新しいシーケンスを返します。
+この例では、x は [1 2 3] の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクタの新しいシーケンスを返します。
 
 #@# for supports multiple bindings, which will cause the collections to be iterated in a nested fashion, much like nesting for loops in imperative languages. The innermost binding iterates “fastest.”
 複数の束縛をサポートしているため、命令型言語での for ループのネストと同様に、コレクションがネストされて反復されます。最も内側の束縛が「最も速く」繰り返されます。
@@ -1120,7 +1117,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 (for [x [1 2 3]
       y [4 5]]
   [x y])
-;; ==> ([1 4] [1 5] [2 4] [2 5] [3 4] [3 5])
+;; => ([1 4] [1 5] [2 4] [2 5] [3 4] [3 5])
 //}
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
@@ -1145,7 +1142,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
       y [4 5]
       :let [z (+ x y)]]
   z)      
-;; ==> (5 6 6 7 7 8)
+;; => (5 6 6 7 7 8)
 //}
 
 #@# We can use the :while modifier for expressing a condition that, when it is no longer met, will stop the sequence generation. Here's an example:
@@ -1156,7 +1153,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
       y [4 5]
       :while (= y 4)]
   [x y])
-;; ==> ([1 4] [2 4] [3 4])
+;; => ([1 4] [2 4] [3 4])
 //}
 
 #@# For filtering out generated values, use the :when modifier as in the following example:
@@ -1167,7 +1164,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
       y [4 5]
       :when (= (+ x y) 6)]
   [x y])
-;; ==> ([1 5] [ 2  4])
+;; => ([1 5] [ 2  4])
 //}
 
 #@# We can combine the modifiers shown above for expressing complex sequence generations or more clearly expressing the intent of our comprehension:
@@ -1179,11 +1176,11 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
       :let [z (+ x y)]
       :when (= z 6)]
   [x y])
-;; ==> ([1 5] [2 4])
+;; => ([1 5] [2 4])
 //}
 
 #@# When we outlined the most common usages of the for construct in imperative programming languages, we mentioned that sometimes we want to run a computation for every value in a sequence, not caring about the result. Presumably we do this for achieving some sort of side-effect with the values of the sequence.
-先ほど、命令型プログラミング言語での for の用法として、結果を気にせずにシーケンス内のすべての値に対して計算を実行したい場合があることを述べました。おそらく、シークエンスの各値で何らかの副作用を達成するためにこれを行います。
+先ほど、命令型プログラミング言語での for の用法として、結果を気にせずにシーケンス内のすべての値に対して計算を実行したい場合があることを述べました。おそらく、シーケンスの各値で何らかの副作用を達成するためにこれを行います。
 
 
 #@# Page29
@@ -1201,14 +1198,13 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 (doseq [x [1 2 3]
         y [4 5]
        :let [z (+ x y)]]
-  (println x "+" y "=" z))
 ;; 1 + 4 = 5
 ;; 1 + 5 = 6
 ;; 2 + 4 = 6
 ;; 2 + 5 = 7
 ;; 3 + 4 = 7
 ;; 3 + 5 = 8
-;; ==> nil
+;; => nil
 //}
 
 #@# If you want just iterate and apply some side effectfull operation (like println) over each item in the collection, you can just use the specialized function run! that internally uses fast reduction:
@@ -1219,7 +1215,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 ;; 1 
 ;; 2 
 ;; 3
-;; ==> nil
+;; => nil
 //}
 
 #@# This function explicitly returns nil.
@@ -1246,7 +1242,7 @@ ClojureScript のコレクションは永続的でイミュータブルだと言
   (println "ys:" ys))
 ;; xs: [1 2 3]
 ;; ys: [1 2 3 4]
-;; ==> nil
+;; => nil
 //}
 
 
@@ -1281,7 +1277,7 @@ ClojureScript におけるデータ構造の構造共有を説明するために
 ;; xs: (1 2 3)
 ;; ys: (0 1 2 3)
 ;; (rest ys): (1 2 3)
-;; ==> true
+;; => true
 //}
 
 #@# As you can see in the example, we used cons (construct) to prepend a value to the xs list and we got a new list ys with the element added. The rest of the ys list (all the values but the first) are the same object in memory as the xs list, thus xs and ys share structure.
@@ -1302,10 +1298,10 @@ ClojureScript による抽象化で中心的な概念の 1 つに シーケン�
 
 //emlist{
 (first [1 2 3])
-;; ==> 1 
+;; => 1 
       
 (rest [1 2 3])
-;; ==> ( 2  3)
+;; => (2 3)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
@@ -1325,10 +1321,10 @@ seq 関数をシーカブルに対して呼ぶとき、シーカブルが空か�
 
 //emlist{
 (seq [])
-;; ==> nil
+;; => nil
 
 (seq [1 2 3])
-;; ==> (1 2 3)
+;; => (1 2 3)
 //}
       
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1340,16 +1336,16 @@ next は rest と似たシーケンス操作関数ですが、シーケンスの
 
 //emlist{
 (rest [])
-;; ==> ()
+;; => ()
       
 (next [])
-;; ==> nil
+;; => nil
 
 (rest [1 2 3])
-;; ==> (2 3)
+;; => (2 3)
       
 (next [1 2 3])
-;; ==> (2 3)
+;; => (2 3)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1374,13 +1370,13 @@ seq はコレクションが空のときに nil を返し、nil は論理値と�
 ;; Saw 1 
 ;; Saw 2 
 ;; Saw 3
-;; ==> nil
+;; => nil
 
 (print-coll #{1 2 3})
 ;; Saw 1 
 ;; Saw 3
 ;; Saw 2 
-;; ==> nil
+;; => nil
 //}
 
 
@@ -1398,13 +1394,13 @@ nil は シーカブル でもシーケンスでもありませんが、これ�
 
 //emlist{
 (seq nil)
-;; ==> nil
+;; => nil
 
 (first nil)
-;; ==> nil
+;; => nil
 
 (rest nil)
-;; ==> ()
+;; => ()
 //}
 
 
@@ -1419,16 +1415,15 @@ ClojureScript コレクションを変換するための中心的な関数は、
 
 //emlist{
 (map inc [1 2 3])
-;; ==> (2 3 4)
+;; => (2 3 4)
 
 (map inc #{1 2 3})
-;; ==> (2 4 3)
+;; => (2 4 3)
 
 (map count {:a 41 :b 40})
-;; ==> (2 2)
 
 (map inc '(1 2 3))
-;; ==> (2 3 4)
+;; => (2 3 4)
 //}
 
 //embed[latex]{
@@ -1436,7 +1431,7 @@ ClojureScript コレクションを変換するための中心的な関数は、
 //} 
  
 #@# NOTE: When you use the map function on a map collection, your higher-order function will receive a two-item vector containing a key and value from the map. The following example uses xref:destructuring-section[destructuring] to access the key and value.
-map 関数をマップのコレクションに対して使うとき、高階関数はキーと値を含む 2 つのアイテムからなるベクトルを受け取ります。次の例では、キーと値にアクセスするために destructuring を使います。
+map 関数をマップのコレクションに対して使うとき、高階関数はキーと値を含む 2 つのアイテムからなるベクタを受け取ります。次の例では、キーと値にアクセスするために destructuring を使います。
 
 //embed[latex]{
 \vspace{-0.2\Cvs}
@@ -1445,7 +1440,7 @@ map 関数をマップのコレクションに対して使うとき、高階関�
 //emlist{
 (map (fn [[key value]] (* value value))
      {:ten 10 :seven 7 :four 4})
-;; ==> (100 49 16)
+;; => (100 49 16)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1458,7 +1453,7 @@ map 関数をマップのコレクションに対して使うとき、高階関�
 //emlist{
 (map (fn [value] (* value value))
      (vals {:ten 10 :seven 7 :four 4}))
-;; ==> (100 49 16)
+;; => (100 49 16)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1497,16 +1492,16 @@ coll? 述語を用いて、データがコレクション型かどうかを判�
 
 //emlist{
 (coll? nil)　
-;; ==> false
+;; => false
 
 (coll? [1 2 3])
-;; ==> true
+;; => true
 
 (coll? {:language "ClojureScript" :file-extension "cljs"})
-;; ==> true
+;; => true
 
 (coll? "ClojureScript")
-;; ==> false
+;; => false
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1518,24 +1513,24 @@ coll? 述語を用いて、データがコレクション型かどうかを判�
 
 //emlist{
 (seq? nil)
-;; ==> false
+;; => false
 (seqable? nil)
-;; ==> false
+;; => false
 
 (seq? [])
-;; ==> false
+;; => false
 (seqable? [])
-;; ==> true
+;; => true
 
 (seq? #{1 2 3})
-;; ==> false
+;; => false
 (seqable? #{1 2 3})
-;; ==> true
+;; => true
 
 (seq? "ClojureScript")
-;; ==> false
+;; => false
 (seqable? "ClojureScript")
-;; ==> false
+;; => false
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1547,16 +1542,16 @@ coll? 述語を用いて、データがコレクション型かどうかを判�
 
 //emlist{ 
 (count nil)
-;; ==> 0
+;; => 0
 
 (count [1 2 3])
-;; ==> 3
+;; => 3
 
 (count {:language "ClojureScript" :file-extension "cljs"})
-;; ==> 2 
+;; => 2 
 
 (count "ClojureScript")
-;; ==> 13
+;; => 13
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1568,13 +1563,13 @@ coll? 述語を用いて、データがコレクション型かどうかを判�
 
 //emlist{
 (empty nil)
-;; ==> nil
+;; => nil
 
 (empty [1 2 3])
-;; ==> []
+;; => []
 
 (empty #{1 2 3})
-;; ==> #{}
+;; => #{}
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1586,13 +1581,13 @@ empty? 述語は、コレクションが空の場合に true を返します。
 
 //emlist{
 (empty? nil)
-;; ==> true
+;; => true
 
 (empty? [])
-;; ==> true
+;; => true
 
 (empty? #{1 2 3})
-;; ==> false
+;; => false
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1607,7 +1602,7 @@ conj には追加する要素をいくつでも渡すことができます。実
 
 //emlist{
 (conj nil 4 2)
-;; ==> (4 2)
+;; => (4 2)
 //}
 
 #@# Page35
@@ -1620,19 +1615,19 @@ conj には追加する要素をいくつでも渡すことができます。実
 
 //emlist{
 (conj [1 2] 3)
-;; ==> [1 2 3]
+;; => [1 2 3]
 
 (conj [1 2] 3 4 5)
-;; ==> [1 2 3 4 5]
+;; => [1 2 3 4 5]
 
 (conj '(1 2) 0)
-;; ==> (0 1 2)
+;; => (0 1 2)
 
 (conj #{1 2 3} 4)
-;; ==> #{1 3 2 4}
+;; => #{1 3 2 4}
 
 (conj {:language "ClojureScript"} [:file-extension "cljs"])
-;; ==> {:language "ClojureScript", :file-extension "cljs"}
+;; => {:language "ClojureScript", :file-extension "cljs"}
 //}
 
 ===== 遅延
@@ -1666,7 +1661,7 @@ range だけで呼び出した場合、整数の無限シーケンスを生成�
 //emlist{
 (take-while (fn [x] (< (+ (* 2 x x) 5) 100))
             (range 0 100))
-;; ==> (0 1 2 3 4 5 6)
+;; => (0 1 2 3 4 5 6)
 //}
 
 #@# Page37
@@ -1690,14 +1685,14 @@ range だけで呼び出した場合、整数の無限シーケンスを生成�
 #@# Lists
 
 #@# In  ClojureScript , lists are mostly used as a data structure for grouping symbols together into programs. Unlike in other  Lisp s, many of the syntactic constructs of ClojureScript use data structures different from the list (vectors and maps).  This makes code less uniform, but the gains in readability are well worth the price.
-ClojureScriptでは、シンボルをグループ化してプログラムにするためのデータ構造として、主にリストが使用されます。他の Lisp 方言とは異なり、ClojureScript ではリストとは異なるデータ構造体を使用します(ベクトルとマップ)。このことによりコードの統一感が低下しますが、コードの読みやすさは向上します。
+ClojureScriptでは、シンボルをグループ化してプログラムにするためのデータ構造として、主にリストが使用されます。他の Lisp 方言とは異なり、ClojureScript ではリストとは異なるデータ構造体を使用します(ベクタとマップ)。このことによりコードの統一感が低下しますが、コードの読みやすさは向上します。
 
 #@# You can think of ClojureScript lists as singly linked lists, where each node contains a value and a pointer to the rest of the list. This makes it natural (and fast!) to add items to the front of the list, since adding to the end would require traversal of the entire list. The prepend operation is performed using the cons function.
 ClojureScript のリストは、各ノードに値とリストの残りの部分へのポインタが含まれる連結リストだと考えることができます。リストの最後に項目を追加するにはリスト全体を横断する必要がありますが、リストの先頭に項目を追加するのは自然に(高速に)できます。リストの最初に要素を追加するには、cons 関数を用います。
 
 //emlist{
 (cons 0 (cons 1 (cons 2 ())))
-;; ==> (0 1 2)
+;; => (0 1 2)
 //}
 
 #@# We used the literal () to represent the empty list. Since it doesn't contain any symbols, it is not treated as a function call. However, when using list literals that contain elements, we need to quote them to prevent ClojureScript from evaluating them as a function call:
@@ -1705,7 +1700,7 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 
 //emlist{
 (cons 0 '(1 2))
-;; ==> (0 1 2)
+;; => (0 1 2)
 //}
 
 #@# Since the head is the position that has constant time addition in the list collection, the conj operation on lists naturally adds items to the front:
@@ -1713,7 +1708,7 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 
 //emlist{
 (conj '(1 2) 0)
-;; ==> (0 1 2)
+;; => (0 1 2)
 //}
 
 #@# Lists and other ClojureScript data structures can be used as stacks using the peek, pop, and conj functions. Note that the top of the stack will be the "place" where conj adds elements, making conj equivalent to the stack's push operation. In the case of lists, conj adds elements to the front of the list, peek returns the first element of the list, and pop returns a list with all the elements but the first one.
@@ -1736,19 +1731,19 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 (def list-stack '(0 1 2))
 
 (peek list-stack)
-;; ==> 0
+;; => 0
 
 (pop list-stack)
-;; ==> (1 2)
+;; => (1 2)
 
 (type (pop list-stack))
-;; ==> cljs.core/List
+;; => cljs.core/List
 
 (conj list-stack -1)
-;; ==> (-1 0 1 2)
+;; => (-1 0 1 2)
 
 (type (conj list-stack -1))
-;; ==> cljs.core/List
+;; => cljs.core/List
 //}
 
 #@# One thing that lists are not particularly good at is random indexed access. Since they are stored in a single linked list-like structure in memory, random access to a given index requires a linear traversal in order to either retrieve the requested item or throw an index out of bounds error. Non-indexed ordered collections like lazy sequences also suffer from this limitation.
@@ -1768,13 +1763,13 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 
 //emlist{
 (vector? [0 1 2])
-;; ==> true
+;; => true
 
 (vector 0 1 2)
-;; ==> [0 1 2]
+;; => [0 1 2]
 
 (vec '(0 1 2))
-;; ==> [0 1 2]
+;; => [0 1 2]
 //}
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
@@ -1786,7 +1781,7 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 
 //emlist{
 (conj [0 1] 2)
-;; ==> [0 1 2]
+;; => [0 1 2]
 //}
 
 #@# Page39
@@ -1798,27 +1793,27 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 //} 
 
 #@# Another thing that differentiates lists and vectors is that vectors are indexed collections and as such support efficient random index access and non-destructive updates. We can use the nth function to retrieve values given an index:
-リストとベクトルを区別するもう 1 つの点は、ベクタはインデックス付きコレクションであり、効率的なランダムアクセスや非破壊更新をサポートする点です。nth 関数を使うと、指定されたインデックスの値を取得できます。
+リストとベクタを区別するもう 1 つの点は、ベクタはインデックス付きコレクションであり、効率的なランダムアクセスや非破壊更新をサポートする点です。nth 関数を使うと、指定されたインデックスの値を取得できます。
 
 //emlist{
 (nth [0 1 2] 0)
-;; ==> 0
+;; => 0
 //}
  
 #@# Since vectors associate sequential numeric keys (indexes) to values, we can treat them as an associative data structure. ClojureScript provides the assoc function that, given an associative data structure and a set of key-value pairs, yields a new data structure with the values corresponding to the keys modified. Indexes begin at zero for the first element in a vector.
-ベクトルは連続した数値キー(インデックス)を値に関連付けるので、連想データ構造として扱うことができます。ClojureScript が提供する assoc 関数は、連想データの構造体とキーと値のペアのセットを指定すると、変更されたキーに対応する値を持つ新しいデータの構造体を生成します。インデックスは、ベクトルの最初の要素の 0 から始まります。
+ベクタは連続した数値キー(インデックス)を値に関連付けるので、連想データ構造として扱うことができます。ClojureScript が提供する assoc 関数は、連想データの構造体とキーと値のペアのセットを指定すると、変更されたキーに対応する値を持つ新しいデータの構造体を生成します。インデックスは、ベクタの最初の要素の 0 から始まります。
 
 //emlist{
 (assoc ["cero" "uno" "two"] 2 "dos")
-;; ==> ["cero" "uno" "dos"]
+;; => ["cero" "uno" "dos"]
 //}
 
 #@# Note that we can only assoc to a key that is either contained in the vector already or if it is the last position in a vector:
-ベクトルにすでに含まれているキー、またはベクトルの最後の位置にあるキーにのみ assoc を使うことができます。
+ベクタにすでに含まれているキー、またはベクタの最後の位置にあるキーにのみ assoc を使うことができます。
 
 //emlist{
 (assoc ["cero" "uno" "dos"] 3 "tres")
-;; ==> ["cero" "uno" "dos" "tres"]
+;; => ["cero" "uno" "dos" "tres"]
 
 (assoc ["cero" "uno" "dos"] 4 "cuatro")
 ;; Error: Index 4 out of bounds [0,3]
@@ -1829,10 +1824,10 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 
 //emlist{
 (["cero" "uno" "dos"] 0)
-;; ==> "cero"
+;; => "cero"
 
 (["cero" "uno" "dos"] 2)
-;; ==> "dos"
+;; => "dos"
 
 (["cero" "uno" "dos"] 3)
 ;; Error: Not item 3 in vector of length 3
@@ -1855,40 +1850,40 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 (def vector-stack [0 1 2])
 
 (peek vector-stack)
-;; ==> 2 
+;; => 2 
 
 (pop vector-stack)
-;; ==> [0 1]
+;; => [0 1]
 
 (type (pop vector-stack))
-;; ==> cljs.core/PersistentVector
+;; => cljs.core/PersistentVector
 
 (conj vector-stack 3)
-;; ==> [0 1 2 3]
+;; => [0 1 2 3]
 
 (type (conj vector-stack 3))
-;; ==> cljs.core/PersistentVector
+;; => cljs.core/PersistentVector
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# The map and filter operations return lazy sequences, but as it is common to need a fully realized sequence after performing those operations, vector-returning counterparts of such functions are available as mapv and filterv. They have the advantages of being faster than building a vector from a lazy sequence and making your intent more explicit:
-map と filter の操作は遅延シーケンスを返しますが、これらの操作の後には完全に実現されたシーケンスが必要なことが一般的なため、ベクトルを返す同等のものとして mapv や filterv 等があります。これらの関数には、遅延シーケンスからベクトルを構築するよりも高速であり、意図をより明確にするという利点があります。
+map と filter の操作は遅延シーケンスを返しますが、これらの操作の後には完全に実現されたシーケンスが必要なことが一般的なため、ベクタを返す同等のものとして mapv や filterv 等があります。これらの関数には、遅延シーケンスからベクタを構築するよりも高速であり、意図をより明確にするという利点があります。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 //emlist{
 (map inc [0 1 2])
-;; ==> (1 2 3)
+;; => (1 2 3)
 
 (type (map inc [0 1 2]))
-;; ==> cljs.core/LazySeq
+;; => cljs.core/LazySeq
 
 (mapv inc [0 1 2])
-;; ==> [1 2 3]
+;; => [1 2 3]
 
 (type (mapv inc [0 1 2]))
-;; ==> cljs.core/PersistentVector
+;; => cljs.core/PersistentVector
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1905,10 +1900,10 @@ ClojureScript のマップは、リテラル表現として、キーと値のペ
 
 //emlist{
 (map? {:name "Cirilla"})
-;; ==> true
+;; => true
 
 (hash-map :name "Cirilla")
-;; ==> {:name "Cirilla"}
+;; => {:name "Cirilla"}
 //}
 
  
@@ -1923,7 +1918,7 @@ ClojureScript のマップは、リテラル表現として、キーと値のペ
 
 //emlist{ 
 (hash-map :name "Cirilla" :surname "Fiona")
-;; ==> {:name "Cirilla" :surname "Fiona"}
+;; => {:name "Cirilla" :surname "Fiona"}
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
@@ -1937,10 +1932,10 @@ ClojureScript のマップは、リテラル表現として、キーと値のペ
 (def ciri {:name "Cirilla"})
 
 (conj ciri [:surname "Fiona"])
-;; ==> {:name "Cirilla", :surname "Fiona"}
+;; => {:name "Cirilla", :surname "Fiona"}
 
 (conj ciri [:surname "Fiona"] [:occupation "Wizard"])
-;; ==> {:name "Cirilla", :surname "Fiona", :occupation "Wizard"}
+;; => {:name "Cirilla", :surname "Fiona", :occupation "Wizard"}
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}} 
@@ -1954,28 +1949,28 @@ ClojureScript のマップは、リテラル表現として、キーと値のペ
 
 //emlist{
 (assoc {:name "Cirilla"} :surname "Fiona")
-;; ==> {:name "Cirilla", :surname "Fiona"}
+;; => {:name "Cirilla", :surname "Fiona"}
 
 (assoc {:name "Cirilla"} :name "Alfonso")
-;; ==> {:name "Alfonso"}
+;; => {:name "Alfonso"}
 
 (dissoc {:name "Cirilla"} :name)
-;; ==> {}
+;; => {}
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}} 
  
 #@# Maps are also functions of their keys, returning the values related to the given keys. Unlike vectors, they return nil if we supply a key that is not present in the map:
-マップはキーの関数でもあり、指定されたキーに関連する値を返します。ベクトルとは異なり、マップに存在しないキーを指定すると、nil が返されます。
+マップはキーの関数でもあり、指定されたキーに関連する値を返します。ベクタとは異なり、マップに存在しないキーを指定すると、nil が返されます。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
 //emlist{
 ({:name "Cirilla"} :name)
-;; ==> "Cirilla"
+;; => "Cirilla"
 
 ({:name "Cirilla"} :surname)
-;; ==> nil
+;; => nil
 //}
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
@@ -1994,10 +1989,10 @@ ClojureScript はソートされたハッシュマップも提供しています
 
 //emlist{
 (def sm (sorted-map :c 2 :b 1 :a 0))
-;; ==> {:a 0, :b 1 , :c 2 }
+;; => {:a 0, :b 1 , :c 2 }
 
 (keys sm)
-;; ==> (:a :b :c)
+;; => (:a :b :c)
 //}
 
 #@# If we need a custom ordering we can provide a comparator function to sorted-map-by,  let 's see an example inverting the value returned by the built-in compare function. Comparator functions take two items to compare and return - 1 (if the first item is less than the second), 0 (if they are equal), or 1 (if the first item is greater than the second).
@@ -2007,10 +2002,10 @@ ClojureScript はソートされたハッシュマップも提供しています
 (defn reverse-compare [a b] (compare b a))
 
 (def sm (sorted-map-by reverse-compare :a 0 :b 1 :c 2))
-;; ==> {:c 2 , :b 1 , :a 0}
+;; => {:c 2 , :b 1 , :a 0}
 
 (keys sm)
-;; ==> (:c :b :a)
+;; => (:c :b :a)
 //}
 
 ===== セット
@@ -2022,10 +2017,10 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (set? #{\a \e \i \o \u})
-;; ==> true
+;; => true
 
 (set [1 1 2 3])
-;; ==> #{1 2 3}
+;; => #{1 2 3}
 //}
 
 #@# Set literals cannot contain duplicate values. If you accidentally write a set literal with duplicates an error will be thrown:
@@ -2053,19 +2048,19 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 (require '[clojure.set :as s])
 
 (def danish-vowels #{\a \e \i \o \u \æ \ø \å})
-;; ==> #{"a" "e" "å" "æ" "i" "o" "u" "ø"}
+;; => #{"a" "e" "å" "æ" "i" "o" "u" "ø"}
 
 (def spanish-vowels #{\a \e \i \o \u})
-;; ==> #{"a" "e" "i" "o" "u"}
+;; => #{"a" "e" "i" "o" "u"}
 
 (s/difference danish-vowels spanish-vowels)
-;; ==> #{"å" "æ" "ø"}
+;; => #{"å" "æ" "ø"}
 
 (s/union danish-vowels spanish-vowels)
-;; ==> #{"a" "e" "å" "æ" "i" "o" "u" "ø"}
+;; => #{"a" "e" "å" "æ" "i" "o" "u" "ø"}
 
 (s/intersection danish-vowels spanish-vowels)
-;; ==> #{"a" "e" "i" "o" "u"}
+;; => #{"a" "e" "i" "o" "u"}
 //}
 
 //embed[latex]{
@@ -2083,13 +2078,13 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (def spanish-vowels #{\a \e \i \o \u})
-;; ==> #{"a" "e" "i" "o" "u"}
+;; => #{"a" "e" "i" "o" "u"}
 
 (def danish-vowels (conj spanish-vowels \æ \ø \å))
-;; ==> #{"a" "e" "i" "o" "u" "æ" "ø" "å"}
+;; => #{"a" "e" "i" "o" "u" "æ" "ø" "å"}
 
 (conj #{1 2 3} 1)
-;; ==> #{1 3 2}
+;; => #{1 3 2}
 //}
 
 //embed[latex]{
@@ -2105,16 +2100,16 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (def vowels #{\a \e \i \o \u})
-;; ==> #{"a" "e" "i" "o" "u"}
+;; => #{"a" "e" "i" "o" "u"}
 
 (get vowels \b)
-;; ==> nil
+;; => nil
 
 (contains? vowels \b)
-;; ==> false
+;; => false
 
 (vowels \a)
-;; ==> "a"
+;; => "a"
 //}
 
 
@@ -2129,27 +2124,27 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{ 
 (vowels \z)
-;; ==> nil
+;; => nil
 
 (filter vowels "Hound dog")
-;; ==> ("o" "u" "o")
+;; => ("o" "u" "o")
 //}
 
 #@# Sets have a sorted counterpart like maps do that are created using the functions sorted-set and sorted-set-by which are analogous to map's sorted-map and sorted-map-by.
 セットの要素に順序をつけて扱うには、マップの場合と同様に、sorted-set 関数と sorted-set-by 関数が用意されています。マップの sorted-map と sorted-map-by に似ています。
 
 //emlist{
-(def unordered-set #{[0] [1] [ 2]})
-;; ==> #{[0] [ 2] [1]}
+(def unordered-set #{[0] [1] [2]})
+;; => #{[0] [2] [1]}
 
 (seq unordered-set)
-;; ==> ([0] [ 2] [1])
+;; => ([0] [2] [1])
 
-(def ordered-set (sorted-set [0] [1] [ 2]))
-;; ==># {[0] [1] [ 2]}
+(def ordered-set (sorted-set [0] [1] [2]))
+;; =># {[0] [1] [2]}
 
 (seq ordered-set)
-;; ==> ([0] [1] [ 2])
+;; => ([0] [1] [2])
 //}
 
 ===== キュー
@@ -2161,7 +2156,7 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (def pq #queue [1 2 3])
-;; ==> #queue [1 2 3]
+;; => #queue [1 2 3]
 //}
 
 #@# Using conj to add values to a queue adds items onto the rear:
@@ -2169,10 +2164,10 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (def pq #queue [1 2 3])
-;; ==> #queue [1 2 3]
+;; => #queue [1 2 3]
 
 (conj pq 4 5)
-;; ==> #queue [1 2 3 4 5]
+;; => #queue [1 2 3 4 5]
 //}
 
 #@# A thing to bear in mind about queues is that the stack operations don't follow the usual stack semantics (pushing and popping from the same end). pop takes values from the front position, and conj pushes (appends) elements to the back.
@@ -2189,16 +2184,16 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 
 //emlist{
 (def pq #queue [1 2 3])
-;; ==> #queue [1 2 3]
+;; => #queue [1 2 3]
 
 (peek pq)
-;; ==> 1 
+;; => 1 
 
 (pop pq)
-;; ==> #queue [ 2  3]
+;; => #queue [2 3]
 
 (conj pq 4)
-;; ==> #queue [1 2 3 4]
+;; => #queue [1 2 3 4]
 //}
 
 #@# Queues are not as frequently used as lists or vectors, but it is good to know that they are available in  ClojureScript , as they may occasionally come in handy.
@@ -2219,16 +2214,16 @@ destructuring(分割)という言葉が示すように、destructuring はコレ
       fst (nth v 0)
       thrd (nth v 2)]
   [thrd fst])
-;; ==> [2 0]
+;; => [2 0]
 //}
 
 #@# However, the previous code is overly verbose. Destructuring  let s us extract values of indexed sequences more succintly using a vector on the left-hand side of a binding:
-しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクトルを使用して、インデックスがついたシーケンスからより簡潔に値を取り出すことができます。
+しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクタを使用して、インデックスがついたシーケンスからより簡潔に値を取り出すことができます。
 
 //emlist{
 (let [[fst _ thrd] [0 1 2]]
   [thrd fst])
-;; ==> [2 0]
+;; => [2 0]
 //}
 
 #@# In the above example, `[fst _ thrd]` is a destructuring form. It is represented as a vector and used for binding indexed values to the symbols fst and thrd, corresponding to the index 0 and 2 , respectively. The _ symbol is used as a placeholder for indexes we are not interested in — in this case 1 .
@@ -2251,21 +2246,21 @@ destructuring は let での束縛に限定されないことに注意してく�
   [snd fst])
 
 (swap-pair [1 2])
-;; ==> [2 1]
+;; => [2 1]
 
 (swap-pair '(3 4))
-;; ==> [4 3]
+;; => [4 3]
 //}
 
 #@# Positional destructuring with vectors is quite handy for taking indexed values out of sequences, but sometimes we don't want to discard the rest of the elements in the sequence when destructuring.  Similarly to how & is used for accepting  variadic function arguments, the ampersand can be used inside a vector destructuring form for grouping together the rest of a sequence:
-ベクタを用いた位置の destructuring は、シーケンスからインデックス付きの値を取り出すために非常に便利ですが、シーケンス内の残りの要素を破棄したくない場合があります。可変長引数関数の引数を & で受け取る方法と同様に、& をベクトルの destructuring 内で使用して、シーケンスの残りの部分をグループ化することができます。
+ベクタを用いた位置の destructuring は、シーケンスからインデックス付きの値を取り出すために非常に便利ですが、シーケンス内の残りの要素を破棄したくない場合があります。可変長引数関数の引数を & で受け取る方法と同様に、& をベクタの destructuring 内で使用して、シーケンスの残りの部分をグループ化することができます。
 
 //emlist{
 (let [[fst snd & more] (range 10)]
   {:first fst
    :snd snd
    :rest more})
-;; ==> {:first 0, :snd 1 , :rest (2 3 4 5 6 7 8 9)}
+;; => {:first 0, :snd 1, :rest (2 3 4 5 6 7 8 9)}
 //}
 
 #@# Notice how the value in the 0 index got bound to fst, the value in the 1 index got bound to snd, and the sequence of elements from 2 onwards got bound to the more symbol.
@@ -2280,9 +2275,9 @@ destructuring は let での束縛に限定されないことに注意してく�
    :snd snd
    :rest more
    :original original})
-;; ==> {:first 0, :snd 1 , 
-;;      :rest (2 3 4 5 6 7 8 9),
-;;      :original (0 1 2 3 4 5 6 7 8 9)}
+;; => {:first 0, :snd 1,
+;;     :rest (2 3 4 5 6 7 8 9),
+;;     :original (0 1 2 3 4 5 6 7 8 9)}
 //}
 
 #@# Not only can indexed sequences be destructured, but associative data can also be destructured. Its destructuring binding form is represented as a map instead of a vector, where the keys are the symbols we want to bind values to and the values are the keys that we want to look up in the associative data structure.  let 's see an example:
@@ -2301,7 +2296,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{language :language} {:language "ClojureScript"}]
   language)
-;; ==> "ClojureScript"
+;; => "ClojureScript"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -2314,7 +2309,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{name :name} {:language "ClojureScript"}]
   name)
-;; ==> nil
+;; => nil
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -2328,11 +2323,11 @@ destructuring は let での束縛に限定されないことに注意してく�
 (let [{name :name :or {name "Anonymous"}}
       {:language "ClojureScript"}]
   name)
-;; ==> "Anonymous"
+;; => "Anonymous"
 
 (let [{name :name :or {name "Anonymous"}} {:name "Cirilla"}]
   name)
-;; ==> "Cirilla"
+;; => "Cirilla"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -2345,7 +2340,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{name :name :as person} {:name "Cirilla" :age 49}]
   [name person])
-;; ==> ["Cirilla" {:name "Cirilla" :age 49}]
+;; => ["Cirilla" {:name "Cirilla" :age 49}]
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -2358,7 +2353,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{one 1} {0 "zero" 1 "one"}]
   one)
-;; ==> "one"
+;; => "one"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -2375,11 +2370,11 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{name "name"} {"name" "Cirilla"}]
   name)
-;; ==> "Cirilla"
+;; => "Cirilla"
 
 (let [{lang 'language} {'language "ClojureScript"}]
   lang)
-;; ==> "ClojureScript"
+;; => "ClojureScript"
 //}
 
 #@# Since the values corresponding to keys are usually bound to their equivalent symbol representation (for example, when binding the value of :language to the symbol language) and keys are usually keywords, strings, or symbols, ClojureScript offers shorthand syntax for these cases.
@@ -2391,7 +2386,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{:keys [name surname]} {:name "Cirilla" :surname "Fiona"}]
   [name surname])
-;; ==> ["Cirilla" "Fiona"]
+;; => ["Cirilla" "Fiona"]
 //}
 
 #@# As you can see in the example, if we use the :keys keyword and associate it with a vector of symbols in a binding form, the values corresponding to the keywordized version of the symbols will be bound to them. The `{:keys [name surname]}` destructuring is equivalent to `{name :name surname :surname}`, only shorter.
@@ -2401,11 +2396,11 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{:strs [name surname]} {"name" "Cirilla" "surname" "Fiona"}]
   [name surname])
-;; ==> ["Cirilla" "Fiona"]
+;; => ["Cirilla" "Fiona"]
 
 (let [{:syms [name surname]} {'name "Cirilla" 'surname "Fiona"}]
   [name surname])
-;; ==> ["Cirilla" "Fiona"]
+;; => ["Cirilla" "Fiona"]
 //}
 
 #@# An interesting property of destructuring is that we can nest destructuring forms arbitrarily, which makes code that accesses nested data on a collection very easy to understand, as it mimics the collection's structure:
@@ -2414,7 +2409,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //emlist{
 (let [{[fst snd] :languages} {:languages ["ClojureScript" "Clojure"]}]
   [snd fst])
-;; ==> ["Clojure" "ClojureScript"]
+;; => ["Clojure" "ClojureScript"]
 //}
 
 
@@ -2456,7 +2451,7 @@ h g f の括弧はなくてもかまいません。(f (g (h x))) は (-> x h g f
            :readers 0})
 
 (update (assoc book :age 1999) :readers inc)
-;; ==> {:name "Lady of the lake" :age 1999 :readers 1}
+;; => {:name "Lady of the lake" :age 1999 :readers 1}
 //}
 
 #@# We can rewrite that code to use the `\->` threading macro:
@@ -2466,7 +2461,7 @@ thread-firstマクロ (->) を使うと、次のように書くことができ�
 (-> book
     (assoc :age 1999)
     (update :readers inc))
-;; ==> {:name "Lady of the lake" :age 1 999 :readers 1}
+;; => {:name "Lady of the lake" :age 1 999 :readers 1}
 //}
 
 #@# This threading macro is especially useful for transforming data structures, because ClojureScript (and _Clojure_) functions for data structures transformations consistently uses the first argument for receive the data structure.
@@ -2492,7 +2487,7 @@ thread-last マクロ (->>) と thread-first マクロ (->) の主な違いは�
 (def numbers [1 2 3 4 5 6 7 8 9 0])
 
 (take 2 (filter odd? (map inc numbers)))
-;; ==> (3 5)
+;; => (3 5)
 //}
 
 #@# The same code written using `\->>` threading macro:
@@ -2503,7 +2498,7 @@ thread-last マクロ (->>) と thread-first マクロ (->) の主な違いは�
      (map inc)
      (filter odd?)
      (take 2))
-;; ==> (3 5)
+;; => (3 5)
 //}
 
 #@# This threading macro is especially useful for transforming sequences or collections of data because ClojureScript functions that work with sequences and collections consistently use the last argument position to receive them.
@@ -2526,7 +2521,7 @@ as-> マクロは 2 つの引数を固定でもち、その後に任意の数の
   (filter odd? $)
   (first $)
   (hash-map :result $ :id 1))
-;; ==> {:result 3 :id 1}
+;; => {:result 3 :id 1}
 //}
 
 
@@ -2551,11 +2546,11 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 //emlist{
 (some-> (rand-nth [1 nil])
         (inc))
-;; ==> 2 
+;; => 2 
 
 (some-> (rand-nth [1 nil])
         (inc))
-;; ==> nil
+;; => nil
 //}
 
 #@# This is an easy way avoid null pointer exceptions.
@@ -2581,10 +2576,10 @@ cond-> と cond->> マクロは -> と ->> と似ており、パイプライン�
     (pos? n) (conj "positive")))
 
 (describe-number 3)
-;; ==> ["odd" "positive"]
+;; => ["odd" "positive"]
 
 (describe-number 4)
-;; ==> ["even" "positive"]
+;; => ["even" "positive"]
 //}
 
 #@# The value threading only happens when the corresponding condition evaluates to logical true.
@@ -2651,7 +2646,7 @@ cond-> と cond->> マクロは -> と ->> と似ており、パイプライン�
 
 ;; ClojureScript の場合
 (make-list)
-;; ==> (1 2 3 4)
+;; => (1 2 3 4)
 //}
  
 @<embed>{|latex|\vspace{-0.3\Cvs\}} 
@@ -2689,7 +2684,7 @@ ClojureScript のコンパイラは、上のコードをこのように解釈し
 //emlist{
 #?@(:cljs [(defn func-a [] :a)
            (defn func-b [] :b)])
-;; ==> #error "Reader conditional splicing not allowed at the top level."
+;; => #error "Reader conditional splicing not allowed at the top level."
 //}
 
 #@# If you need so, you can use multiple forms or just use do block for group multiple forms together:
@@ -2762,7 +2757,7 @@ var とシンボルについては前に説明しました。定義する全て�
 
 //emlist{
 (def x "hello")
-;; ==> #'cljs.user/x
+;; => #'cljs.user/x
 //}
 
 === 他の名前空間の読み込み
@@ -2779,7 +2774,7 @@ var とシンボルについては前に説明しました。定義する全て�
             clojure.string))
 
 (clojure.string/upper-case myapp.core/x)
-;; ==> "HELLO"
+;; => "HELLO"
 //}
 
 #@# As you can observe, we are using fully qualified names (namespace + var name) for access to  var s and functions from different namespaces.
@@ -2803,7 +2798,7 @@ var とシンボルについては前に説明しました。定義する全て�
             [clojure.string :as str]))
 
 (str/upper-case core/x)
-;; ==> "HELLO"
+;; => "HELLO"
 //}
 
 #@# Additionally, ClojureScript offers a simple way to refer to specific  var s or functions from a concrete namespace using the :refer directive, followed by a sequence of symbols that will refer to  var s in the namespace. Effectively, it is as if those  var s and functions are now part of your namespace, and you do not need to qualify them at all.
@@ -2814,7 +2809,7 @@ var とシンボルについては前に説明しました。定義する全て�
   (:require [clojure.string :refer [upper-case]]))
 
 (upper-case x)
-;; ==> "HELLO"
+;; => "HELLO"
 //}
 
 #@# And finally, you should know that everything located in the `cljs.core` namespace is automatically loaded and you should not require it explicitly. Sometimes you may want to declare  var s that will clash with some others defined in the `cljs.core` namespace. To do this, the ns macro offers another directive that allows you to exclude specific symbols and prevent them from being automatically loaded.
@@ -2877,7 +2872,7 @@ myapp
 一部の動的言語では「モンキーパッチ」が可能です。そのような言語では、クラスは開かれていて、いつでもメソッドを定義したり再定義したりできます。このテクニックは非常に悪い慣習であることもよく知られています。
 
 #@# We can not trust languages that allow you to silently overwrite methods that you are using when you import third party libraries; you cannot expect consistent behavior when this happens.
-サードパーティーのライブラリをインポートするときに、使用しているメソッドを暗黙のうちに上書きできる言語は信頼できません。この場合、一貫した動作は期待できません。
+サードパーティのライブラリをインポートするときに、使用しているメソッドを暗黙のうちに上書きできる言語は信頼できません。この場合、一貫した動作は期待できません。
 
 #@# These symptoms are commonly called the "expression problem"; see http://en.wikipedia.org/wiki/Expression_problem for more details
 これらの問題は Expression Problem として知られています。
@@ -3013,16 +3008,16 @@ string のプロトコルを拡張するために、js/String を使わずに、
 
 //emlist{
 (invert "abc")
-;; ==> "cba"
+;; => "cba"
 
 (invert 0)
-;; ==> 0
+;; => 0
 
 (invert '(1 2 3))
-;; ==> (3 2 1)
+;; => (3 2 1)
 
 (invert [1 2 3])
-;; ==> [3 2 1]
+;; => [3 2 1]
 //}
 
 #@# In comparison, *extend-protocol* does the inverse; given a protocol, it adds implementations for multiple types. This is how the syntax looks:
@@ -3084,7 +3079,7 @@ ClojureScript 自体は、プロトコルとして定義された抽象に基づ
 (def mynums #{1 2})
 
 (filter mynums [1 2 4 5 1 3 4 5])
-;; ==> (1 2 1)
+;; => (1 2 1)
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -3135,7 +3130,7 @@ RegExp の型は IFn プロトコルを実装していないので、例外が�
 
 //emlist{
 (filter #"^foo" ["haha" "foobar" "baz" "foobaz"])
-;; ==> ("foobar" "foobaz")
+;; => ("foobar" "foobaz")
 //}
 
 
@@ -3150,7 +3145,7 @@ ClojureScript には、実行時のイントロスペクション(introspection)
 
 //emlist{
 (satisfies? IFn #{1})
-;; ==> true
+;; => true
 //}
 
 === マルチメソッド
@@ -3209,13 +3204,13 @@ defmulti 内で定義されてい無名関数は、ディスパッチ関数で�
 
 //emlist{
 (say-hello {:locale :es})
-;; ==> "Hola Anónimo"
+;; => "Hola Anónimo"
 
 (say-hello {:locale :en :name "Ciri"})
-;; ==> "Hello Ciri"
+;; => "Hello Ciri"
 
 (say-hello {:locale :fr})
-;; ==> "Hello Anonymous"
+;; => "Hello Anonymous"
 //}
 
 #@# If the default implementation is not specified, an exception will be raised notifying you that some value does not have an implementation for that multimethod.
@@ -3273,16 +3268,16 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (ancestors ::box)
-;; ==> #{:cljs.user/shape}
+;; => #{:cljs.user/shape}
 
 (descendants ::shape)
-;; ==> #{:cljs.user/circle :cljs.user/box}
+;; => #{:cljs.user/circle :cljs.user/box}
 
 (isa? ::box ::shape)
-;; ==> true
+;; => true
 
 (isa? ::rect ::shape)
-;; ==> false
+;; => false
 //}
 
 
@@ -3312,7 +3307,7 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (isa? h :box :shape)
-;; ==> true
+;; => true
 //}
 
  
@@ -3327,7 +3322,7 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (isa? :box :shape)
-;; ==> false
+;; => false
 //}
 
 #@# As you can observe, in local hierarchies we can use normal (not namespace qualified) keywords, and if we execute the isa? without passing the local hierarchy parameter, it returns false as expected.
@@ -3377,7 +3372,7 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (stringify-shape :box)
-;; ==> "A box shape"
+;; => "A box shape"
 //}
 
 
@@ -3395,7 +3390,7 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (stringify-shape :circle)
-;; ==> "A generic shape"
+;; => "A generic shape"
 //}
 
 #@# The multimethod automatically resolves it using the provided hierarchy, and since :circle is a descendant of :shape, the :shape implementation is executed.
@@ -3407,7 +3402,7 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 //emlist{
 (stringify-shape :triangle)
-;; ==> "Unexpected object"
+;; => "Unexpected object"
 //}
 
 == データ型
@@ -3415,9 +3410,9 @@ ClojureScript には、グローバルあるいはローカルに定義された
 #@# Data types
 
 #@# Until now, we have used maps, sets, lists, and vectors to represent our data. And in most cases, this is a really great approach. But sometimes we need to define our own types, and in this book we will call them *data types*.
-ここまでは、マップ、セット、リスト、ベクターをデータを表現するために使ってきました。多くの場合、これは本当に素晴らしいアプローチです。しかし、自分自身でこのような型を定義する必要があるときもあります。この本では、このような型のことを「データ型」と呼びます。
+ここまでは、マップ、セット、リスト、ベクタをデータを表現するために使ってきました。多くの場合、これは本当に素晴らしいアプローチです。しかし、自分自身でこのような型を定義する必要があるときもあります。この本では、このような型のことを「データ型」と呼びます。
 
-これまでは、マップ、セット、リスト、ベクトルを使ってデータを表現してきました。ほとんどの場合、これは本当に素晴らしいアプローチです。しかし、場合によっては、独自に型を定義する必要があります。本書ではそれらをデータ型と呼ぶことにします。
+これまでは、マップ、セット、リスト、ベクタを使ってデータを表現してきました。ほとんどの場合、これは本当に素晴らしいアプローチです。しかし、場合によっては、独自に型を定義する必要があります。本書ではそれらをデータ型と呼ぶことにします。
 
 #@# A data type provides the following:
 データ型は、次の機能を提供します。
@@ -3468,7 +3463,7 @@ ClojureScript で独自の型を作成するための最も低レベルな構文
 
 //emlist{
 (.-firstname person)
-;; ==> "Triss"
+;; => "Triss"
 //}
 
 #@# Types defined with deftype (and defrecord, which we will see later) create a host-backed class-like object associated with the current namespace. For convenience, ClojureScript also defines a constructor function called `->User` that can be imported using the :require directive.
@@ -3526,10 +3521,10 @@ deftype の構文とよく似ています。実際には、型を定義するた
 (def person (User. "Yennefer" "of Vengerberg"))
 
 (:firstname person)
-;; ==> "Yennefer"
+;; => "Yennefer"
 
 (get person :firstname)
-;; ==> "Yennefer"
+;; => "Yennefer"
 //}
 
  
@@ -3539,17 +3534,17 @@ deftype の構文とよく似ています。実際には、型を定義するた
 
 //emlist{
 (map? person)
-;; ==> true
+;; => true
 //}
 
 #@# And like maps, they support extra fields that are not initially defined:
 また、マップと同様に、レコードは最初に定義されていないフィールドを追加できます。
 
 //emlist{
-(def person2  (assoc person :age 92))
+(def person2 (assoc person :age 92))
 
 (:age person2)
-;; ==> 92 
+;; => 92 
 //}
 
 #@# As we can see, the assoc function works as expected and returns a new instance of the same type but with new key value pair. But take care with dissoc! Its behavior with records is slightly different than with maps; it will return a new record if the field being dissociated is an optional field, but it will return a plain map if you dissociate a mandatory field.
@@ -3560,9 +3555,9 @@ deftype の構文とよく似ています。実際には、型を定義するた
 //emlist{
 (def plain-person {:firstname "Yennefer", :lastname "of Vengerberg"})
 
-(plain-person :firstname)　;; ==> "Yennefer"
+(plain-person :firstname)　;; => "Yennefer"
 
-(person :firstname)　　　　 ;; ==> person.User does not implement IFn protocol.
+(person :firstname)　　　　 ;; => person.User does not implement IFn protocol.
 //}
  
 
@@ -3612,7 +3607,7 @@ deftype の構文とよく似ています。実際には、型を定義するた
 (def user (User. "Yennefer" "of Vengerberg"))
 
 (full-name user)
-;; ==> "Yennefer of Vengerberg"
+;; => "Yennefer of Vengerberg"
 //}
 
 
@@ -3645,7 +3640,7 @@ IUser の抽象化でうまく機能するユーザ型のインスタンスを�
 
 (def yen (user "Yennefer" "of Vengerberg"))
 (full-name yen)
-;; ==> "Yennefer of Vengerberg"
+;; => "Yennefer of Vengerberg"
 //}
 
 
@@ -3663,7 +3658,7 @@ specify! は reify の高度な代替手段であり、既存の JavaScript オ�
     "my full name"))
 
 (full-name obj)
-;; ==> "my full name"
+;; => "my full name"
 //}
 
 #@# specify is an immutable version of specify! that can be used on immutable, copyable values implementing ICloneable (e.g. ClojureScript collections).
@@ -3682,7 +3677,7 @@ specify は specify! のイミュータブル版です。これは ICloneable �
 ;; defined for type cljs.core/PersistentArrayMap: {}
 
 (full-name b)
-;; ==> "my full name"
+;; => "my full name"
 //}
 
 
@@ -3772,7 +3767,7 @@ ClojureScript には、特殊な名前空間 js/ を通してプラットフォ�
 
 //emlist{
 (js/parseInt "222")
-;; ==> 222
+;; => 222
 //}
 
 
@@ -3821,7 +3816,7 @@ ClojureScriptにはインスタンスを作成する方法が 2 通りありま�
 (def re (js/RegExp "^Clojure"))
 
 (.test re "ClojureScript")
-;; ==> true
+;; => true
 //}
 
 #@# You can invoke instance methods on JavaScript objects. The first example follows the pattern you have seen; the last one is a shortcut:
@@ -3829,9 +3824,9 @@ JavaScript のオブジェクトに対してインスタンスメソッドを呼
 
 //emlist{
 (.sqrt js/Math 2)
-;; ==> 1.4142135623730951
+;; => 1.4142135623730951
 (js/Math.sqrt 2)
-;; ==> 1.4142135623730951
+;; => 1.4142135623730951
 //}
 
 
@@ -3853,9 +3848,9 @@ JavaScript のオブジェクトに対してインスタンスメソッドを呼
 
 //emlist{
 (.-multiline re)
-;; ==> false
+;; => false
 (.-PI js/Math)
-;; ==> 3.141592653589793
+;; => 3.141592653589793
 //}
 
 
@@ -3877,10 +3872,10 @@ js/ で始まるシンボルは、ネストされたプロパティのアクセ�
 
 //emlist{
 (.-PI js/Math)
-;; ==> 3.141592653589793
+;; => 3.141592653589793
 
 js/Math.PI
-;; ==> 3.141592653589793
+;; => 3.141592653589793
 //}
 
 
@@ -3893,7 +3888,7 @@ ClojureScript には、プレーンな JavaScript のオブジェクトを作成
 
 //emlist{
 (js-obj "country" "FR")
-;; ==> #js {:country "FR"}
+;; => #js {:country "FR"}
 //}
 
 
@@ -3903,11 +3898,11 @@ ClojureScript には、プレーンな JavaScript のオブジェクトを作成
 //}
 //embed[latex]{
 \clearpage
-//} 
+//}
 
 
 #@# The return value can be passed to some kind of third party library that accepts a plain JavaScript object, but you can observe the real representation of the return value of this function. It is really another form for doing the same thing.
-返り値は、プレーンな JavaScript のオブジェクトを受け入れる何らかのサードパーティーのライブラリーに渡すことができますが、この関数の戻り値の実際の表現を見ることができます。まったく同じことをするための別の形式です。
+返り値は、プレーンな JavaScript のオブジェクトを受け入れる何らかのサードパーティのライブラリに渡すことができますが、この関数の戻り値の実際の表現を見ることができます。まったく同じことをするための別の形式です。
 
 #@# Using the reader macro `#js` consists of prepending it to a ClojureScript map or vector, and the result will be transformed to plain  JavaScript :
 リーダーマクロの #js を使うことも可能です。マップかベクタの先頭に #js をつけることで、結果が JavaScript のオブジェクトに変換されます。
@@ -3928,7 +3923,7 @@ var myobj = {country: "FR"};
 
 //emlist{
 (.-country myobj)
-;; ==> "FR"
+;; => "FR"
 //}
 
 #@# And as JavaScript objects are mutable, you can set a new value for some property using the set! function:
@@ -3948,9 +3943,9 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 
 //emlist{
 (def clj-map {:country {:code "FR" :name "France"}})
-;; ==> {:country {:code "FR", :name "France"}}
+;; => {:country {:code "FR", :name "France"}}
 (:code (:country clj-map))
-;; ==> "FR"
+;; => "FR"
 //}
 
 
@@ -3965,11 +3960,11 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 
 //emlist{
 (def js-obj #js {:country {:code "FR" :name "France"}})
-;; ==> #js {:country {:code "FR", :name "France"}
+;; => #js {:country {:code "FR", :name "France"}
 (.-country js-obj)
-;; ==> {:code "FR", :name "France"}
+;; => {:code "FR", :name "France"}
 (.-code (.-country js-obj))
-;; ==> nil
+;; => nil
 //}
 
 #@# To solve that use case, ClojureScript comes with the `clj->js` and `js->clj` functions that transform Clojure collection types into JavaScript and back. Note that the conversion to ClojureScript changes the :country keyword to a string.
@@ -3977,9 +3972,9 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 
 //emlist{
 (clj->js {:foo {:bar "baz"}})
-;; ==> #js {:foo #js {:bar "baz"}}
+;; => #js {:foo #js {:bar "baz"}}
 (js->clj #js {:country {:code "FR" :name "France"}}))
-;; ==> {"country" {:code "FR", :name "France"}}
+;; => {"country" {:code "FR", :name "France"}}
 //}
 
 #@# In the case of arrays, there is a specialized function into-array that behaves as expected:
@@ -3987,7 +3982,7 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 
 //emlist{
 (into-array ["France" "Korea" "Peru"])
-;; ==> #js ["France" "Korea" "Peru"]
+;; => #js ["France" "Korea" "Peru"]
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -4002,7 +3997,7 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 
 //emlist{
 (def a (make-array 10))
-;; ==> #js [nil nil nil nil nil nil nil nil nil nil]
+;; => #js [nil nil nil nil nil nil nil nil nil nil]
 //}
 
 #@# In ClojureScript, arrays also play well with sequence abstractions, so you can iterate over them or simply get the number of elements with the count function:
@@ -4010,7 +4005,7 @@ ClojureScriptでは、配列はシーケンスの抽象化にも適している�
 
 //emlist{
 (count a)
-;; ==> 10
+;; => 10
 //}
 
 
@@ -4028,9 +4023,9 @@ JavaScript のプラットフォームでは、配列はミュータブルなコ
 
 //emlist{
 (aset a 0 2)
-;; ==> 2 
+;; => 2 
 a
-;; ==> #js [2 nil nil nil nil nil nil nil nil nil]
+;; => #js [2 nil nil nil nil nil nil nil nil nil]
 //}
 
 #@# Or access in an indexed way to get its values:
@@ -4038,7 +4033,7 @@ a
 
 //emlist{
 (aget a 0)
-;; ==> 2 
+;; => 2 
 //}
 
 #@# In  JavaScript , array index access is equivalent to object property access, so you can use the same functions for interacting with plain objects:
@@ -4046,16 +4041,16 @@ JavaScript では、配列においてインデックスでアクセスするこ
 
 //emlist{
 (def b #js {:hour 16})
-;; ==> #js {:hour 16}
+;; => #js {:hour 16}
 
 (aget b "hour")
-;; ==> 16
+;; => 16
 
 (aset b "minute" 22)
-;; ==> 22
+;; => 22
 
 b
-;; ==> #js {:hour 16, :minute 22}
+;; => #js {:hour 16, :minute 22}
 //}
 
 
@@ -4157,15 +4152,14 @@ reset! 関数は、アトムに含まれる値を新しい値で置き換えま�
 
 (reset! a 42)
 ;; Key: :logger Old: nil New: 42 
-;; ==> 42 
+;; => 42 
 
 (swap! a inc)
 ;; Key: :logger Old: 42  New: 43
-;; ==> 43
+;; => 43
 
 (remove-watch a :logger)
 //}
-
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -4187,14 +4181,14 @@ Volatile の API はアトムのものとよく似ています。それらは、
 (def ciri (volatile! {:name "Cirilla" :lastname "Fiona" :age 20}))
 ;; #<Volatile: {:name "Cirilla", :lastname "Fiona", :age 20}>
 (volatile? ciri)
-;; ==> true
+;; => true
 (deref ciri)
 ;; {:name "Cirilla", :lastname "Fiona", :age 20}
 
 (vswap! ciri update :age inc)
 ;; {:name "Cirilla", :lastname "Fiona", :age 21}
-(vreset! ciri {:name "Cirilla", :lastname "Fiona", :age 22 })
-;; {:name "Cirilla", :lastname "Fiona", :age 22 }
+(vreset! ciri {:name "Cirilla", :lastname "Fiona", :age 22})
+;; {:name "Cirilla", :lastname "Fiona", :age 22}
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
