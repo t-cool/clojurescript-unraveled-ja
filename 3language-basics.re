@@ -140,7 +140,7 @@ keyword 関数によりキーワードを作成することも可能です。以
 ::foo
 ;; => :cljs.user/foo
 
-(== ::foo :foo)
+(= ::foo :foo)
 ;; => false
 //}
 
@@ -478,8 +478,8 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 特殊形式の fn を用いると、無名関数を定義することができます。次の例では、関数は 2 つの引数を取り、それらの平均を返します。
 
 //emlist{
-(fn [param 1 param 2]
-  (/ (+ param 1 param 2) 2.0))
+(fn [param1 param2]
+  (/ (+ param1 param2) 2.0))
 //}
 
 #@# You can define a function and call it at the same time (in a single expression):
@@ -487,7 +487,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 
 //emlist{
 ((fn [x] (* x x)) 5)
-;; => 2 5
+;; => 25
 //}
 
 #@#  let 's start creating named functions. But what does a _named function_ really mean? It is very simple; in  ClojureScript , functions are first-class and behave like any other value, so naming a function is done by simply binding the function to a symbol:
@@ -496,8 +496,8 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 //emlist{
 (def square (fn [x] (* x x)))
 
-(square 1 2)
-;; => 1 44
+(square 12)
+;; => 144
 //}
 
 #@# ClojureScript also offers the defn macro as a little syntactic sugar for making function definition more idiomatic:
@@ -675,14 +675,14 @@ ClojureScript において if は文ではなく式であり、3 つの引数を
 (defn discount
   "1 点以上の購入で 5 % 割引されます"
   [quantity]
-  (if (>== quantity 1 00)
+  (if (>= quantity 100)
     0.05
     0))
 
 (discount 30)
 ;; => 0
 
-(discount 1 30)
+(discount 130)
 ;; => 0.05
 //}
 
@@ -712,8 +712,8 @@ if 式には複数の条件を追加するための else if の部分がない�
     :else "zero"))
       
 (mypos? 0)　　;; => "zero"
-      
-(mypos? - 2)　;; => "negative"
+
+(mypos? -2)　;; => "negative"
 //}
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
@@ -901,7 +901,7 @@ loop は、空の可能性のある束縛のリスト(letとの対称性に注�
 //emlist{
 (loop [x 0]
   (println "Looping with " x)
-  (if (== x 2)
+  (if (= x 2)
     (println "Done looping!")
     (recur (inc x))))
 ;; Looping with 0
@@ -990,7 +990,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 (defn y-value [x] (+ (* 3 x) 5))
 
 (map y-value [1 2 3 4 5])
-;; => (8 1 1 1 4 1 7 2 0)
+;; => (8 11 14 17 20)
 //}
 
 #@# If your function is short, you can use an anonymous function instead, either the normal or short syntax:
@@ -1151,7 +1151,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //emlist{
 (for [x [1 2 3]
       y [4 5]
-      :while (== y 4)]
+      :while (= y 4)]
   [x y])
 ;; => ([1 4] [2 4] [3 4])
 //}
@@ -1162,7 +1162,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //emlist{
 (for [x [1 2 3]
       y [4 5]
-      :when (== (+ x y) 6)]
+      :when (= (+ x y) 6)]
   [x y])
 ;; => ([1 5] [ 2  4])
 //}
@@ -1174,7 +1174,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 (for [x [1 2 3]
       y [4 5]
       :let [z (+ x y)]
-      :when (== z 6)]
+      :when (= z 6)]
   [x y])
 ;; => ([1 5] [2 4])
 //}
@@ -1198,13 +1198,12 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 (doseq [x [1 2 3]
         y [4 5]
        :let [z (+ x y)]]
-  (println x "+" y "=" z))      
-;; 1 + 4 == 5
-;; 1 + 5 == 6
-;; 2 + 4 == 6
-;; 2 + 5 == 7
-;; 3 + 4 == 7
-;; 3 + 5 == 8
+;; 1 + 4 = 5
+;; 1 + 5 = 6
+;; 2 + 4 = 6
+;; 2 + 5 = 7
+;; 3 + 4 = 7
+;; 3 + 5 = 8
 ;; => nil
 //}
 
@@ -1421,8 +1420,7 @@ ClojureScript コレクションを変換するための中心的な関数は、
 (map inc #{1 2 3})
 ;; => (2 4 3)
 
-(map count {:a 4 1 :b 40})
-;; => (2 2)
+(map count {:a 41 :b 40})
 
 (map inc '(1 2 3))
 ;; => (2 3 4)
@@ -1454,7 +1452,7 @@ map 関数をマップのコレクションに対して使うとき、高階関�
 
 //emlist{
 (map (fn [value] (* value value))
-     (vals {:ten 1 0 :seven 7 :four 4}))
+     (vals {:ten 10 :seven 7 :four 4}))
 ;; => (100 49 16)
 //}
 
@@ -1741,10 +1739,10 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 (type (pop list-stack))
 ;; => cljs.core/List
 
-(conj list-stack - 1)
-;; => (- 1 0 1 2)
+(conj list-stack -1)
+;; => (-1 0 1 2)
 
-(type (conj list-stack - 1))
+(type (conj list-stack -1))
 ;; => cljs.core/List
 //}
 
@@ -2258,7 +2256,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 ベクタを用いた位置の destructuring は、シーケンスからインデックス付きの値を取り出すために非常に便利ですが、シーケンス内の残りの要素を破棄したくない場合があります。可変長引数関数の引数を & で受け取る方法と同様に、& をベクタの destructuring 内で使用して、シーケンスの残りの部分をグループ化することができます。
 
 //emlist{
-(let [[fst snd & more] (range 1 0)]
+(let [[fst snd & more] (range 10)]
   {:first fst
    :snd snd
    :rest more})
@@ -3768,8 +3766,8 @@ ClojureScript には、オブジェクトメソッドの呼び出し、新しい
 ClojureScript には、特殊な名前空間 js/ を通してプラットフォームの環境全体にアクセスできます。JavaScript の組み込み関数 parseInt を実行する式は次の通りです。
 
 //emlist{
-(js/parseInt " 2 2 2 ")
-;; => 2 2 2 
+(js/parseInt "222")
+;; => 222
 //}
 
 
@@ -3826,9 +3824,9 @@ JavaScript のオブジェクトに対してインスタンスメソッドを呼
 
 //emlist{
 (.sqrt js/Math 2)
-;; => 1 .4 1 4 2 1 356 2 373095 1
+;; => 1.4142135623730951
 (js/Math.sqrt 2)
-;; => 1 .4 1 4 2 1 356 2 373095 1
+;; => 1.4142135623730951
 //}
 
 
@@ -3874,10 +3872,10 @@ js/ で始まるシンボルは、ネストされたプロパティのアクセ�
 
 //emlist{
 (.-PI js/Math)
-;; => 3. 1 4 1 59 2 653589793
+;; => 3.141592653589793
 
 js/Math.PI
-;; => 3. 1 4 1 59 2 653589793
+;; => 3.141592653589793
 //}
 
 
@@ -4042,17 +4040,17 @@ a
 JavaScript では、配列においてインデックスでアクセスすることは、オブジェクトのプロパティへのアクセスと同じであるため、プレーンなオブジェクトと連携するために同じ関数を使うことができます。
 
 //emlist{
-(def b #js {:hour 1 6})
-;; => #js {:hour 1 6}
+(def b #js {:hour 16})
+;; => #js {:hour 16}
 
 (aget b "hour")
-;; => 1 6
+;; => 16
 
-(aset b "minute" 2 2)
-;; => 2 2 
+(aset b "minute" 22)
+;; => 22
 
 b
-;; => #js {:hour 1 6, :minute 2 2}
+;; => #js {:hour 16, :minute 22}
 //}
 
 
@@ -4096,10 +4094,10 @@ var は名前空間内で自由に再定義できますが、いつ変更され�
 ;; #<Atom: {:name "Cirilla", :lastname "Fiona", :age 20}>
 
 (deref ciri)
-;; {:name "Cirilla", :lastname "Fiona", :age 2 0}
+;; {:name "Cirilla", :lastname "Fiona", :age 20}
 
 @ciri
-;; {:name "Cirilla", :lastname "Fiona", :age 2 0}
+;; {:name "Cirilla", :lastname "Fiona", :age 20}
 //}
 
 #@# We can use the swap! function on an atom to alter its value with a function. 
@@ -4108,21 +4106,21 @@ swap! 関数を値を変更するためにアトムに使うことができま�
 
 //emlist{
 (swap! ciri update :age inc)
-;; {:name "Cirilla", :lastname "Fiona", :age 2 1}
+;; {:name "Cirilla", :lastname "Fiona", :age 21}
 
 @ciri
-;; {:name "Cirilla", :lastname "Fiona", :age 2 1}
+;; {:name "Cirilla", :lastname "Fiona", :age 21}
 //}
 
 #@# The reset! functions replaces the value contained in the atom with a new one:
 reset! 関数は、アトムに含まれる値を新しい値で置き換えます。
 
 //emlist{
-(reset! ciri {:name "Cirilla", :lastname "Fiona", :age 2 2 })
-;; {:name "Cirilla", :lastname "Fiona", :age 2 2}
+(reset! ciri {:name "Cirilla", :lastname "Fiona", :age 22})
+;; {:name "Cirilla", :lastname "Fiona", :age 22}
 
 @ciri
-;; {:name "Cirilla", :lastname "Fiona", :age 2 2}
+;; {:name "Cirilla", :lastname "Fiona", :age 22}
 //}
 
 
@@ -4181,7 +4179,7 @@ Volatile の API はアトムのものとよく似ています。それらは、
 
 //emlist{
 (def ciri (volatile! {:name "Cirilla" :lastname "Fiona" :age 20}))
-;; #<Volatile: {:name "Cirilla", :lastname "Fiona", :age 2 0}>
+;; #<Volatile: {:name "Cirilla", :lastname "Fiona", :age 20}>
 (volatile? ciri)
 ;; => true
 (deref ciri)
