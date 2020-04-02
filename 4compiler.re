@@ -9,15 +9,15 @@
 
 #@# Getting Started with the Compiler
 
-#@# At this point, you are surely very bored with the constant theoretical explanations about the language itself and will want to write and execute some code. The goal of this section is to provide a little practical introduction to the ClojureScript compiler. 
-前章の言語自体の理論的な説明にうんざりしてしまって、何かコードを書いて実行したいと思われているかもしれません。このセクションの目的は、ClojureScript コンパイラーの実用的な紹介を少し行うことです。
+#@# At this point, you are surely very bored with the constant theoretical explanations about the language itself and will want to write and execute some code. The goal of this section is to provide a little practical introduction to the ClojureScript compiler.
+前章の言語自体の理論的な説明にうんざりしてしまって、何かコードを書いて実行したいと思われているかもしれません。このセクションの目的は、ClojureScript コンパイラの実用的な紹介を少し行うことです。
 
 #@# The ClojureScript compiler takes the source code that has been split over numerous directories and namespaces and compiles it down to JavaScript. Today, JavaScript hasa great number of different environments where it can be executed - each with its own peculiarities.
-ClojureScript のコンパイラは、多くのディレクトリーと名前空間で分けられたソースコードを取得して、JavaScript にコンパイルします。今日では JavaScript を実行できる環境は多くあり、それぞれに固有の特性があります。
+ClojureScript のコンパイラは、多くのディレクトリと名前空間で分けられたソースコードを取得して、JavaScript にコンパイルします。今日では JavaScript を実行できる環境は多くあり、それぞれに固有の特性があります。
 
 #@# This chapter intends to explain how to use ClojureScript without any additional tooling. This will help you understand how the compiler works and how you can use it when other tooling is not available (such as link:http://leiningen.org/[leiningen] +link:https://github.com/emezeske/lein-cljsbuild[cljsbuild] orlink:http://boot-clj.com/[boot]).
 この章では、ツールを追加せずに ClojureScript を使う方法を説明します。
-これは、他のツール(leiningen@<fn>{lein} や @<fn>{boot})が利用できない場合において、コンパイラーの動作や利用法を理解するのに役立ちます。
+これは、他のツール(Leiningen@<fn>{lein} や @<fn>{boot})が利用できない場合において、コンパイラの動作や利用法を理解するのに役立ちます。
 
 //footnote[lein][http://leiningen.org]
 //footnote[boot][http://boot-clj.com]
@@ -93,7 +93,7 @@ v6.2.0
 #@# Create the example application
 
 #@# For the first step of our practical example, we will create our application directory structure and populate it with example code.
-実用的な例を作成する最初のステップとして、アプリケーションのためのディレクトリーを作成します。実用例に使うコードをそこに取り込んでいきます。
+実用的な例を作成する最初のステップとして、アプリケーションのためのディレクトリを作成します。実用例に使うコードをそこに取り込んでいきます。
 
 #@# Start by creating the directory tree structure for our “hello world” application:
 まず、"Hello world" アプリケーションのためのディレクトリを作成しましょう。
@@ -144,7 +144,7 @@ myapp
 //}
 
 #@# NOTE: It is very important that the declared namespace in the file exactly matchesthe directory structure. This is the way ClojureScript structures its source code.
-ファイル内で宣言された名前空間が、ディレクトリーの構造と正確に一致することが非常に重要です。これは、ClojureScript がソースコードを構築する方法です。
+ファイル内で宣言された名前空間が、ディレクトリの構造と正確に一致することが非常に重要です。これは、ClojureScript がソースコードを構築する方法です。
 
 
 ===== アプリケーションのコンパイル
@@ -152,7 +152,7 @@ myapp
 #@# Compile the example application
 
 #@# In order to compile that source code, we need a simple build script that tells theClojureScript compiler the source directory and the output file. ClojureScripthas a lot of other options, but at this moment we can ignore that.
-このソース・コードをコンパイルするためには、ClojureScript コンパイラーにソース・ディレクトリーと出力ファイルを伝える単純なビルド・スクリプトが必要です。ClojureScript には他にも多くの選択肢がありますが、現時点では取り上げません。
+このソース・コードをコンパイルするためには、ClojureScript コンパイラにソース・ディレクトリと出力ファイルを伝える単純なビルド・スクリプトが必要です。ClojureScript には他にも多くの選択肢がありますが、現時点では取り上げません。
 
 
 #@# Let’s create the `myapp/build.clj` file with the following content:
@@ -230,7 +230,7 @@ Hello world!
 このセクションでは、前のセクションの "Hello world" の例と同様のアプリケーションを作成し、ブラウザの環境で実行します。このアプリケーションの最小要件は、JavaScript を実行できるブラウザだけです。
 
 #@# The process is almost the same, and the directory structure is the same. The onlythings that changes is the entry point of the application and the build script. So,start re-creating the directory tree from previous example in a different directory.
-プロセスはほぼ同じで、ディレクトリの構造も同じです。変更するのは、アプリケーションのエントリーポイントとビルド・スクリプトだけです。前の例のディレクトリー・ツリーを元に、別のディレクトリーを再生成します。
+プロセスはほぼ同じで、ディレクトリの構造も同じです。変更するのは、アプリケーションのエントリーポイントとビルド・スクリプトだけです。前の例のディレクトリ・ツリーを元に、別のディレクトリを再生成します。
 
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
@@ -330,7 +330,7 @@ java -cp ../cljs.jar:src clojure.main build.clj
 //}
 
 #@# This process can take some time, so do not worry; wait a little bit. The JVM bootstrap with the Clojure compiler is slightly slow. In the following sections, we will explain how to start a watch process to avoid constantly starting and stopping this slow process.
-この処理には時間がかかることがありますが、心配せずに少し待ってください。Clojure コンパイラーを使用した JVM のブートストラップは少し遅いです。以降のセクションでは、このような遅いプロセスの起動と停止を頻繁に行わないように、監視プロセスを開始する方法を説明します。
+この処理には時間がかかることがありますが、心配せずに少し待ってください。Clojure コンパイラを使用した JVM のブートストラップは少し遅いです。以降のセクションでは、このような遅いプロセスの起動と停止を頻繁に行わないように、監視プロセスを開始する方法を説明します。
 
 #@# While waiting for the compilation, let's create a dummy HTML file to make it easy toexecute our example app in the browser. Create the _index.html_ file with thefollowing content; it goes in the main _mywebapp_ directory.
 コンパイルを待つ間に、ダミーの HTML ファイルを作成して、ブラウザでサンプル・アプリケーションを簡単に実行できるように、ダミーの HTML ファイルを作成しましょう。以下の内容を mywebapp ディレクトリの index.html に書き込みます。
@@ -434,7 +434,7 @@ ClojureScript コンパイラにはさまざまな最適化レベルがありま
 
 #@# 2. Then, the ClojureScript compiler emits JavaScript code. The result is one   JavaScript output file for each ClojureScript input file.
 //noindent
-2. その後、ClojureScript コンパイラーは ClojureScript の 1 ファイルごとに 1 つのJavaScript の出力ファイルを作成します。
+2. その後、ClojureScript コンパイラは ClojureScript の 1 ファイルごとに 1 つのJavaScript の出力ファイルを作成します。
 
 @<embed>{|latex|\allowbreak }
 
@@ -482,7 +482,7 @@ ClojureScript コンパイラにはさまざまな最適化レベルがありま
 :advanced 最適化は、Google Closure Compiler ルールに従った JavaScript の厳密なサブセットでのみ動作します。ClojureScript はこの厳密なサブセット内に有効な JavaScript を生成しますが、サード・パーティーの JavaScript コードを操作する場合には、全てを期待どおりに動作させるために追加作業が必要になります。
 
 #@# This interaction with third party javascript libraries will be explained in later sections.
-サードパーティの Javascript ライブラリとのやり取りについては、後のセクションで説明します。
+サードパーティの JavaScript ライブラリとのやり取りについては、後のセクションで説明します。
 
 
 #@# Page85
@@ -514,11 +514,11 @@ ClojureScript には、様々な実行環境で REPL を実行するためのサ
 === Nashorn REPL
 
 #@# The Nashorn REPL is the easiest and perhaps most painless REPL environment because itdoes not require any special stuff, just the JVM (JDK 8) that you have used in previous examples for running the ClojureScript compiler.
-Nashorn REPLは、特別なものを必要とせず、ClojureScript コンパイラーを実行するために、以前の例で使用したJVM(JDK8)のみを必要とするため、最も簡単で、おそらく最も苦痛のない REPL 環境です
+Nashorn REPLは、特別なものを必要とせず、ClojureScript コンパイラを実行するために、以前の例で使用したJVM(JDK8)のみを必要とするため、最も簡単で、おそらく最も苦痛のない REPL 環境です
 
 #@# Let’s start creating the repl.clj file with the following content:
 REPL の Playground のために新規でスクリプトファイル repl.clj を作成して、次のように編集します。
- 
+
 //emlist{
 (require '[cljs.repl]
          '[cljs.repl.nashorn])
@@ -723,7 +723,7 @@ cljs.user=> (+ 14 28)
 #@# The Closure Library
 
 #@# The Google Closure Library is a javascript library developed by Google. It has amodular architecture, and provides cross-browser functions for DOM manipulations and events, ajax and JSON, and other features.
-Google Closure Library は Google が開発している Javascript ライブラリです。モジュールのアーキテクチャを備えており、DOM 操作、イベント処理、Ajax 、JSON を扱うためにクロスブラウザの関数を提供します。
+Google Closure Library は Google が開発している JavaScript ライブラリです。モジュールのアーキテクチャを備えており、DOM 操作、イベント処理、Ajax 、JSON を扱うためにクロスブラウザの関数を提供します。
 
 #@# The Google Closure Library is written specifically to take advantage of the ClosureCompiler (which is used internally by the ClojureScript compiler).
 Google Closure Library は、ClojureScript コンパイラで内部的に使用されている Closure Compiler を利用するために書かれています。
@@ -774,12 +774,12 @@ Clojure のプログラムでは、Java クラスをインポートするため�
 #@# For this reason, the remainder of this chapter will explain how to use Leiningen, the de facto clojure build and dependency management tool, for building ClojureScript projects. The boot build tool is also growing in popularity, but for the purposes of this book we will limit ourselves to Leiningen.
 このため、この章の残りの部分では、ClojureScript プロジェクトを構築するために、事実上ビルドと依存関係管理ツールのデファクトである Leiningen の使い方を説明します。boot の人気も高まっていますが、本書では Leiningen に限定します。
 
-=== leiningen のインストール
+=== Leiningen のインストール
 
 #@# Installing leiningen
 
 #@# The installation process of leiningen is quite simple; just follow these steps:
-leiningen のインストール方法は非常に簡単です。次の手順に従ってください。
+Leiningen のインストール方法は非常に簡単です。次の手順に従ってください。
 
 //cmd{
 $ mkdir ~/bin
@@ -801,7 +801,7 @@ Leiningen 2.5.1 on Java 1.8.0_45 OpenJDK 64-Bit Server VM
 //}
 
 #@# We assume here that you are using a Unix-like system such as Linux or BSD. If you are a Windows user, please check the instructions on the Leiningen homepage. You can also get the Linux/Mac OS X/BSD version of the leiningen script at the web site.
-ここでは、Linux や BSD のような Unix ライクなシステムを使っていると仮定しています。Windows ユーザの方は、Leiningen のホームページの説明を参照してください。Linux、Mac OS X、BSD 版の leiningen スクリプトは Web サイトから入手することもできます。
+ここでは、Linux や BSD のような Unix ライクなシステムを使っていると仮定しています。Windows ユーザの方は、Leiningen のホームページの説明を参照してください。Linux、Mac OS X、BSD 版の Leiningen スクリプトは Web サイトから入手することもできます。
 
 
 === 初めてのプロジェクト
@@ -812,10 +812,10 @@ Leiningen 2.5.1 on Java 1.8.0_45 OpenJDK 64-Bit Server VM
 ツールの動作を紹介する最良の方法は、ツールを使用して toy プロジェクトを作成することです。この例では、閏(うるう)年かどうかを判別する小さなアプリケーションを作成します。
 
 #@# To start, we will use the mies leiningen template.
-まず、leiningen の mies テンプレートを使用します。
+まず、Leiningen の mies テンプレートを使用します。
 
 #@# Templates are a facility in leiningen for creating an initial project structure. The clojure community has a great many of them. In this case we’ll use the mies template that was started by the clojurescript core developer. Consult the leiningen docs to learn more about templates.
-テンプレートは、初めのプロジェクト構造を作成するための leiningen の機能です。Clojure コミュニティには非常に多くのものがあります。この例では、Clojurescript の中心的な開発者が作成した mies テンプレートを使用します。テンプレートの詳細については、leiningen のドキュメントを参照してください。
+テンプレートは、初めのプロジェクト構造を作成するための Leiningen の機能です。Clojure コミュニティには非常に多くのものがあります。この例では、ClojureScript の中心的な開発者が作成した mies テンプレートを使用します。テンプレートの詳細については、Leiningen のドキュメントを参照してください。
 
 #@# Let’s start creating the project layout:
 プロジェクトのレイアウトを作成します。
@@ -926,7 +926,7 @@ index.htmlファイルを開き、body の先頭に次の内容を追加しま�
 //}
 
 #@# Now, compile the clojurescript code with:
-次のようにして、Clojurescript コードをコンパイルします。
+次のようにして、ClojureScript コードをコンパイルします。
 
 //cmd{
 $ ./scripts/watch
@@ -946,7 +946,7 @@ rlwrap lein trampoline run -m clojure.main scripts/watch.clj
 最後に、ブラウザで index.html を開きます。テキストボックスに年を入力すると、うるう年の状態が表示されます。
 
 #@# You may have noticed other files in the scripts directory, like build and release. These are the same build scripts mentioned in the previous section, but we will stick with watch here.
-scripts ディレクトリーには、build や release などのファイルがあります。これらは、前のセクションで言及したビルド・スクリプトと同じですが、ここでは watch を使います。
+scripts ディレクトリには、build や release などのファイルがあります。これらは、前のセクションで言及したビルド・スクリプトと同じですが、ここでは watch を使います。
 
 #@# Page94
 #@# @<embed>{|latex|\vspace{-0.5\Cvs\}}
@@ -989,10 +989,10 @@ ClojureScript のコンパイルプロセスに Leiningen を使用する本当�
 ClojureScript に関連するプロパティについて簡単に説明します。
 
 #@# :dependencies: a vector of dependencies that your project needs.
-:dependencies は、プロジェクトに必要な依存関係を含むベクトルです。
+:dependencies は、プロジェクトに必要な依存関係を含むベクタです。
 
 #@# :clean-targets: a vector of paths that lein clean should delete.
-:clean-targets は、lein clean により削除されるパスを含むベクトルです。
+:clean-targets は、lein clean により削除されるパスを含むベクタです。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -1009,7 +1009,7 @@ Clojure パッケージは Clojars で公開されることが多いです。ま
 #@# External dependencies
 
 #@# In some circumstances you may found yourself that you need some library but thatdoes not exists in ClojureScript but it is already implemented in javascriptand you want to use it on your project.
-ClojureScript には存在しませんが、すでに Javascript に実装されていて、プロジェクトで使いたいライブラリがある場合があります。
+ClojureScript には存在しませんが、すでに JavaScript に実装されていて、プロジェクトで使いたいライブラリがある場合があります。
 
 #@# There are many ways that you can do it mainly depending on the library that you want to include. Let see some ways.
 含めるライブラリによって、多くの方法があります。いくつか見ていきましょう。
@@ -1029,10 +1029,10 @@ ClojureScript には存在しませんが、すでに Javascript に実装され
 #@# Closure Module compatible library
 
 #@# If you have a library that is just written to be compatible with google closure module system and you want to include it on your project you should just put it in the source (classpath) and access it like any other clojure namespace.
-Google クロージャモジュールとの互換性を持つように作成されたライブラリーをプロジェクトに含める場合には、そのライブラリーをソース(クラスパス)に配置して、他の Clojure 名前空間と同じようにアクセスします。
+Google Closure モジュールとの互換性を持つように作成されたライブラリをプロジェクトに含める場合には、そのライブラリをソース(クラスパス)に配置して、他の Clojure 名前空間と同じようにアクセスします。
 
 #@# This is the most simplest case, because google closure modules are directly compatible and you can mix your clojure code with javascript code written using google closure module system without any additional steps.
-これは最も単純なケースです。Google クロージャモジュールは直接互換性があり、Google クロージャモジュールシステムを使って書かれた Javascript コードは、あなたの Clojure のコードと、追加の手順なしでミックスできます。
+これは最も単純なケースです。Google Closure モジュールは直接互換性があり、Google Closure モジュールシステムを使って書かれた JavaScript コードは、あなたの Clojure のコードと、追加の手順なしでミックスできます。
 
 #@# Let play with it creating new project using mies template:
 mies テンプレートを使用して、新しいプロジェクトを作成してみましょう。
@@ -1043,7 +1043,7 @@ $ cd myextmods
 //}
 
 #@# Create a simple google closure module for experiment:
-実験用に簡単な Google クロージャモジュールを作成します。
+実験用に簡単な Google Closure モジュールを作成します。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -1094,7 +1094,7 @@ Node.js  の人気により、Node.js で用いられる CommonJS の人気は�
 \clearpage
 //}
 
-CommonJS のモジュール形式(Google クロージャモジュールを用いた前例と類似点が多い)を使用した単純なファイルを作成します。
+CommonJS のモジュール形式(Google Closure モジュールを用いた前例と類似点が多い)を使用した単純なファイルを作成します。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -1167,7 +1167,7 @@ scripts/repl.clj を開いて、次のように変更します。
 グローバルオブジェクトを公開するライブラリを使用するには、CommoJS モジュールと同様の手順を実行する必要がありますが、:module-type 属性を省略する点が異なります。
 
 #@# This will create a synthetic namespace that you should require in order to be able to access to the global object through the js/ namespace. The namespace is called synthetic because it does not expose any object behind it, it just indicates to the compiler that you want that dependency.
-これにより、名前空間の js/ を介してグローバルオブジェクトにアクセスするために必要な名前空間の合成が作成されます。名前空間は、その背後にあるオブジェクトを公開せず、その依存関係が必要であることをコンパイラーに示すだけなので、synthetic と呼ばれます。
+これにより、名前空間の js/ を介してグローバルオブジェクトにアクセスするために必要な名前空間の合成が作成されます。名前空間は、その背後にあるオブジェクトを公開せず、その依存関係が必要であることをコンパイラに示すだけなので、synthetic と呼ばれます。
 
 #@# Let’s play with that. Start creating a simple file declaring just a global function:
 グローバル関数のみを宣言する単純なファイルを作成します。
@@ -1244,10 +1244,10 @@ ClojureScriptのデータ構造はイミュータブルであるため、プロ�
 #@# First steps
 
 #@# The "official" ClojureScript testing framework is in the "cljs.test" namespace. It is a very simple library, but it should be more than enough for our purposes.
-公式の ClojureScript のテスト・フレームワークは、名前空間 cljs.test にあります。これは非常に単純なライブラリーですが、私たちの目的には十分すぎるはずです。
+公式の ClojureScript のテスト・フレームワークは、名前空間 cljs.test にあります。これは非常に単純なライブラリですが、私たちの目的には十分すぎるはずです。
 
 #@# There are other libraries that offer additional features or directly different approaches to testing, such as test.check. However, we will not cover them here.
-他にも、追加の機能を提供したり、テストに対して直接的に異なるアプローチを提供するライブラリーがあります (例えば test.check など)。ただし、ここでは説明しません。
+他にも、追加の機能を提供したり、テストに対して直接的に異なるアプローチを提供するライブラリがあります (例えば test.check など)。ただし、ここでは説明しません。
 
 #@# Start creating a new project using the mies leiningen template for experimenting with tests:
 テストを試すために mies テンプレートを使用して、新しいプロジェクトを作成します。

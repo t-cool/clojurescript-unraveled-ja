@@ -200,7 +200,7 @@ my-special-swap!
 
 #@# There is almost nothing new we can explain about strings that you don't already know. In  ClojureScript , they work the same as in any other language. One point of interest, however, is that they are immutable.
 #@# In this case they are the same as in  JavaScript :
-文字列については特に説明することはありません。ClojureScript は、他の言語と同じように動作します。ただし、文字列が不可変である点に注意してください。
+文字列については特に説明することはありません。ClojureScript は、他の言語と同じように動作します。ただし、文字列が不変である点に注意してください。
 この点は JavaScript と同じです。
 
 //emlist{
@@ -248,7 +248,7 @@ ClojureScript の文字列で特異な点は、Lisp の構文に由来するも�
 #@# ClojureScript comes with many types of collections. The main difference between ClojureScript collections and collections in other languages is that they are persistent and immutable.
 #@# Before moving on to these (possibly) unknown concepts, we'll present a high-level overview of existing collection types in  ClojureScript .
 あるプログラミング言語について詳しく知るためには、その言語でコレクションがどのように抽象化されているかを知る必要があります。ClojureScript にも当てはまります。
-ClojureScript のコレクションには多くの型があります。ClojureScript が他の言語のコレクションと違うのは、コレクションが永続的で不可変であることです。
+ClojureScript のコレクションには多くの型があります。ClojureScript が他の言語のコレクションと違うのは、コレクションが永続的で不変であることです。
 詳しい説明に入る前に ClojureScript のコレクションに存在する型について概要を見ましょう。
 
 ===== リスト
@@ -409,7 +409,7 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 #@#  vars
 
 #@# ClojureScript is a mostly functional language that focuses on immutability. Because of that, it does not have the concept of  var iables as you know them in most other programming languages. The closest analogy to  variables are the  variables you define in algebra; when you say `x == 6` in mathematics, you are saying that you want the symbol x to stand for the number six.
-ClojureScript は関数型プログラミング言語であり、不可変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で x == 6 というときには、x というシンボルが 6 を表すということを意味します。
+ClojureScript は関数型プログラミング言語であり、不変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で x == 6 というときには、x というシンボルが 6 を表すということを意味します。
 
 #@# In  ClojureScript ,  var s are represented by symbols and store a single value together with metadata.
 #@# You can define a var using the def special form:
@@ -831,7 +831,7 @@ callable プロトコル(IFn については後述)を実装する能力と一�
 ClojureScript には ALGOL のような変数の概念がありませんが、ローカル(local)はあります。ローカルはイミュータブルであり、変更しようとするとエラーが発生します。
 
 #@# Locals are defined with the let expression. The expression starts with a vector as the first parameter followed by an arbitrary number of expressions. The first parameter (the vector) should contain an arbitrary number of pairs that give a _binding form_ (usually a symbol) followed by an expression whose value will be bound to this new local for the remainder of the let expression.
-ローカルは let 式で定義されます。let 式は、最初のパラメータとしてベクトルで始まり、その後に任意の数の式が続きます。最初のパラメータのベクトルには束縛フォームを与えて、その let 内のローカルで有効な名前と値のペアを宣言します。
+ローカルは let 式で定義されます。let 式は、最初のパラメータとしてベクタで始まり、その後に任意の数の式が続きます。最初のパラメータのベクタには束縛フォームを与えて、その let 内のローカルで有効な名前と値のペアを宣言します。
 
 //emlist{
 (let [x (inc 1)
@@ -1083,7 +1083,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 上の例では、短い構文を使っていません。なぜなら、短い構文を使うとタイピング数を減らせますが、コードの可読性が低下する可能性があるからです。新しい言語を始めるときは、自分が書いたものを後で読めることは重要です。もし短い構文に慣れている場合は、この構文を使用してください。
 
 #@# Remember to choose your starting value for the accumulator carefully. If you wanted to use reduce to find the product of a series of numbers, you would have to start with one rather than zero, otherwise all the numbers would be multiplied by zero!
-アキュミュレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
+アキュムレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
 
 //emlist{
 ;; wrong starting value
@@ -1108,7 +1108,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# In this example, x is bound to each of the items in the vector `[1 2 3]` in turn, and returns a new sequence of two-item vectors with the original item squared.
-この例では、x は [1 2 3] の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクトルの新しいシーケンスを返します。
+この例では、x は [1 2 3] の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクタの新しいシーケンスを返します。
 
 #@# for supports multiple bindings, which will cause the collections to be iterated in a nested fashion, much like nesting for loops in imperative languages. The innermost binding iterates “fastest.”
 複数の束縛をサポートしているため、命令型言語での for ループのネストと同様に、コレクションがネストされて反復されます。最も内側の束縛が「最も速く」繰り返されます。
@@ -1182,7 +1182,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# When we outlined the most common usages of the for construct in imperative programming languages, we mentioned that sometimes we want to run a computation for every value in a sequence, not caring about the result. Presumably we do this for achieving some sort of side-effect with the values of the sequence.
-先ほど、命令型プログラミング言語での for の用法として、結果を気にせずにシーケンス内のすべての値に対して計算を実行したい場合があることを述べました。おそらく、シークエンスの各値で何らかの副作用を達成するためにこれを行います。
+先ほど、命令型プログラミング言語での for の用法として、結果を気にせずにシーケンス内のすべての値に対して計算を実行したい場合があることを述べました。おそらく、シーケンスの各値で何らかの副作用を達成するためにこれを行います。
 
 
 #@# Page29
@@ -1435,7 +1435,7 @@ ClojureScript コレクションを変換するための中心的な関数は、
 //} 
  
 #@# NOTE: When you use the map function on a map collection, your higher-order function will receive a two-item vector containing a key and value from the map. The following example uses xref:destructuring-section[destructuring] to access the key and value.
-map 関数をマップのコレクションに対して使うとき、高階関数はキーと値を含む 2 つのアイテムからなるベクトルを受け取ります。次の例では、キーと値にアクセスするために destructuring を使います。
+map 関数をマップのコレクションに対して使うとき、高階関数はキーと値を含む 2 つのアイテムからなるベクタを受け取ります。次の例では、キーと値にアクセスするために destructuring を使います。
 
 //embed[latex]{
 \vspace{-0.2\Cvs}
@@ -1689,7 +1689,7 @@ range だけで呼び出した場合、整数の無限シーケンスを生成�
 #@# Lists
 
 #@# In  ClojureScript , lists are mostly used as a data structure for grouping symbols together into programs. Unlike in other  Lisp s, many of the syntactic constructs of ClojureScript use data structures different from the list (vectors and maps).  This makes code less uniform, but the gains in readability are well worth the price.
-ClojureScriptでは、シンボルをグループ化してプログラムにするためのデータ構造として、主にリストが使用されます。他の Lisp 方言とは異なり、ClojureScript ではリストとは異なるデータ構造体を使用します(ベクトルとマップ)。このことによりコードの統一感が低下しますが、コードの読みやすさは向上します。
+ClojureScriptでは、シンボルをグループ化してプログラムにするためのデータ構造として、主にリストが使用されます。他の Lisp 方言とは異なり、ClojureScript ではリストとは異なるデータ構造体を使用します(ベクタとマップ)。このことによりコードの統一感が低下しますが、コードの読みやすさは向上します。
 
 #@# You can think of ClojureScript lists as singly linked lists, where each node contains a value and a pointer to the rest of the list. This makes it natural (and fast!) to add items to the front of the list, since adding to the end would require traversal of the entire list. The prepend operation is performed using the cons function.
 ClojureScript のリストは、各ノードに値とリストの残りの部分へのポインタが含まれる連結リストだと考えることができます。リストの最後に項目を追加するにはリスト全体を横断する必要がありますが、リストの先頭に項目を追加するのは自然に(高速に)できます。リストの最初に要素を追加するには、cons 関数を用います。
@@ -1797,7 +1797,7 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 //} 
 
 #@# Another thing that differentiates lists and vectors is that vectors are indexed collections and as such support efficient random index access and non-destructive updates. We can use the nth function to retrieve values given an index:
-リストとベクトルを区別するもう 1 つの点は、ベクタはインデックス付きコレクションであり、効率的なランダムアクセスや非破壊更新をサポートする点です。nth 関数を使うと、指定されたインデックスの値を取得できます。
+リストとベクタを区別するもう 1 つの点は、ベクタはインデックス付きコレクションであり、効率的なランダムアクセスや非破壊更新をサポートする点です。nth 関数を使うと、指定されたインデックスの値を取得できます。
 
 //emlist{
 (nth [0 1 2] 0)
@@ -1805,7 +1805,7 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 //}
  
 #@# Since vectors associate sequential numeric keys (indexes) to values, we can treat them as an associative data structure. ClojureScript provides the assoc function that, given an associative data structure and a set of key-value pairs, yields a new data structure with the values corresponding to the keys modified. Indexes begin at zero for the first element in a vector.
-ベクトルは連続した数値キー(インデックス)を値に関連付けるので、連想データ構造として扱うことができます。ClojureScript が提供する assoc 関数は、連想データの構造体とキーと値のペアのセットを指定すると、変更されたキーに対応する値を持つ新しいデータの構造体を生成します。インデックスは、ベクトルの最初の要素の 0 から始まります。
+ベクタは連続した数値キー(インデックス)を値に関連付けるので、連想データ構造として扱うことができます。ClojureScript が提供する assoc 関数は、連想データの構造体とキーと値のペアのセットを指定すると、変更されたキーに対応する値を持つ新しいデータの構造体を生成します。インデックスは、ベクタの最初の要素の 0 から始まります。
 
 //emlist{
 (assoc ["cero" "uno" "two"] 2 "dos")
@@ -1813,7 +1813,7 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 //}
 
 #@# Note that we can only assoc to a key that is either contained in the vector already or if it is the last position in a vector:
-ベクトルにすでに含まれているキー、またはベクトルの最後の位置にあるキーにのみ assoc を使うことができます。
+ベクタにすでに含まれているキー、またはベクタの最後の位置にあるキーにのみ assoc を使うことができます。
 
 //emlist{
 (assoc ["cero" "uno" "dos"] 3 "tres")
@@ -1872,7 +1872,7 @@ ClojureScript のベクタは、リテラル表現として角括弧 [] を使�
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# The map and filter operations return lazy sequences, but as it is common to need a fully realized sequence after performing those operations, vector-returning counterparts of such functions are available as mapv and filterv. They have the advantages of being faster than building a vector from a lazy sequence and making your intent more explicit:
-map と filter の操作は遅延シーケンスを返しますが、これらの操作の後には完全に実現されたシーケンスが必要なことが一般的なため、ベクトルを返す同等のものとして mapv や filterv 等があります。これらの関数には、遅延シーケンスからベクトルを構築するよりも高速であり、意図をより明確にするという利点があります。
+map と filter の操作は遅延シーケンスを返しますが、これらの操作の後には完全に実現されたシーケンスが必要なことが一般的なため、ベクタを返す同等のものとして mapv や filterv 等があります。これらの関数には、遅延シーケンスからベクタを構築するよりも高速であり、意図をより明確にするという利点があります。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -1965,7 +1965,7 @@ ClojureScript のマップは、リテラル表現として、キーと値のペ
 @<embed>{|latex|\vspace{-0.2\Cvs\}} 
  
 #@# Maps are also functions of their keys, returning the values related to the given keys. Unlike vectors, they return nil if we supply a key that is not present in the map:
-マップはキーの関数でもあり、指定されたキーに関連する値を返します。ベクトルとは異なり、マップに存在しないキーを指定すると、nil が返されます。
+マップはキーの関数でもあり、指定されたキーに関連する値を返します。ベクタとは異なり、マップに存在しないキーを指定すると、nil が返されます。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
@@ -2222,7 +2222,7 @@ destructuring(分割)という言葉が示すように、destructuring はコレ
 //}
 
 #@# However, the previous code is overly verbose. Destructuring  let s us extract values of indexed sequences more succintly using a vector on the left-hand side of a binding:
-しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクトルを使用して、インデックスがついたシーケンスからより簡潔に値を取り出すことができます。
+しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクタを使用して、インデックスがついたシーケンスからより簡潔に値を取り出すことができます。
 
 //emlist{
 (let [[fst _ thrd] [0 1 2]]
@@ -2257,7 +2257,7 @@ destructuring は let での束縛に限定されないことに注意してく�
 //}
 
 #@# Positional destructuring with vectors is quite handy for taking indexed values out of sequences, but sometimes we don't want to discard the rest of the elements in the sequence when destructuring.  Similarly to how & is used for accepting  variadic function arguments, the ampersand can be used inside a vector destructuring form for grouping together the rest of a sequence:
-ベクタを用いた位置の destructuring は、シーケンスからインデックス付きの値を取り出すために非常に便利ですが、シーケンス内の残りの要素を破棄したくない場合があります。可変長引数関数の引数を & で受け取る方法と同様に、& をベクトルの destructuring 内で使用して、シーケンスの残りの部分をグループ化することができます。
+ベクタを用いた位置の destructuring は、シーケンスからインデックス付きの値を取り出すために非常に便利ですが、シーケンス内の残りの要素を破棄したくない場合があります。可変長引数関数の引数を & で受け取る方法と同様に、& をベクタの destructuring 内で使用して、シーケンスの残りの部分をグループ化することができます。
 
 //emlist{
 (let [[fst snd & more] (range 1 0)]
@@ -2876,7 +2876,7 @@ myapp
 一部の動的言語では「モンキーパッチ」が可能です。そのような言語では、クラスは開かれていて、いつでもメソッドを定義したり再定義したりできます。このテクニックは非常に悪い慣習であることもよく知られています。
 
 #@# We can not trust languages that allow you to silently overwrite methods that you are using when you import third party libraries; you cannot expect consistent behavior when this happens.
-サードパーティーのライブラリをインポートするときに、使用しているメソッドを暗黙のうちに上書きできる言語は信頼できません。この場合、一貫した動作は期待できません。
+サードパーティのライブラリをインポートするときに、使用しているメソッドを暗黙のうちに上書きできる言語は信頼できません。この場合、一貫した動作は期待できません。
 
 #@# These symptoms are commonly called the "expression problem"; see http://en.wikipedia.org/wiki/Expression_problem for more details
 これらの問題は Expression Problem として知られています。
@@ -3414,9 +3414,9 @@ ClojureScript には、グローバルあるいはローカルに定義された
 #@# Data types
 
 #@# Until now, we have used maps, sets, lists, and vectors to represent our data. And in most cases, this is a really great approach. But sometimes we need to define our own types, and in this book we will call them *data types*.
-ここまでは、マップ、セット、リスト、ベクターをデータを表現するために使ってきました。多くの場合、これは本当に素晴らしいアプローチです。しかし、自分自身でこのような型を定義する必要があるときもあります。この本では、このような型のことを「データ型」と呼びます。
+ここまでは、マップ、セット、リスト、ベクタをデータを表現するために使ってきました。多くの場合、これは本当に素晴らしいアプローチです。しかし、自分自身でこのような型を定義する必要があるときもあります。この本では、このような型のことを「データ型」と呼びます。
 
-これまでは、マップ、セット、リスト、ベクトルを使ってデータを表現してきました。ほとんどの場合、これは本当に素晴らしいアプローチです。しかし、場合によっては、独自に型を定義する必要があります。本書ではそれらをデータ型と呼ぶことにします。
+これまでは、マップ、セット、リスト、ベクタを使ってデータを表現してきました。ほとんどの場合、これは本当に素晴らしいアプローチです。しかし、場合によっては、独自に型を定義する必要があります。本書ではそれらをデータ型と呼ぶことにします。
 
 #@# A data type provides the following:
 データ型は、次の機能を提供します。
@@ -3902,11 +3902,11 @@ ClojureScript には、プレーンな JavaScript のオブジェクトを作成
 //}
 //embed[latex]{
 \clearpage
-//} 
+//}
 
 
 #@# The return value can be passed to some kind of third party library that accepts a plain JavaScript object, but you can observe the real representation of the return value of this function. It is really another form for doing the same thing.
-返り値は、プレーンな JavaScript のオブジェクトを受け入れる何らかのサードパーティーのライブラリーに渡すことができますが、この関数の戻り値の実際の表現を見ることができます。まったく同じことをするための別の形式です。
+返り値は、プレーンな JavaScript のオブジェクトを受け入れる何らかのサードパーティのライブラリに渡すことができますが、この関数の戻り値の実際の表現を見ることができます。まったく同じことをするための別の形式です。
 
 #@# Using the reader macro `#js` consists of prepending it to a ClojureScript map or vector, and the result will be transformed to plain  JavaScript :
 リーダーマクロの #js を使うことも可能です。マップかベクタの先頭に #js をつけることで、結果が JavaScript のオブジェクトに変換されます。
