@@ -169,7 +169,7 @@ map filter mapcat を行うプロセスは、必ずしも具体的な型に結�
 
 
 #@# We've made the previous versions more general since using  reduce  makes our functions work on any thing that is reducible, not just sequences. However you may have noticed that, even though  my-mapr  and  my-filterr  don't know anything about the source ( coll ) they are still tied to the output they produce (a vector) both with the initial value of the reduce ( [] ) and the hardcoded  conj  operation in the body of the reducing function. We could have accumulated results in another data structure, for example a lazy sequence, but we'd have to rewrite the functions in order to do so.
-シーケンスだけでなく reduce を実行できる全てのものに対して関数が機能するようになったため、以前のバージョンをより一般的にすることができました。ただし、my-mapr と my-filterr は、ソース(coll)について何も知りませんが、reduce の初期値([])と reducing 関数の本体内でハードコーディングされた conj と一緒に自ら生成する出力(ベクトル)に結び付けられます。遅延シーケンス等の別のデータ構造に結果を蓄積することもできますが、そのためには関数を書き直さなければなりません。
+シーケンスだけでなく reduce を実行できる全てのものに対して関数が機能するようになったため、以前のバージョンをより一般的にすることができました。ただし、my-mapr と my-filterr は、ソース(coll)について何も知りませんが、reduce の初期値([])と reducing 関数の本体内でハードコーディングされた conj と一緒に自ら生成する出力(ベクタ)に結び付けられます。遅延シーケンス等の別のデータ構造に結果を蓄積することもできますが、そのためには関数を書き直さなければなりません。
 
 #@# How can we make these functions truly generic? They shouldn't know about either the source of inputs they are transforming nor the output that is generated. Have you noticed that  conj  is just another reducing function? It takes an accumulator and an input and returns another accumulator. So, if we parameterise the reducing function that  my-mapr  and  my-filterr  use, they won't know anything about the type of the result they are building. Let's give it a shot:
 これらの関数を本当の意味で汎用的にするにはどうすればよいのでしょうか。これらの関数は、変換中の入力のソースや、生成された出力について知るべきではありません。conj は reducing 関数の1つであることにお気づきでしょうか。アキュムレータと入力を受け取り、別のアキュムレータを返します。したがって、my-mapr my-filterr が使用する reducing 関数をパラメータ化しても、ビルドする結果の型については何も知りません。試してみましょう。
@@ -297,7 +297,7 @@ transducer についての知識が増えたので、独自のバージョンの
 
 
 #@# The  my-cat  transducer returns a reducing function that catenates its inputs into the accumulator. It does so reducing the  input  reducible with the  rfn  reducing function and using the accumulator ( acc ) as the initial value for such reduction.  mapcat  is simply the composition of  map  and  cat . The order in which transducers are composed may seem backwards but it'll become clear in a moment.
-my-cat transducer は、その入力をアキュミュレータに結合する reducing 関数を返します。このようにして、rfn 関数で reduce 可能な入力を reduce して、このような reduce のための初期値としてアキュムレータ(acc)を使用します。mapcat は map と cat の合成です。transducer が構成される順序は逆向きに見えるかもしれませんが、この点については後に明らかにします。
+my-cat transducer は、その入力をアキュムレータに結合する reducing 関数を返します。このようにして、rfn 関数で reduce 可能な入力を reduce して、このような reduce のための初期値としてアキュムレータ(acc)を使用します。mapcat は map と cat の合成です。transducer が構成される順序は逆向きに見えるかもしれませんが、この点については後に明らかにします。
 
 //emlist{
 (defn my-mapcat
@@ -392,7 +392,7 @@ transducer から返される reducing 関数を用いて reduce を使用する
 //}
 
 #@# The  conj  function has a arity 0 version that returns an empty vector but is not the only reducing function that supports arity 0. Let's explore some others:
-conj 関数には空のベクトルを返す引数が必要ないバージョンがありますが、これだけが引数なしを許す reducing 関数という訳ではありません。他の関数も見てみましょう。
+conj 関数には空のベクタを返す引数が必要ないバージョンがありますが、これだけが引数なしを許す reducing 関数という訳ではありません。他の関数も見てみましょう。
 
 
 #@# Page110
@@ -584,7 +584,7 @@ my-take の本体は明らかになっているはずです。次の剰余(nr)�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# We've seen an example of a stateful transducer but it didn't do anything in its completion step. Let's see an example of a transducer that uses the completion step to flush an accumulated value. We'll implement a simplified version of  partition-all , which given a  n  number of elements converts the inputs in vectors of size  n . For understanding its purpose better let's see what the arity 2 version gives us when providing a number and a collection:
-ステートフルな transducer の例を見てきましたが、完了の段階では何もしませんでした。累積値を表示するために完了のステップを使用する transducer の例を見てみましょう。要素の数が n の要素あれば、サイズが n 個のベクトルの入力を変換する partition-all の簡素版を実装しましょう。目的をよく理解するために、引数を 2 つとる場合で、数字とコレクションを与えると何が得られるかを見てみましょう。
+ステートフルな transducer の例を見てきましたが、完了の段階では何もしませんでした。累積値を表示するために完了のステップを使用する transducer の例を見てみましょう。要素の数が n の要素あれば、サイズが n 個のベクタの入力を変換する partition-all の簡素版を実装しましょう。目的をよく理解するために、引数を 2 つとる場合で、数字とコレクションを与えると何が得られるかを見てみましょう。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -596,7 +596,7 @@ my-take の本体は明らかになっているはずです。次の剰余(nr)�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# The transducer returning function of  partition-all  will take a number  n  and return a transducer that groups inputs in vectors of size  n . In the completion step it will check if there is an accumulated result and, if so, add it to the result. Here's a simplified version of ClojureScript core  partition-all  function, where  array-list  is a wrapper for a mutable JavaScript array:
-partition-all の transducer を返す関数は、数値 n を取り、n 個のサイズのベクトルで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript のコア関数である partition-all を単純化したもので、array-list は変更可能な JavaScript の配列のラッパーです。
+partition-all の transducer を返す関数は、数値 n を取り、n 個のサイズのベクタで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript のコア関数である partition-all を単純化したもので、array-list は変更可能な JavaScript の配列のラッパーです。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -974,10 +974,10 @@ ClojureScriptの不変で永続的なデータ構造は、それなりのパフ�
 //}
 
 #@# In the above example we are generating a vector of 100 elements  conj -ing one at a time. Every intermediate vector that is not the final result won't be seen by anybody except the  into  function and the array copying required for persistence is an unnecesary overhead.
-上の例では、100 個の要素からなるベクトルを一度に一つずつ conj しながら生成しています。最終的な結果でない全ての中間ベクトルは into 関数以外では見ることができず、永続化のために必要な配列のコピーは不要なオーバーヘッドです。
+上の例では、100 個の要素からなるベクタを一度に一つずつ conj しながら生成しています。最終的な結果でない全ての中間ベクタは into 関数以外では見ることができず、永続化のために必要な配列のコピーは不要なオーバーヘッドです。
 
 #@# For these situations ClojureScript provides a special version of some of its persistent data structures, which are called transients. Maps, vectors and sets have a transient counterpart.  Transients are always derived from a persistent data structure using the  transient  function, which creates a transient version in constant time:
-このような状況のために、ClojureScript は transient と呼ばれる永続的なデータ構造を提供しています。マップ、ベクトル、セットには、transient に相当するものがあります。Transient は、常に transient 関数を使用して、永続的なデータ構造から生成されます。これにより、一定の時間内に、transient のバージョンが作成されます。
+このような状況のために、ClojureScript は transient と呼ばれる永続的なデータ構造を提供しています。マップ、ベクタ、セットには、transient に相当するものがあります。Transient は、常に transient 関数を使用して、永続的なデータ構造から生成されます。これにより、一定の時間内に、transient のバージョンが作成されます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -1045,7 +1045,7 @@ transient には更新のための永続的で不変なセマンティクスが�
 //}
 
 #@# As you can see, the transient version of the vector is neither immutable nor persistent. Instead, the vector is mutated in place. Although we could transform  tv  repeatedly using  conj!  on it we shouldn't abandon the idioms used with the persistent data structures: when transforming a transient, use the returned version of it for further modifications like in the following example:
-このように、ベクトルの transient バージョンは不変でも永続でもありません。その代わり、ベクターはその場で変異します。conj! を使って繰り返し tv を変換することもできますが、永続的なデータ構造で使用されるイディオムを放棄してはいけません。transient のデータを変換する場合は、次の例のように、その戻されたバージョンを使用して変更を加えます。
+このように、ベクタの transient バージョンは不変でも永続でもありません。その代わり、ベクタはその場で変異します。conj! を使って繰り返し tv を変換することもできますが、永続的なデータ構造で使用されるイディオムを放棄してはいけません。transient のデータを変換する場合は、次の例のように、その戻されたバージョンを使用して変更を加えます。
 
 //emlist{
 (-> [1 2 3]
@@ -1271,7 +1271,7 @@ ClojureScript の等価性は値に基づいているため、メタデータが
 //}
 
 #@# As you can see in the example above, metadata is preserved in derived versions of persistent data structures. There are some subtleties, though. As long as the functions that derive new data structures return collections with the same type, metadata will be preserved; this is not true if the types change due to the transformation. To ilustrate this point, let's see what happens when we derive a seq or a subvector from a vector:
-この例でわかるように、メタデータは永続的なデータ構造の派生バージョンで保持されます。微妙なところもありますが、新しいデータ構造を派生する関数が同じ型のコレクションを返す限り、メタデータは保存されます。これは、変換によって型が変更される場合には当てはまりません。この点を理解するために、ベクトルから seq や subvector を派生させると何が起こるかを見てみましょう。
+この例でわかるように、メタデータは永続的なデータ構造の派生バージョンで保持されます。微妙なところもありますが、新しいデータ構造を派生する関数が同じ型のコレクションを返す限り、メタデータは保存されます。これは、変換によって型が変更される場合には当てはまりません。この点を理解するために、ベクタから seq や subvector を派生させると何が起こるかを見てみましょう。
 
 
 #@# Page125
@@ -1461,7 +1461,7 @@ ClojureScript の core に定義されている関数群がプロトコルを中
 #@# Functions
 
 #@# As we've learned in previous chapters not only functions can be invoked. Vectors are functions of their indexes, maps are functions of their keys and sets are functions of their values.
-これまでの章で学んだように、関数だけが呼び出されるものとは限りません。ベクトルはインデックス、マップはキー、セットは値を関数のように使うことができます。
+これまでの章で学んだように、関数だけが呼び出されるものとは限りません。ベクタはインデックス、マップはキー、セットは値を関数のように使うことができます。
 
 #@# We can extend types to be callable as functions implementing the  IFn  protocol. A collection that doesn't support calling it as a function is the queue, let's implement  IFn  for the  PersistentQueue  type so we're able to call queues as functions of their indexes:
 IFn プロトコルを実装する関数として呼び出し可能な型に拡張することができます。関数としての呼び出しをサポートしていないコレクションが queue です。PersistentQueue 型に IFn を実装して、queue をインデックスの関数として呼び出すことができるようにします。
@@ -1532,7 +1532,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
-=== シークエンス
+=== シーケンス
 
 #@# Sequences
 
@@ -1712,7 +1712,7 @@ count 関数を使用して一定の時間でカウントできるコレクシ�
 //}
 
 #@# Some collection types such as vectors and lists can be indexed by a number using the  nth  function. If our types are indexed we can implement the  IIndexed  protocol:
-ベクトルやリストなどのコレクション型は、nth 関数でインデックス番号を付けることができます。もし私たちの型がインデックスされるなら、私たちは IIndexed プロトコルを実装することができます:
+ベクタやリストなどのコレクション型は、nth 関数でインデックス番号を付けることができます。もし私たちの型がインデックスされるなら、私たちは IIndexed プロトコルを実装することができます:
 
 
 #@# Page132
@@ -2276,10 +2276,10 @@ JavaScript の配列は ClojureScript でも reduce できます。
 //}
 
 #@# Associative data structures can be reduced with the  reduce-kv  function, which is based in the  IKVReduce  protocol. The main difference between  reduce  and  reduce-kv  is that the latter uses a three-argument function as a reducer, receiving the accumulator, key and value for each item.
-連想的なデータ構造は IKVReduce プロトコルに基づく reduce‐kv 関数を用いて reduce できます。reduce と reduce-kv の主な違いは、reduce-kv は 3 つの引数をとる関数であり、reducer、アキュミュレータの受け取り、各アイテムのキーと値をとることです。
+連想的なデータ構造は IKVReduce プロトコルに基づく reduce‐kv 関数を用いて reduce できます。reduce と reduce-kv の主な違いは、reduce-kv は 3 つの引数をとる関数であり、reducer、アキュムレータの受け取り、各アイテムのキーと値をとることです。
 
 #@# Let's look at an example, we will reduce a map to a vector of pairs. Note that, since vectors associate indexes to values, they can also be reduced with  reduce-kv .
-例を見てみましょう。マップをペアからなるベクトルに変換します。ベクトルはインデックスを値に関連付けるので、reduce-kv を使って値を reduce することができます。
+例を見てみましょう。マップをペアからなるベクタに変換します。ベクタはインデックスを値に関連付けるので、reduce-kv を使って値を reduce することができます。
 
 //emlist{
 (reduce-kv (fn [acc k v]
@@ -2291,7 +2291,7 @@ JavaScript の配列は ClojureScript でも reduce できます。
 //}
 
 #@# We'll extend the new ES6 map type to support  reduce-kv , we'll do this by getting a sequence of key-value pairs and calling the reducing function with the accumulator, key and value as positional arguments:
-新しい ES6 のマップ型を拡張して、reduce-kv をサポートするようにします。これを行うには、キーと値のペアのシーケンスを取得し、アキュミュレータ、キー、値を位置を示す引数として使用して reducing 関数を呼び出します。
+新しい ES6 のマップ型を拡張して、reduce-kv をサポートするようにします。これを行うには、キーと値のペアのシーケンスを取得し、アキュムレータ、キー、値を位置を示す引数として使用して reducing 関数を呼び出します。
 
 
 #@# Page141
@@ -3384,13 +3384,13 @@ timeout 関数と ats! を組み合わせることで、簡単にチャンネル
 
 
 #@# In the example above we launched a go block that, after waiting for a second, puts a value in the  ch  channel. The other go block creates a  cancel  channel, which will be closed after 300 miliseconds. After that, it tries to read from both  ch  and  cancel  at the same time using  alts! , which will succeed whenever it can take a value from either of those channels. Since  cancel  is closed after 300 miliseconds,  alts!  will succeed since takes from closed channel return the  nil  sentinel. Note that  alts!  returns a two-element vector with the returned value of the operation and the channel where it was performed.
-上の例では、1 秒待ってから ch チャンネルに値を入れる go ブロックを起動しました。もう一方の go ブロックは、300 ミリ秒後に閉じる cancel チャンネルを作成します。その後、alts! を使って ch からの読み込みとキャンセルを同時に行おうとします。これらいずれかのチャンネルから値を取得できる場合は、常に成功します。cancel は 300 ミリ秒後にクローズされて、閉じたチャンネルからの take が　nil sentinel を返すため、alts! は成功します。alts! が 2 つの要素からなるベクトルを返することに注目してください。それらは、操作による返り値と、実行されたチャンネルを含みます。
+上の例では、1 秒待ってから ch チャンネルに値を入れる go ブロックを起動しました。もう一方の go ブロックは、300 ミリ秒後に閉じる cancel チャンネルを作成します。その後、alts! を使って ch からの読み込みとキャンセルを同時に行おうとします。これらいずれかのチャンネルから値を取得できる場合は、常に成功します。cancel は 300 ミリ秒後にクローズされて、閉じたチャンネルからの take が　nil sentinel を返すため、alts! は成功します。alts! が 2 つの要素からなるベクタを返することに注目してください。それらは、操作による返り値と、実行されたチャンネルを含みます。
 
 #@# This is why we are able to detect whether the read operation was performed in the  cancel  channel or in  ch . I suggest you copy this example and set the first process timeout to 100 miliseconds to see how the read operation on  ch  succeeds.
 このため、candel チャンネルで read の操作が行われたか、ch チャンネルで行われたかを検出することができます。この例をコピーして、最初のプロセスの timeout を 100 ミリ秒に設定して、ch チャンネルに対する read の操作がどのように成功するかを確認することをお勧めします。
 
 #@# We've learned how to choose between read operations so let's look at how to express a conditional write operation in  alts! . Since we need to provide the channel and a value to try to put on it, we'll use a two element vector with the channel and the value for representing write operations.
-read の操作間での選択方法を学んだので、alt! で条件付きの read の操作を表現する方法を見てみましょう。チャンネルとその上に置こうとする値を提供する必要があるため、チャンネルと write の操作を表す値を持つ 2 つの要素のベクトルを使用します。
+read の操作間での選択方法を学んだので、alt! で条件付きの read の操作を表現する方法を見てみましょう。チャンネルとその上に置こうとする値を提供する必要があるため、チャンネルと write の操作を表す値を持つ 2 つの要素のベクタを使用します。
 
 #@# Let's see an example:
 
@@ -3703,7 +3703,7 @@ pipeline-async は ある数字を受け取りますが、その数字は、並�
 ===== split
 
 #@# split  takes a predicate and a channel and returns a vector with two channels, the first of which will receive the values for which the predicate is true, the second will receive those for which the predicate is false. We can optionally pass a buffer or number for the channels with the third (true channel) and fourth (false channel) arguments.
-split は述部とチャンネルを取り、2 つのチャンネルを持つベクトルを返します。最初のチャンネルは述部が true の値を受け取り、2 番目のチャンネルは述部が false の値を受け取ります。オプションで 3 番目(true チャンネル)と4番目(false チャンネル)の引数を使って、チャンネルのバッファまたは数字を渡すことができます。
+split は述部とチャンネルを取り、2 つのチャンネルを持つベクタを返します。最初のチャンネルは述部が true の値を受け取り、2 番目のチャンネルは述部が false の値を受け取ります。オプションで 3 番目(true チャンネル)と4番目(false チャンネル)の引数を使って、チャンネルのバッファまたは数字を渡すことができます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan split put! <! close!]])
