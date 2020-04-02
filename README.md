@@ -4,14 +4,6 @@
 
 <kbd><img src="https://github.com/t-cool/clojurescript-unraveled/blob/master/images/cover.png" width="320"></kbd>
 
-## 目的
-
-Lisp方言 Clojure(Script) 普及のため。
-
-## 手段
-
-ClojureScript Unraveled の邦訳を出版します。
-
 ## 原著について
 
 原著 `ClojureScript Unraveled` は [https://github.com/funcool/clojurescript-unraveled](https://github.com/funcool/clojurescript-unraveled) で公開されています。
@@ -33,10 +25,6 @@ t-cool
 ### バージョン管理
 
 [https://github.com/funcool/clojurescript-unraveled](https://github.com/funcool/clojurescript-unraveled) の master ブランチと同期します。
-
-### 翻訳に関するご意見
-
-Issue で受けつけています。
 
 ### ライセンス
 
