@@ -383,7 +383,7 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 //emlist{
 #{1 2 3 :foo :bar}
-;; => #{1 :bar 3 :foo 2 }
+;; => #{1 :bar 3 :foo 2}
 
 (set [1 2 1 3 1 4 1 5])
 ;; => #{1 2 3 4 5}
@@ -569,9 +569,7 @@ ClojureScript は任意の数の引数をとる関数を定義することがで
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# NOTE: Explaining the concept of "arity" is out of the scope of this book, however you can read about that in this link:http://en.wikipedia.org/wiki/Arity[Wikipedia article].
-Arity の概念を本書で説明することは、本書の範囲を超えています。詳しくは Wikipedia の Arity のページ@<fn>{warity}を参照してください。
-
-//footnote[warity][http://en.wikipedia.org/wiki/Arity]
+Arity の概念を本書で説明することは、本書の範囲を超えています。詳しくは Wikipedia の Arity のページを参照してください。
 
 === 可変長引数関数
 
@@ -598,7 +596,7 @@ Arity の概念を本書で説明することは、本書の範囲を超えて�
 
 #@# Page20
 //embed[latex]{
-\enlargethispage{1mm}
+\enlargethispage{10mm}
 //}
 //embed[latex]{
 \clearpage
@@ -912,7 +910,7 @@ loop は、空の可能性のある束縛のリスト(letとの対称性に注�
 //}
 
 #@# In the above snippet, we bind the name x to the value 0 and execute the body. Since the condition is not met the first time, it's rerun with recur, incrementing the binding value with the inc function. We do this once more until the condition is met and, since there aren't any more recur calls, exit the loop.
-上の例では、まず x を 0 に束縛して本体を実行します。if の条件が満たされていないので、(recur (inc x)) で inc で x に 1 が加算されてループが再実行されます。条件が満たされると recur の呼び出しが止まり ループが終了します。
+上の例では、まず @<code>{x} を @<code>{0} に束縛して本体を実行します。if の条件が満たされていないので、@<code>{(recur (inc x))} で @<code>{inc} で @<code>{x} に @<code>{1} が加算されてループが再実行されます。条件が満たされると @<code>{recur} の呼び出しが止まり ループが終了します。
 
 #@# Note that loop isn't the only point we can recur to; using recur inside a function executes the body of the function recursively with the new bindings:
 recur を使うことができるのは loop だけではありません。関数の中で recur を使用すると、新しい束縛値で本体が再帰的に実行されます。
@@ -984,7 +982,7 @@ recur を使うことができるのは loop だけではありません。関�
 //}
 
 #@# The first parameter for map can be _any_ function that takes one argument and returns a value.  For example, if you had a graphing application and you wanted to graph the equation `y&# 1 60;==&# 1 60;3x&# 1 60;+&# 1 60;5` for a set of _x_ values, you could get the _y_ values like this:
-map 関数の初めのパラメータには、1 つの引数をとり 1 つの値を返す関数を指定します。例えば、グラフ作成のアプリケーションがあるとします。y = 3x + 5 の式を x の値のセットに対して適用して y の値のセットをえるには、次のように書きます。
+map 関数の初めのパラメータには、1 つの引数をとり 1 つの値を返す関数を指定します。例えば、グラフ作成のアプリケーションがあるとします。@<code>{y = 3x + 5} の式を @<code>{x} の値のセットに対して適用して @<code>{y} の値のセットをえるには、次のように書きます。
 
 //emlist{
 (defn y-value [x] (+ (* 3 x) 5))
@@ -994,7 +992,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 //}
 
 #@# If your function is short, you can use an anonymous function instead, either the normal or short syntax:
-高階関数に渡す関数が短い場合は、無名関数を使うこともできます。無名関数には fn を用いても # を用いてもどちらでも可能です。
+高階関数に渡す関数が短い場合は、無名関数を使うこともできます。無名関数には @<code>{fn} を用いても @<code>{#}  を用いてもどちらでも可能です。
  
 //emlist{
 (map (fn [x] (+ (* 3 x) 5)) [1 2 3 4 5])
@@ -1081,7 +1079,7 @@ map 関数の初めのパラメータには、1 つの引数をとり 1 つの�
 上の例では、短い構文を使っていません。なぜなら、短い構文を使うとタイピング数を減らせますが、コードの可読性が低下する可能性があるからです。新しい言語を始めるときは、自分が書いたものを後で読めることは重要です。もし短い構文に慣れている場合は、この構文を使用してください。
 
 #@# Remember to choose your starting value for the accumulator carefully. If you wanted to use reduce to find the product of a series of numbers, you would have to start with one rather than zero, otherwise all the numbers would be multiplied by zero!
-アキュムレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
+アキュムレータに渡す開始値は慎重に選ぶ必要があることを覚えておいてください。一連の数の積を求めるために reduce を使うときは、0 ではなく 1 を開始値として使う必要があります。0 を用いて掛け算をすることができないためです。
 
 //emlist{
 ;; wrong starting value
@@ -1106,7 +1104,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# In this example, x is bound to each of the items in the vector `[1 2 3]` in turn, and returns a new sequence of two-item vectors with the original item squared.
-この例では、x は [1 2 3] の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクタの新しいシーケンスを返します。
+この例では、@<code>{x} は @<code>{[1 2 3]} の各要素に順に束縛され、元の要素と それを 2 乗した値をもつ 2 要素ベクタの新しいシーケンスを返します。
 
 #@# for supports multiple bindings, which will cause the collections to be iterated in a nested fashion, much like nesting for loops in imperative languages. The innermost binding iterates “fastest.”
 複数の束縛をサポートしているため、命令型言語での for ループのネストと同様に、コレクションがネストされて反復されます。最も内側の束縛が「最も速く」繰り返されます。
@@ -1132,10 +1130,10 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 
 
 #@# We can also follow the bindings with three modifiers: : let for creating local bindings, :while for breaking out of the sequence generation, and :when for filtering out values.
-さらに 3 つの修飾子があります。:let はローカルな束縛の作成のために、:while はシーケンス生成からの脱出のために、:when は値のフィルタリングのために用います。
+さらに 3 つの修飾子があります。@<code>{:let} はローカルな束縛の作成のために、@<code>{:while} はシーケンス生成からの脱出のために、@<code>{:when} は値のフィルタリングのために用います。
 
 #@# Here's an example of local bindings using the :let modifier; note that the bindings defined with it will be available in the expression:
-次は :let を用いたローカル束縛の例です。:let で定義された束縛はその式でのみ利用可能です。
+次は @<code>{:let} を用いたローカル束縛の例です。@<code>{:let} で定義された束縛はその式でのみ利用可能です。
 
 //emlist{
 (for [x [1 2 3]
@@ -1146,7 +1144,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# We can use the :while modifier for expressing a condition that, when it is no longer met, will stop the sequence generation. Here's an example:
-:while 修飾子は、条件が合わなくなったときにシーケンスの生成を止める条件を表すために使います。次の例を見てください。
+@<code>{:while} 修飾子は、条件が合わなくなったときにシーケンスの生成を止める条件を表すために使います。次の例を見てください。
 
 //emlist{
 (for [x [1 2 3]
@@ -1157,7 +1155,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# For filtering out generated values, use the :when modifier as in the following example:
-生成された値をフィルターするには、次のように :when 修飾子を使います。
+生成された値をフィルターするには、次のように @<code>{:when} 修飾子を使います。
 
 //emlist{
 (for [x [1 2 3]
@@ -1185,7 +1183,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 
 #@# Page29
 //embed[latex]{
-\enlargethispage{0mm}
+\enlargethispage{10mm}
 //}
 //embed[latex]{
 \clearpage
@@ -1208,7 +1206,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# If you want just iterate and apply some side effectfull operation (like println) over each item in the collection, you can just use the specialized function run! that internally uses fast reduction:
-コレクション内の各アイテムに対して副作用のある操作(println等)を効率よく繰り返し適用したい場合は、それに特化した関数 run! を使います。内部的には高速に reduce を使用します。
+コレクション内の各アイテムに対して副作用のある操作 @<code>{(println等)} を効率よく繰り返し適用したい場合は、それに特化した関数 run! を使います。内部的には高速に reduce を使用します。
 
 //emlist{
 (run! println [1 2 3])
@@ -1219,7 +1217,7 @@ for は束縛のためのベクタと式をとり、式が評価された結果�
 //}
 
 #@# This function explicitly returns nil.
-この関数は明示的に nil を返します。
+この関数は明示的に @<code>{nil} を返します。
 
 
 == コレクションの型
@@ -1256,7 +1254,7 @@ ClojureScript のコレクションは永続的でイミュータブルだと言
 
 
 #@# As you can see, we derived a new version of the xs vector appending an element to it and got a new vector ys with the element added. However, the xs vector remained unchanged because it is immutable.
-上の例では xs に要素を 1 つ追加して新たなベクタ ys を作成しています。ベクタ xs はイミュータブルなので変更されません。
+上の例では @<code>{xs} に要素を 1 つ追加して新たなベクタ @<code>{ys} を作成しています。ベクタ @<code>{xs} はイミュータブルなので変更されません。
 
 #@# A persistent data structure is a data structure that returns a new version of itself when transforming it, leaving the original unmodified. ClojureScript makes this memory and time efficient using an implementation technique called _structural sharing_, where most of the data shared between two versions of a value is not duplicated and transformations of a value are implemented by copying the minimal amount of data required.
 永続的なデータ構造は、変換時に新しいバージョンを返して、元のデータを変更しないデータ構造です。ClojureScript では構造共有(structural sharing)という実装手法を利用して、このメモリと実行時間を効率的にします。この手法では、2 つのバージョンの値の間で共有されるデータの大部分は複製されずに、必要最小限のデータをコピーすることで値の変換が実装されます。
@@ -1281,7 +1279,7 @@ ClojureScript におけるデータ構造の構造共有を説明するために
 //}
 
 #@# As you can see in the example, we used cons (construct) to prepend a value to the xs list and we got a new list ys with the element added. The rest of the ys list (all the values but the first) are the same object in memory as the xs list, thus xs and ys share structure.
-リストの xs に cons 関数を使って値を追加して新たなリスト ys を作成しています。リスト ys の rest はリスト xs とメモリでは等しくなります。この挙動を見ると、リスト xs と リスト ys がデータ構造を共有していることがわかります。
+リストの @<code>{xs} に cons 関数を使って値を追加して新たなリスト @<code>{ys} を作成しています。リスト @<code>{ys} の @<code>{rest} はリスト @<code>{xs} とメモリでは等しくなります。この挙動を見ると、リスト @<code>{xs} と リスト @<code>{ys} がデータ構造を共有していることがわかります。
 
 
 === シーケンスの抽象化
@@ -1655,8 +1653,8 @@ ClojureScript のシーケンスを返す大半の関数は、全く新たなシ
 range だけで呼び出した場合、整数の無限シーケンスを生成します。REPLで (range) を試さないでください。REPLはその式を完全に評価しようとするので、とても長い間待たされます。
 
 #@# Here is a contrived example.  let 's say you are writing a graphing program and you are graphing the equation _y_== 2 _x_ ^ 2 ^ + 5, and you want only those values of _x_ for which the _y_ value is less than 1 00. You can generate all the numbers 0 through 1 00, which will certainly be enough, and then take-while the condition holds:
-少し例を見てみましょう。グラフ作成のプログラムを書いていて、y = 2 x ^ 2 + 5 のグラフを書くとします。y の値が 100未満の場合の x の値を求めます。0 から 100 までの全ての数を生成して、take-while を用いて条件に合うものを保ちます。
-ここに例を見てみましょう。グラフ作成プログラムを作成していて、方程式 y = 2 x ^ 2 + 5 をグラフ化していて、x の値のうち、 y の値が 100 未満の値だけが必要だとします。0 から 100 までの全ての数を生成して、条件が満たされている間だけ値をとります。
+少し例を見てみましょう。グラフ作成のプログラムを書いていて、@<code>{y = 2 x ^ 2 + 5} のグラフを書くとします。@<code>{y} の値が @<code>{100}未満の場合の @<code>{x} の値を求めます。@<code>{0} から @<code>{100} までの全ての数を生成して、@<code>{take-while} を用いて条件に合うものを保ちます。
+ここに例を見てみましょう。グラフ作成プログラムを作成していて、方程式 @<code>{y = 2 x ^ 2 + 5} をグラフ化していて、@<code>{x} の値のうち、 @<code>{y} の値が @<code>{100} 未満の値だけが必要だとします。@<code>{0} から @<code>{100} までの全ての数を生成して、条件が満たされている間だけ値をとります。
 
 //emlist{
 (take-while (fn [x] (< (+ (* 2 x x) 5) 100))
@@ -1696,7 +1694,7 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 //}
 
 #@# We used the literal () to represent the empty list. Since it doesn't contain any symbols, it is not treated as a function call. However, when using list literals that contain elements, we need to quote them to prevent ClojureScript from evaluating them as a function call:
-リストのリテラル表現として () を使いました。シンボルを 1 つも含んでいないので、関数の呼び出しとしては見なされません。もし要素がある場合には、式が評価されないようにクオート ' をつける必要があります。
+リストのリテラル表現として @<code>{()} を使いました。シンボルを 1 つも含んでいないので、関数の呼び出しとしては見なされません。もし要素がある場合には、式が評価されないようにクオート @<code>{'} をつける必要があります。
 
 //emlist{
 (cons 0 '(1 2))
@@ -1757,7 +1755,7 @@ ClojureScript のリストは、各ノードに値とリストの残りの部分
 ベクタは ClojureScript で最も一般的なデータ構造の 1 つです。ベクタは、伝統的な Lisp 方言がリストを使用する多くの場所、例えば、関数の引数宣言や let 束縛での構文内で使われます。
  
 #@# ClojureScript vectors have enclosing brackets [] in their syntax literals. They can be created with vector and from another collection with vec:
-ClojureScript のベクタは、リテラル表現として角括弧 [] を使います。vector 関数で生成することも可能です。他のコレクションからベクタを作成するには vec 関数を使います。
+ClojureScript のベクタは、リテラル表現として角括弧 @<code>{[]} を使います。vector 関数で生成することも可能です。他のコレクションからベクタを作成するには vec 関数を使います。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1894,7 +1892,7 @@ map と filter の操作は遅延シーケンスを返しますが、これら�
 
 #@# Maps are ubiquitous in  ClojureScript. Like vectors, they are also used as a syntactic construct, particularly for attaching metadata to  vars. Any ClojureScript data structure can be used as a key in a map, although it's common to use keywords since they can also be called as functions.
 #@# ClojureScript maps are written literally as key-value pairs enclosed in braces `{}`. Alternatively, they can be created with the hash-map function:マップは ClojureScript で広く使われています。ベクタと同様に、マップはメタデータを vars に付与するために使われます。ClojureScript のデータ構造体は全てマップのキーとして使えますが、キーワードは関数としても呼び出すことができるため、キーワードを使うことが一般的です。
-ClojureScript のマップは、リテラル表現として、キーと値のペアを中括弧 { } で囲んで記述します。代わりに hash-map 関数で生成することもできます。
+ClojureScript のマップは、リテラル表現として、キーと値のペアを中括弧 @<code>{{ }} で囲んで記述します。代わりに hash-map 関数で生成することもできます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -2013,7 +2011,7 @@ ClojureScript はソートされたハッシュマップも提供しています
 #@# Sets
 
 #@# Sets in ClojureScript have literal syntax as values enclosed in `#{}` and they can be created with the set constructor. They are unordered collections of values without duplicates.
-ClojureScript のセットは #{} のリテラル表現を用いて作成されます。set コンストラクタを用いて作成することもできます。セットは、要素間の順番がないコレクションであり、同じ要素の重複は許されません。
+ClojureScript のセットは @<code>{#{}} のリテラル表現を用いて作成されます。set コンストラクタを用いて作成することもできます。セットは、要素間の順番がないコレクションであり、同じ要素の重複は許されません。
 
 //emlist{
 (set? #{\a \e \i \o \u})
@@ -2032,7 +2030,7 @@ ClojureScript のセットは #{} のリテラル表現を用いて作成され�
 //}
 
 #@# There are many operations that can be performed with sets, although they are located in the `clojure.set` namespace and thus need to be imported. You'll learn the details of namespacing later; for now, you only need to know that we are loading a namespace called `clojure.set` and binding it to the s symbol.
-セットを操作するための関数は多くあります。clojure.set の名前空間にあるため、インポートする必要があります。名前空間については後に詳しく学びます。現時点では、clojure.set の名前空間をインポート後、シンボル s に束縛していることが分かれば十分です。
+セットを操作するための関数は多くあります。@<code>{clojure.set} の名前空間にあるため、インポートする必要があります。名前空間については後に詳しく学びます。現時点では、@<code>{clojure.set} の名前空間をインポート後、シンボル s に束縛していることが分かれば十分です。
 
 
 #@# Page43
@@ -2430,18 +2428,18 @@ destructuring は let での束縛に限定されないことに注意してく�
 スレッドマクロはアロー関数として知られています。スレッドマクロを使うことで、ネストされた複数の関数呼び出しを実行するときに、読みやすいコードを記述できます。
 
 #@# Imagine you have `(f (g (h x)))` where a function f receives as its first parameter the result of executing function g, repeated multiple times. With the most basic `->` threading macro you can convert that into `(\-> x (h) (g) (f))` which is easier to read.
-例えば (f (g (h x))) というコードにおいて、f は g の結果を第 1 引数として受け取ります。スレッドマクロ -> を使うことで、(-> x (h) (g) (f)) と書くことができます。こちらのほうが読みやすいですね。
+例えば @<code>{(f (g (h x)))} というコードにおいて、f は g の結果を第 1 引数として受け取ります。スレッドマクロ @<code>{->} を使うことで、@<code>{(-> x (h) (g) (f))} と書くことができます。こちらのほうが読みやすいですね。
 
 #@# The result is syntactic sugar, because the arrow functions are defined as macros and it does not imply any runtime performance. The `(\-> x (h) (g) (f))` is automatically converted to (f (g (h x))) at compile time.
-スレッドマクロはマクロとして定義されているため、実行時のパフォーマンスに影響を与えません。(-> x (h) (g) (f)) はコンパイル時に (f (g (h x))) に変換されます。
+スレッドマクロはマクロとして定義されているため、実行時のパフォーマンスに影響を与えません。@<code>{(-> x (h) (g) (f))} はコンパイル時に @<code>{(f (g (h x)))} に変換されます。
 
 #@# Take note that the parenthesis on h, g and f are optional, and can be ommited: `(f (g (h x)))` is the same as `(\-> x h g f)`.
-h g f の括弧はなくてもかまいません。(f (g (h x))) は (-> x h g f) と省略して書くこともできます。
+h、g、f の括弧はなくてもかまいません。@<code>{(f (g (h x)))} は @<code>{(-> x h g f)} と省略して書くこともできます。
 
-=== thread-first マクロ ( -> )
+=== thread-first マクロ ( @<code>{->} )
 
 #@# This is called *thread first* because it threads the first argument throught the different expressions as first arguments.
--> は thread-firstマクロ と呼ばれますが、複数の式が実行されていく中で、最初の引数に値を挿入していくことから、そのような名前がつけられています。
+@<code>{->} は thread-firstマクロ と呼ばれますが、複数の式が実行されていく中で、最初の引数に値を挿入していくことから、そのような名前がつけられています。
 
 #@# Using a more concrete example, this is how the code looks without using threading macros:
 では具体例として、まずはスレッドマクロを使わない場合を見てみましょう。
@@ -2455,7 +2453,7 @@ h g f の括弧はなくてもかまいません。(f (g (h x))) は (-> x h g f
 //}
 
 #@# We can rewrite that code to use the `\->` threading macro:
-thread-firstマクロ (->) を使うと、次のように書くことができます。
+thread-firstマクロ (@<code>{->}) を使うと、次のように書くことができます。
 
 //emlist{
 (-> book
@@ -2467,11 +2465,11 @@ thread-firstマクロ (->) を使うと、次のように書くことができ�
 #@# This threading macro is especially useful for transforming data structures, because ClojureScript (and _Clojure_) functions for data structures transformations consistently uses the first argument for receive the data structure.
 このリーダマクロはデータ構造を変換するときに特に役にたちます。これは ClojureScript (Clojure) のデータ構造を変換する関数は、一貫して最初の引数でデータ構造を受け取るからです。
 
-=== thread-last マクロ ( ->> )
+=== thread-last マクロ ( @<code>{->>} )
 
 #@# The main difference between the thread-last and thread-first macros is that instead of threading the first argument given as the first argument on the following expresions, it threads it as the last argument.
 #@#  let 's look at an example:
-thread-last マクロ (->>) と thread-first マクロ (->) の主な違いは、最初の引数にデータを入れるのではなく、最後の引数にデータを入れる点です。例を見てみましょう。
+thread-last マクロ (@<code>{->>}) と thread-first マクロ (@<code>{->}) の主な違いは、最初の引数にデータを入れるのではなく、最後の引数にデータを入れる点です。例を見てみましょう。
 
 
 #@# Page50
@@ -2491,7 +2489,7 @@ thread-last マクロ (->>) と thread-first マクロ (->) の主な違いは�
 //}
 
 #@# The same code written using `\->>` threading macro:
-上の例は thread-last マクロ (->>) を用いて、次のように書き直すことができます。
+上の例は thread-last マクロ (@<code>{->>}) を用いて、次のように書き直すことができます。
 
 //emlist{
 (->> numbers
@@ -2502,15 +2500,15 @@ thread-last マクロ (->>) と thread-first マクロ (->) の主な違いは�
 //}
 
 #@# This threading macro is especially useful for transforming sequences or collections of data because ClojureScript functions that work with sequences and collections consistently use the last argument position to receive them.
-thread-last マクロ (->>) は、シーケンスのデータを変形するときに役にたちます。ClojureScript のシーケンスとコレクションを操作する関数は、シーケンスやコレクションを最後の引数として受け取るためです。
+thread-last マクロ (@<code>{->>}) は、シーケンスのデータを変形するときに役にたちます。ClojureScript のシーケンスとコレクションを操作する関数は、シーケンスやコレクションを最後の引数として受け取るためです。
 
-=== thread-as マクロ ( as-> )
+=== thread-as マクロ ( @<code>{as->} )
 
 #@# Finally, there are cases where neither `\->` nor `\->>` are applicable. In these cases, you’ll need to use `as\->`, the more flexible alternative, that allows you to thread into any argument position, not just the first or last.
-最後に -> と ->> どちらにも適用できない場合があります。この場合は、as-> マクロを使います。as-> マクロは、最初と最後に限らず、好きな場所にデータを入れることができます。
+最後に @<code>{->} と @<code>{->>} どちらにも適用できない場合があります。この場合は、@<code>{as->} マクロを使います。@<code>{as->} マクロは、最初と最後に限らず、好きな場所にデータを入れることができます。
 
 #@# It expects two fixed arguments and an arbitrary number of expressions. As with `\->`, the first argument is a value to be threaded through the following forms. The second argument is the name of a binding. In each of the subsequent forms, the bound name can be used for the prior expression's result.
-as-> マクロは 2 つの引数を固定でもち、その後に任意の数の式が続きます。-> と同様に、最初の引数は以降の式に渡されていく値です。2 番目の引数は束縛の名前です。以降の各々の式で、前の式の結果のためにその束縛の名前が使われます。
+@<code>{as->} マクロは 2 つの引数を固定でもち、その後に任意の数の式が続きます。@<code>{->} と同様に、最初の引数は以降の式に渡されていく値です。2 番目の引数は束縛の名前です。以降の各々の式で、前の式の結果のためにその束縛の名前が使われます。
 
 #@#  let 's see an example:
 例を見てみましょう。
@@ -2528,7 +2526,7 @@ as-> マクロは 2 つの引数を固定でもち、その後に任意の数の
 === thread-some マクロ ( some-> と some->> )
 
 #@# Two of the more specialized threading macros that ClojureScript comes with. They work in the same way as their analagous `\->` and `\->>` macros with the additional support for short-circuiting the expression if one of the expresions evaluates　to nil.
-ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します。これらは -> と ->> と同じように動作します。式の 1 つが nil と評価された場合に式を短絡することをサポートします。
+ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します。これらは @<code>{->} と @<code>{->>} と同じように動作します。式の 1 つが nil と評価された場合に式を短絡することをサポートします。
 
 #@#  let 's see another example:
 例を見てみましょう。
@@ -2564,7 +2562,7 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 === thread-cond マクロ ( cond-> cond->> )
 
 #@# The `cond\->` and `cond\->>` macros are analgous to `\->` and `\->>` that offers the ability to conditionally skip some steps from the pipeline. let see an example:
-cond-> と cond->> マクロは -> と ->> と似ており、パイプラインからの処理を条件によりスキップできます。例を見てみましょう。
+@<code>{cond->} と @<code>{cond->>} マクロは @<code>{->} と @<code>{->>} と似ており、パイプラインからの処理を条件によりスキップできます。例を見てみましょう。
 
 //emlist{
 (defn describe-number
@@ -2612,7 +2610,7 @@ cond-> と cond->> マクロは -> と ->> と似ており、パイプライン�
 この言語の特徴として、Clojure の異なる方言ごとに、コードを共有したり、プラットフォームに依存するコードを書くことができます。
 
 #@# To use reader conditionals, all you need is to rename your source file with `.cljs` extension to one with `.cljc`, because reader conditionals only work if they are placed in files with `.cljc` extension.
-リーダーコンディショナル(Reader Conditionals)を使うには、ファイルの拡張子を .cljs から .cljc に変更する必要があります。リーダの条件分けは拡張子が .cljc の場合にのみ動作します。
+リーダーコンディショナル(Reader Conditionals)を使うには、ファイルの拡張子を @<code>{.cljs} から @<code>{.cljc} に変更する必要があります。リーダの条件分けは拡張子が @<code>{.cljc} の場合にのみ動作します。
 
 === Standard ( #? )
 
@@ -2629,14 +2627,14 @@ cond-> と cond->> マクロは -> と ->> と似ており、パイプライン�
 //}
 
 #@# As you can observe, `#?` reading macro looks very similar to cond, the difference is that the condition is just a keyword that identifies the platform, where :cljs is for ClojureScript and :clj is for _Clojure_. The advantage of this approach, is that it is evaluated at compile time so no runtime performance overhead exists for using this.
-リーダマクロの #? は cond と同じように見えますが、条件部にキーワードを用いて、ClojureScript には :cljs 、Clojure には :cljc をプラットフォームの特定のために使います。リーダマクロはコンパイル時に評価されるので、実行時にオーバーヘッドが発生しません。
+リーダマクロの @<code>{#?} は cond と同じように見えますが、条件部にキーワードを用いて、ClojureScript には :cljs 、Clojure には :cljc をプラットフォームの特定のために使います。リーダマクロはコンパイル時に評価されるので、実行時にオーバーヘッドが発生しません。
 
 === Splicing ( #?@ )
 
 #@# Splicing (`#?@`)
 
 #@# The splicing reader conditional works in the same way as the standard and allows splice lists into the containing form. The `#?@` reader macro is used for that and the code looks like this:
-リーダーコンディショナルの splicing は、standard と同じように使いますが、リストを結合(splice)できます。このためにリーダマクロ #?@ を使います。
+リーダーコンディショナルの splicing は、standard と同じように使いますが、リストを結合(splice)できます。このためにリーダマクロ @<code>{#?@} を使います。
 
 //emlist{
 (defn make-list
@@ -2813,7 +2811,7 @@ var とシンボルについては前に説明しました。定義する全て�
 //}
 
 #@# And finally, you should know that everything located in the `cljs.core` namespace is automatically loaded and you should not require it explicitly. Sometimes you may want to declare  var s that will clash with some others defined in the `cljs.core` namespace. To do this, the ns macro offers another directive that allows you to exclude specific symbols and prevent them from being automatically loaded.
-最後に、cljs.core の中にある全てのものを把握する必要があります。cljs.core の名前空間は自動的にロードされるので、明示的に require すべきではありません。cljs.core で定義されている var と衝突する var を宣言する場合、ns マクロは特定のシンボルを除外して自動的にロードされないようにする別のディレクティブを提供します。
+最後に、@<code>{cljs.core} の中にある全てのものを把握する必要があります。cljs.core の名前空間は自動的にロードされるので、明示的に require すべきではありません。@<code>{cljs.core} で定義されている var と衝突する var を宣言する場合、ns マクロは特定のシンボルを除外して自動的にロードされないようにする別のディレクティブを提供します。
 
 #@# Observe the following:
 次の例を見てください。
@@ -2847,7 +2845,7 @@ ns マクロは、ホストのクラスを読み込むために :import ディ�
 #@# Namespaces and File Names
 
 #@# When you have a namespace like `myapp.core`, the code must be in a file named _core.cljs_ inside the _myapp_ directory.  So, the preceding examples with namespaces `myapp.core` and `myapp.main` would be found in project with a file structure like this:
-myapp.core のような名前空間がある場合、コードは myapp ディレクトリ内で core.cljs という名前のファイルにしなければなりません。上記の例では myapp.core と myapp.main を使用していますが、ファイル構造は次のようになります。
+@<code>{myapp.core} のような名前空間がある場合、コードは @<code>{myapp} ディレクトリ内で @<code>{core.cljs} という名前のファイルにしなければなりません。上記の例では @<code>{myapp.core} と @<code>{myapp.main} を使用していますが、ファイル構造は次のようになります。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -2998,10 +2996,10 @@ extend-type を使用すると、異なるプロトコルを使用して 1 つ�
 //}
 
 #@# You may note that a special symbol *string* is used instead of `js/String` for extend the protol for string. This is because the builtin JavaScript types have special treatment and if you replace the string with `js/String` the compiler will emit a warning about that.
-string のプロトコルを拡張するために、js/String を使わずに、特別なシンボル string が使われていることに注目してください。これは、組み込みの JavaScript の型には特別な扱いがあり、string を js/String に置き換えると、コンパイラは警告を発生するからです。
+string のプロトコルを拡張するために、@<code>{js/String} を使わずに、特別なシンボル string が使われていることに注目してください。これは、組み込みの JavaScript の型には特別な扱いがあり、string を @<code>{js/String} に置き換えると、コンパイラは警告を発生するからです。
 
 #@# So if you want extend your protocol to JavaScript primitive types, instead of using `js/Number`, `js/String`, `js/Object`, `js/Array`, `js/Boolean` and `js/Function` you should use the respective special symbols: number, string, object, array, boolean and function.
-プロトコルを JavaScript のプリミティブ型に拡張する場合、js/Number、js/String、js/Object、js/Array、js/Boolean、js/Function を使う代わりに、それぞれに特別なシンボル(number、string、object、array、boolean、function)を使う必要があります。
+プロトコルを JavaScript のプリミティブ型に拡張する場合、@<code>{js/Number}、@<code>{js/String}、@<code>{js/Object}、@<code>{js/Array}、@<code>{js/Boolean}、@<code>{js/Function} を使う代わりに、それぞれに特別なシンボル(number、string、object、array、boolean、function)を使う必要があります。
 
 #@# Now, it's time to try our protocol implementation:
 では、私たちのプロトコル実装を試してみましょう。
@@ -3123,7 +3121,7 @@ RegExp の型は IFn プロトコルを実装していないので、例外が�
 
  
 #@#  let ’s analyze this: we are extending the `js/RegExp` type so that it implements the invoke function in the IFn protocol. To invoke a regular expression a as if it were a function, call the re-find function with the object of the function and the pattern.
-この例を分析してみましょう。IFn プロトコルで invoke 関数を実装するように js/RegExp 型を拡張しています。正規表現を関数のように呼び出すには、関数のオブジェクトとパターンを指定して re-find 関数を呼び出します。
+この例を分析してみましょう。IFn プロトコルで invoke 関数を実装するように @<code>{js/RegExp} 型を拡張しています。正規表現を関数のように呼び出すには、関数のオブジェクトとパターンを指定して re-find 関数を呼び出します。
 
 #@# Now, you will be able use the regex instances as predicates in a filter operation:
 これで、正規表現のインスタンスを filter 操作の述語として使用できるようになります。
@@ -3254,8 +3252,10 @@ defmulti 内で定義されてい無名関数は、ディスパッチ関数で�
 #@# We have just defined a set of relationships between namespaced keywords. In this case the ::circle is a child of ::shape, and ::box is also a child of ::shape.
 ここでは、名前空間を持つキーワード間のリレーションを定義しました。この場合、::circle は ::shape の子であり、::box も ::shape の子です。
 
-#@# TIP: The ::circle keyword syntax is a shorthand for `:current.ns/circle`. So if you are executing it in a REPL, ::circle will be evaluated as `:cljs.user/circle`.
-REPLで実行する場合、::circle は :current.ns/circle として評価されます。
+#@# TIP: The ::circle keyword syntax is a shorthand for `:current.ns/circle`. 
+#@# So if you are executing it in a REPL, ::circle will be evaluated as `:cljs.user/circle`.
+::circle は @<code>{:current.ns/circle} の省略形なので、
+REPLで実行する場合、::circle は @<code>{:current.ns/circle} として評価されます。
 
 ===== ヒエラルキーとイントロスペクション
 
@@ -3287,6 +3287,10 @@ ClojureScript には、グローバルあるいはローカルに定義された
 
 #@# As we mentioned previously, in ClojureScript you also can define local hierarchies. This can be done with the make-hierarchy function. Here is an example of how you can replicate the previous example using a local hierarchy:
 前に説明した通り、ClojureScript はローカルのヒエラルキーを定義することもできます。これは、make-hierarchy 関数により行うことができます。次に、前例をローカルのヒエラルキーを用いて書き直してみましょう。
+
+//embed[latex]{
+\vspace{-0.5\Cvs}
+//}
 
 //emlist{
 (def h (-> (make-hierarchy)
@@ -3442,7 +3446,7 @@ ClojureScript で独自の型を作成するための最も低レベルな構文
 
 
 #@# Once the type has been defined, we can create an instance of our User. In the following example, the `.` after User indicates that we are calling a constructor.
-型を定義すると、User のインスタンスを作成できます。次の例では、User の後のドット . はコンストラクタを呼び出していることを示します。
+型を定義すると、User のインスタンスを作成できます。次の例では、User の後のドット @<code>{.} はコンストラクタを呼び出していることを示します。
 
 
 #@# Page65
@@ -3467,7 +3471,7 @@ ClojureScript で独自の型を作成するための最も低レベルな構文
 //}
 
 #@# Types defined with deftype (and defrecord, which we will see later) create a host-backed class-like object associated with the current namespace. For convenience, ClojureScript also defines a constructor function called `->User` that can be imported using the :require directive.
-deftypeで定義された型は、ホスト環境に支援されるクラスのようなオブジェクトを現在の名前空間と関連づけて作成します。これは defrecord で定義される型も同様です。defrecord については後に取り上げます。利便性のために ClojureScript は、:require ディレクティブでインポートできる ->User というコンストラクタ関数も定義しています。
+deftypeで定義された型は、ホスト環境に支援されるクラスのようなオブジェクトを現在の名前空間と関連づけて作成します。これは defrecord で定義される型も同様です。defrecord については後に取り上げます。利便性のために ClojureScript は、:require ディレクティブでインポートできる @<code>{->User} というコンストラクタ関数も定義しています。
 
 #@# We personally do not like this type of function, and we prefer to define our own constructors with more idiomatic names:
 私たちは個人的にはこのタイプの関数は好きではないため、より慣用的な名前で独自のコンストラクターを定義したいと思います。
@@ -3479,7 +3483,7 @@ deftypeで定義された型は、ホスト環境に支援されるクラスの�
 //}
 
 #@# We use this in our code instead of `->User`.
-私たちのコードでは ->User の代わりにこちらを使います。
+私たちのコードでは @<code>{->User} の代わりにこちらを使います。
 
 === Defrecord
 
@@ -3571,7 +3575,7 @@ deftype の構文とよく似ています。実際には、型を定義するた
 
 
 #@# For convenience, the defrecord macro, like deftype, exposes a `->User` function, as well as an additional `map->User` constructor function. We have the same opinion about that constructor as with deftype defined ones: we recommend defining your own instead of using the other ones. But as they exist,  let ’s see how they can be used:
-利便性のために、deftype と同様に、defrecord マクロは ->User 関数と追加の map->User コンストラクタ関数を公開しています。このコンストラクタについては、deftype で定義したコンストラクタと同じ意見です。他のコンストラクタを使用する代わりに、独自のコンストラクタを定義することをお勧めします。それらが存在する場合、どのように使用できるかを見てみましょう。
+利便性のために、deftype と同様に、defrecord マクロは @<code>{->User} 関数と追加の @<code>{map->User} コンストラクタ関数を公開しています。このコンストラクタについては、deftype で定義したコンストラクタと同じ意見です。他のコンストラクタを使用する代わりに、独自のコンストラクタを定義することをお勧めします。それらが存在する場合、どのように使用できるかを見てみましょう。
 
 //emlist{
 (def cirilla (->User "Cirilla" "Fiona"))
@@ -3763,7 +3767,7 @@ ClojureScript には、オブジェクトメソッドの呼び出し、新しい
 #@# Access to the platform
 
 #@# ClojureScript has a special syntax for access to the entire platform environment through the `js/` special namespace. This is an example of an expression to execute  JavaScript 's built-in parseInt function:
-ClojureScript には、特殊な名前空間 js/ を通してプラットフォームの環境全体にアクセスできます。JavaScript の組み込み関数 parseInt を実行する式は次の通りです。
+ClojureScript には、特殊な名前空間 @<code>{js/} を通してプラットフォームの環境全体にアクセスできます。JavaScript の組み込み関数 parseInt を実行する式は次の通りです。
 
 //emlist{
 (js/parseInt "222")
@@ -3793,7 +3797,7 @@ ClojureScriptにはインスタンスを作成する方法が 2 通りありま�
 //}
 
 #@# Using the `.` special form
-ドット . を使うこともできます。
+ドット @<code>{.} を使うこともできます。
 
 //emlist{
 (js/RegExp. "^foo$")
@@ -3807,10 +3811,10 @@ ClojureScriptにはインスタンスを作成する方法が 2 通りありま�
 #@# Invoke instance methods
 
 #@# To invoke methods of some object instance, as opposed to how it is done in JavaScript (e.g., `obj.method()`, the method name comes first like any other standard function in Lisp languages but with a little  var iation: the function name starts with special form `.`.
-インスタンスメソッドを呼び出すには、JavaScript の方法(obj.method()の形式)とは異なり、Lisp 系言語の他の標準関数と同じように最初に来ますが、関数名は特殊な形式 . で始まります。
+インスタンスメソッドを呼び出すには、JavaScript の方法(@<code>{obj.method()}の形式)とは異なり、Lisp 系言語の他の標準関数と同じように最初に来ますが、関数名は特殊な形式 . で始まります。
 
 #@# let's see how we can call the `.test()` method of a regexp instance:
-正規表現のインスタンスの .test()メソッドを呼び出すには次のようにします。
+正規表現のインスタンスの @<code>{.test()}メソッドを呼び出すには次のようにします。
 
 //emlist{
 (def re (js/RegExp "^Clojure"))
@@ -3844,7 +3848,7 @@ JavaScript のオブジェクトに対してインスタンスメソッドを呼
 #@# Access to object properties
 
 #@# Access to an object's properties is really very similar to calling a method. The difference is that instead of using the `.` you use `.-`.  let 's see an example:
-オブジェクトのプロパティにアクセスする方法は、メソッドを呼び出す方法とほぼ同じです。違いは、ドット . の代わりに ドットハイフン .- を使うことです。例を見てみましょう。
+オブジェクトのプロパティにアクセスする方法は、メソッドを呼び出す方法とほぼ同じです。違いは、ドット @<code>{.} の代わりに ドットハイフン @<code>{.-} を使うことです。例を見てみましょう。
 
 //emlist{
 (.-multiline re)
@@ -3859,7 +3863,7 @@ JavaScript のオブジェクトに対してインスタンスメソッドを呼
 #@# Property access shorthand
 
 #@# Symbols with the `js/` prefix can contain dots to denote nested property access. Both of the following expressions invoke the same function:
-js/ で始まるシンボルは、ネストされたプロパティのアクセスを表示するためにドットを含むことができます。次の例では、両者とも同じ関数を呼び出します。
+@<code>{js/} で始まるシンボルは、ネストされたプロパティのアクセスを表示するためにドットを含むことができます。次の例では、両者とも同じ関数を呼び出します。
 
 //emlist{
 (.log js/console "Hello World")
@@ -3905,7 +3909,7 @@ ClojureScript には、プレーンな JavaScript のオブジェクトを作成
 返り値は、プレーンな JavaScript のオブジェクトを受け入れる何らかのサードパーティのライブラリに渡すことができますが、この関数の戻り値の実際の表現を見ることができます。まったく同じことをするための別の形式です。
 
 #@# Using the reader macro `#js` consists of prepending it to a ClojureScript map or vector, and the result will be transformed to plain  JavaScript :
-リーダーマクロの #js を使うことも可能です。マップかベクタの先頭に #js をつけることで、結果が JavaScript のオブジェクトに変換されます。
+リーダーマクロの @<code>{#js} を使うことも可能です。マップかベクタの先頭に @<code>{#js} をつけることで、結果が JavaScript のオブジェクトに変換されます。
 
 //emlist{
 (def myobj #js {:country "FR"})
@@ -3919,7 +3923,7 @@ var myobj = {country: "FR"};
 //}
 
 #@# As explained in the previous section, you can also access the plain object properties using the `.-` syntax:
-前のセクションで説明した通り、オブジェクトのプロパティにはドットハイフン .- を用いてアクセスできます。
+前のセクションで説明した通り、オブジェクトのプロパティにはドットハイフン @<code>{.-} を用いてアクセスできます。
 
 //emlist{
 (.-country myobj)
@@ -3968,7 +3972,7 @@ JavaScript のオブジェクトはミュータブルなので、set! 関数で�
 //}
 
 #@# To solve that use case, ClojureScript comes with the `clj->js` and `js->clj` functions that transform Clojure collection types into JavaScript and back. Note that the conversion to ClojureScript changes the :country keyword to a string.
-このユースケースを解決するために、clj->js と js->clj が用意されています。それぞれ、ClojureScript と JavaScript のコレクションを相互に変換します。ClojureScript への変換で :country キーワードが文字列に変換されている点に注意してください。
+このユースケースを解決するために、@<code>{clj->js} と @<code>{js->clj} が用意されています。それぞれ、ClojureScript と JavaScript のコレクションを相互に変換します。ClojureScript への変換で :country キーワードが文字列に変換されている点に注意してください。
 
 //emlist{
 (clj->js {:foo {:bar "baz"}})

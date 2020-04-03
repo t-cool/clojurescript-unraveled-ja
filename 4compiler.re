@@ -128,7 +128,7 @@ myapp
 //}
 
 #@# Second, write the example code into the previously created`myapp/src/myapp/core.cljs` file:
-次に、前に作成した myapp/src/myapp/core.cljs に次のコードを書き込みます。
+次に、前に作成した @<code>{myapp/src/myapp/core.cljs} に次のコードを書き込みます。
 
 //emlist{
 (ns myapp.core
@@ -156,7 +156,7 @@ myapp
 
 
 #@# Let’s create the `myapp/build.clj` file with the following content:
-myapp/build.clj を作成します。このファイルの内容は次のとおりです。
+@<code>{myapp/build.clj} を作成します。このファイルの内容は次のとおりです。
 
 //emlist{
 (require '[cljs.build.api :as b])
@@ -182,11 +182,11 @@ myapp/build.clj を作成します。このファイルの内容は次のとお�
 
 #@# * The `:main` property indicates to the compiler the namespace that will act as the entry  point of your application when it's executed.
 //noindent
-- :main は、実行時にエントリーポイントとして動作する名前空間を指定します。
+- @<code>{:main} は、実行時にエントリーポイントとして動作する名前空間を指定します。
 
 #@# * The `:target` property indicates the platform where you want to execute the compiled  code. In this case, we are going to use *Node.js*. If you omit this  parameter, the source will be compiled to run in the browser environment.
 //noindent
-- :target は、コンパイルされたコードを実行するプラットフォームを示します。この例では、Node.js を使用します。このパラメーターを省略した場合、ソースはコンパイルされてブラウザの環境で実行されます。
+-  @<code>{:target} は、コンパイルされたコードを実行するプラットフォームを示します。この例では、Node.js を使用します。このパラメーターを省略した場合、ソースはコンパイルされてブラウザの環境で実行されます。
 
 #@# Page80
 #@# @<embed>{|latex|\vspace{-0.5\Cvs\}}
@@ -250,7 +250,7 @@ mywebapp
 //}
 
 #@# Then, write new content to the `mywebapp/src/mywebapp/core.cljs` file:
-次に、新しいコンテンツを mywebapp/src/mywebapp/core.cljs に書き込みます。
+次に、新しいコンテンツを @<code>{mywebapp/src/mywebapp/core.cljs} に書き込みます。
 
 //emlist{
 (ns mywebapp.core)
@@ -280,7 +280,7 @@ mywebapp
 #@# Compile the example application
 
 #@# In order to compile the source code to run properly in a browser, overwrite the`mywebapp/build.clj` file with the following content:
-ソースコードをコンパイルしてブラウザで正しく動作させるには、mywebapp/build.clj を次のように上書きします。
+ソースコードをコンパイルしてブラウザで正しく動作させるには、@<code>{mywebapp/build.clj} を次のように上書きします。
 
 //emlist{
 (require '[cljs.build.api :as b])
@@ -301,23 +301,23 @@ mywebapp
 
 #@# * The `:output-to` parameter indicates to the compiler the destination of the  compiled code, in this case the "main.js" file.
 //noindent
-- :output-to は、コンパイルされたコードの出力先を指定します。この場合は main.js です。
+- @<code>{:output-to} は、コンパイルされたコードの出力先を指定します。この場合は main.js です。
 
 #@# * The `:main` property indicates to the compiler the namespace that will act as  the  entry point of your application when it's executed.
 //noindent
-- :main は、実行時にエントリーポイントとして動作する名前空間を指定します。
+- @<code>{:main} は、実行時にエントリーポイントとして動作する名前空間を指定します。
 
 #@# * `:source-map` indicates the destination of the source map. (The source map connects the ClojureScript source to the generated JavaScript so that error  messages can point you back to the original source.)
 //noindent
-- :source-map は、ソースマップの出力先を指定します。ソースマップは、ClojureScript のソースを、生成された JavaScript に接続して、エラー・メッセージが元のソースを示すようにします。
+- @<code>{:source-map} は、ソースマップの出力先を指定します。ソースマップは、ClojureScript のソースを、生成された JavaScript に接続して、エラー・メッセージが元のソースを示すようにします。
 
 #@# * `:output-dir` indicates the destination directory for all file sources used in a  compilation. It is just for making source maps work properly with the rest of the  code, not only your source.
 //noindent
-- :output-dir は、コンパイルで使われる全てのソースを保存するディレクトリを指定します。ソースマップをソースだけでなく、残り全てのコードと正しく動作させるためのものです。
+- @<code>{:output-dir} は、コンパイルで使われる全てのソースを保存するディレクトリを指定します。ソースマップをソースだけでなく、残り全てのコードと正しく動作させるためのものです。
 
 #@# `:optimizations` indicates the compilation optimization. There are different  values for this option, but that will be covered in subsequent sections in  more detail.
 //noindent
-- :optimizations はコンパイルの最適化を示します。このオプションには異なる値がありますが、これについては後のセクションで詳しく説明します。
+- @<code>{:optimizations} はコンパイルの最適化を示します。このオプションには異なる値がありますが、これについては後のセクションで詳しく説明します。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -468,18 +468,18 @@ ClojureScript コンパイラにはさまざまな最適化レベルがありま
 ===== simple
 
 #@# The simple compilation level builds on the work from the `whitespace` optimizationlevel, and additionally performs optimizations within expressions and functions, suchas renaming local variables and function parameters to have shorter names.
-単純なコンパイルレベルは、whitespace 最適化レベルからの作業に基づいて構築されます。ローカル変数や関数パラメータの名前をより短い名前に変更するなど、式や関数内でさらに最適化を実行します。
+単純なコンパイルレベルは、@<code>{whitespace} 最適化レベルからの作業に基づいて構築されます。ローカル変数や関数パラメータの名前をより短い名前に変更するなど、式や関数内でさらに最適化を実行します。
 
 #@# Compilation with the `:simple` optimization always preserves the functionality ofsyntactically valid JavaScript, so it does not interfere with the interaction betweenthe compiled ClojureScript and other JavaScript.
-:simple 最適化によるコンパイルは、常に構文的に有効な JavaScript の機能を保持するため、コンパイルされた ClojureScript と他の JavaScript との間の相互作用に影響はありません。
+@<code>{:simple} 最適化によるコンパイルは、常に構文的に有効な JavaScript の機能を保持するため、コンパイルされた ClojureScript と他の JavaScript との間の相互作用に影響はありません。
 
 ===== advanced
 
 #@# The advanced compilation level builds on the `simple` optimization level, andadditionally performs more aggressive optimizations and dead code elimination. Thisresults in a significantly smaller output file.
-高度なコンパイルレベルは simple 最適化レベルの上に構築され、さらに積極的な最適化とデッドコードの削除を実行します。これにより、出力ファイルが大幅に小さくなります。
+高度なコンパイルレベルは @<code>{simple} 最適化レベルの上に構築され、さらに積極的な最適化とデッドコードの削除を実行します。これにより、出力ファイルが大幅に小さくなります。
 
 #@# The `:advanced` optimizations only work for a strict subset of JavaScript whichfollows the Google Closure Compiler rules.  ClojureScript generates validJavaScript within this strict subset, but if you are interacting with third partyJavaScript code, some additional work is required to make everything work asexpected.
-:advanced 最適化は、Google Closure Compiler ルールに従った JavaScript の厳密なサブセットでのみ動作します。ClojureScript はこの厳密なサブセット内に有効な JavaScript を生成しますが、サード・パーティーの JavaScript コードを操作する場合には、全てを期待どおりに動作させるために追加作業が必要になります。
+@<code>{:advanced} 最適化は、Google Closure Compiler ルールに従った JavaScript の厳密なサブセットでのみ動作します。ClojureScript はこの厳密なサブセット内に有効な JavaScript を生成しますが、サード・パーティーの JavaScript コードを操作する場合には、全てを期待どおりに動作させるために追加作業が必要になります。
 
 #@# This interaction with third party javascript libraries will be explained in later sections.
 サードパーティの JavaScript ライブラリとのやり取りについては、後のセクションで説明します。
@@ -571,7 +571,7 @@ cljs.user=> (+ 1 2)
 外部依存関係を持たない Nashorn REPL がすでに使用可能になっているのに、なぜ Node.js が必要なのか不思議に思うかもしれません。。答えは非常に単純です。Node.js はバックエンドで最もよく使われている JavaScript 実行環境であり、その上に構築された数多くのコミュニティーによるパッケージが存在するからです。
 
 #@# The good news is that starting a Node.js REPL is very easy once you have it installedin your system. Start adding the following content into `tools.clj` script:
-幸いなことに、Node.js の REPLは、一度システムにインストールすれば非常に簡単に起動できます。次の内容を tools.clj に追加します。
+幸いなことに、Node.js の REPLは、一度システムにインストールすれば非常に簡単に起動できます。次の内容を @<code>{tools.clj} に追加します。
 
 //emlist{
 (require '[cljs.repl]
@@ -742,7 +742,7 @@ ClojureScript は Google Closure コンパイラと Closure Library の上に構
 このコードは、Closure Library の dom モジュールをインポートして、そのモジュールで宣言された関数を使用する方法を示しています。
 
 #@# Additionally, the closure library exposes "special" modules that behave like a classor object. To use these features, you must use the `:import` directive in the `(ns...)` form:
-さらに、Closure Library は、クラスまたはオブジェクトのように動作する「特別な」モジュールを公開します。これらの機能を使用するには、(ns ...) の形式で :import ディレクティブを使用する必要があります。
+さらに、Closure Library は、クラスまたはオブジェクトのように動作する「特別な」モジュールを公開します。これらの機能を使用するには、@<code>{(ns ...)} の形式で @<code>{:import} ディレクティブを使用する必要があります。
 
 //emlist{
 (ns yourapp.core
@@ -752,7 +752,7 @@ ClojureScript は Google Closure コンパイラと Closure Library の上に構
 //}
 
 #@# In a _Clojure_ program, the `:import` directive is used for host (Java) interop toimport Java classes.  If, however, you define types (classes) in ClojureScript, youshould use the standard `:require` directive and not the `:import` directive.
-Clojure のプログラムでは、Java クラスをインポートするためにホスト環境である Java と相互運用するために、:import ディレクティブを使用します。ただし、ClojureScript で型(クラス)を定義する場合は、:import ディレクティブではなく、標準の :require ディレクティブを使用する必要があります。
+Clojure のプログラムでは、Java クラスをインポートするためにホスト環境である Java と相互運用するために、@<code>{:import} ディレクティブを使用します。ただし、ClojureScript で型(クラス)を定義する場合は、@<code>{:import} ディレクティブではなく、標準の @<code>{:require} ディレクティブを使用する必要があります。
 
 
 == 依存関係の管理

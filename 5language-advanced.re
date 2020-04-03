@@ -23,7 +23,7 @@ ClojureScript では、シーケンス抽象化の観点から、データ変換
 //}
 
 #@# We are interested in splitting the grape clusters into individual grapes, discarding the rotten ones and cleaning the remaining grapes so they are ready for eating. We are well-equipped in ClojureScript for this data transformation task; we could implement it using the familiar  map ,  filter  and  mapcat  functions:
-私たちは、ブドウの房を個々のブドウに分け、腐ったものを捨て、残りのブドウを食べられるようにきれいにしようとしています。このデータ変換の作業を行うための装備が ClojureScript には十分に備わっています。おなじみの map 、filter、mapcat 関数を使って実装できます。
+私たちは、ブドウの房を個々のブドウに分け、腐ったものを捨て、残りのブドウを食べられるようにきれいにしようとしています。このデータ変換の作業を行うための装備が ClojureScript には十分に備わっています。おなじみの @<code>{map} 、@<code>{filter}、@<code>{mapcat} 関数を使って実装できます。
 
 //emlist{
 (defn split-cluster
@@ -60,7 +60,7 @@ ClojureScript では、シーケンス抽象化の観点から、データ変換
 //}
 
 #@# In the above example we succintly solved the problem of selecting and cleaning the grapes, and we can even abstract such transformations by combining the  mapcat ,  filter  and  map  operations using partial application and function composition:
-上記の例では、ブドウの選択と洗浄の問題を上手に解決していますが、partial application と 関数合成を使いながら mapcat、filter、map を組み合わせることによって、このような変換を抽象化することもできます。
+上記の例では、ブドウの選択と洗浄の問題を上手に解決していますが、partial application と 関数合成を使いながら @<code>{mapcat}、@<code>{filter}、@<code>{map} を組み合わせることによって、このような変換を抽象化することもできます。
 
 //emlist{
 (def process-clusters
@@ -75,17 +75,17 @@ ClojureScript では、シーケンス抽象化の観点から、データ変換
 //}
 
 #@# The code is very clean, but it has a few problems. For example, each call to  map ,  filter  and  mapcat  consumes and produces a sequence that, although lazy, generates intermediate results that will be discarded. Each sequence is fed to the next step, which also returns a sequence. Wouldn't be great if we could do the transformation in a single transversal of the  grape-cluster  collection?
-コードは非常にきれいですが、いくつか問題があります。たとえば、map filter mapcat の各呼び出しは、遅延はあっても破棄される中間結果を生成するシーケンスを消費して生成します。各シーケンスは次のステップに渡され、シーケンスを返します。ブドウの房のコレクションを1回の横断で変換できるとしたら素晴らしいと思いませんか。
+コードは非常にきれいですが、いくつか問題があります。たとえば、@<code>{map} @<code>{filter} @<code>{mapcat} の各呼び出しは、遅延はあっても破棄される中間結果を生成するシーケンスを消費して生成します。各シーケンスは次のステップに渡され、シーケンスを返します。ブドウの房のコレクションを1回の横断で変換できるとしたら素晴らしいと思いませんか。
 
 #@# Another problem is that even though our  process-clusters  function works with any sequence, we can't reuse it with anything that is not a sequence. Imagine that instead of having the grape cluster collection available in memory it is being pushed to us asynchronously in a stream. In that situation we couldn't reuse  process-clusters  since usually  map ,  filter  and  mapcat  have concrete implementations depending on the type.
-process-clusters 関数は、どんなシーケンスにも機能しますが、シーケンス以外には再利用できないことも問題です。ブドウの房のコレクションをメモリ上で利用可能にするのではなく、ストリームの中で非同期にプッシュされることを想像してみてください。このような状況では、map filter mapcat などは、型に対応した具体的な実装があるため、process-clusters 関数を再利用できなかったのです。
+@<code>{process-clusters} 関数は、どんなシーケンスにも機能しますが、シーケンス以外には再利用できないことも問題です。ブドウの房のコレクションをメモリ上で利用可能にするのではなく、ストリームの中で非同期にプッシュされることを想像してみてください。このような状況では、@<code>{map} @<code>{filter} @<code>{mapcat} などは、型に対応した具体的な実装があるため、@<code>{process-clusters} 関数を再利用できなかったのです。
 
 === プロセス変換への一般化
 
 #@# Generalizing to process transformations
 
 #@# The process of mapping, filtering or mapcatting isn't necessarily tied to a concrete type, but we keep reimplementing them for different types. Let's see how we can generalize such processes to be context independent. We'll start by implementing naive versions of  map  and  filter  first to see how they work internally:
-map filter mapcat を行うプロセスは、必ずしも具体的な型に結び付けられているわけではありませんが、各々の型に対して再実装していきます。文脈に依存しないように、このようなプロセスを一般化する方法を見てみましょう。まず、map と filter の単純なバージョンを実装して、内部でどのように動作するかを見てみましょう。
+map filter mapcat を行うプロセスは、必ずしも具体的な型に結び付けられているわけではありませんが、各々の型に対して再実装していきます。文脈に依存しないように、このようなプロセスを一般化する方法を見てみましょう。まず、@<code>{map} と @<code>{filter} の単純なバージョンを実装して、内部でどのように動作するかを見てみましょう。
 
 
 #@# Page105
@@ -123,7 +123,7 @@ map filter mapcat を行うプロセスは、必ずしも具体的な型に結�
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
 #@# As we can see, they both assume that they receive a seqable and return a sequence. Like many recursive functions they can be implemented in terms of the already familiar  reduce  function. Note that functions that are given to reduce receive an accumulator and an input and return the next accumulator. We'll call these types of functions reducing functions from now on.
-どちらも seqable を受け取り、シーケンスを返すことを前提としています。多くの再帰関数と同様に、これらはおなじみの reduce 関数として実装できます。reduce 関数はアキュムレータと入力を受け取り、次のアキュムレータを返します。今後は、このような関数を reducing 関数(reduce を行う関数 ) と呼びます。
+どちらも seqable を受け取り、シーケンスを返すことを前提としています。多くの再帰関数と同様に、これらはおなじみの @<code>{reduce} 関数として実装できます。@<code>{reduce} 関数はアキュムレータと入力を受け取り、次のアキュムレータを返します。今後は、このような関数を reducing 関数(reduce を行う関数) と呼びます。
 
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
@@ -169,10 +169,10 @@ map filter mapcat を行うプロセスは、必ずしも具体的な型に結�
 
 
 #@# We've made the previous versions more general since using  reduce  makes our functions work on any thing that is reducible, not just sequences. However you may have noticed that, even though  my-mapr  and  my-filterr  don't know anything about the source ( coll ) they are still tied to the output they produce (a vector) both with the initial value of the reduce ( [] ) and the hardcoded  conj  operation in the body of the reducing function. We could have accumulated results in another data structure, for example a lazy sequence, but we'd have to rewrite the functions in order to do so.
-シーケンスだけでなく reduce を実行できる全てのものに対して関数が機能するようになったため、以前のバージョンをより一般的にすることができました。ただし、my-mapr と my-filterr は、ソース(coll)について何も知りませんが、reduce の初期値([])と reducing 関数の本体内でハードコーディングされた conj と一緒に自ら生成する出力(ベクタ)に結び付けられます。遅延シーケンス等の別のデータ構造に結果を蓄積することもできますが、そのためには関数を書き直さなければなりません。
+シーケンスだけでなく @<code>{reduce} を実行できる全てのものに対して関数が機能するようになったため、以前のバージョンをより一般的にすることができました。ただし、@<code>{my-mapr} と @<code>{my-filterr} は、ソース(coll)について何も知りませんが、reduce の初期値([])と reducing 関数の本体内でハードコーディングされた @<code>{conj} と一緒に自ら生成する出力(ベクタ)に結び付けられます。遅延シーケンス等の別のデータ構造に結果を蓄積することもできますが、そのためには関数を書き直さなければなりません。
 
 #@# How can we make these functions truly generic? They shouldn't know about either the source of inputs they are transforming nor the output that is generated. Have you noticed that  conj  is just another reducing function? It takes an accumulator and an input and returns another accumulator. So, if we parameterise the reducing function that  my-mapr  and  my-filterr  use, they won't know anything about the type of the result they are building. Let's give it a shot:
-これらの関数を本当の意味で汎用的にするにはどうすればよいのでしょうか。これらの関数は、変換中の入力のソースや、生成された出力について知るべきではありません。conj は reducing 関数の1つであることにお気づきでしょうか。アキュムレータと入力を受け取り、別のアキュムレータを返します。したがって、my-mapr my-filterr が使用する reducing 関数をパラメータ化しても、ビルドする結果の型については何も知りません。試してみましょう。
+これらの関数を本当の意味で汎用的にするにはどうすればよいのでしょうか。これらの関数は、変換中の入力のソースや、生成された出力について知るべきではありません。@<code>{conj} は reducing 関数の1つであることにお気づきでしょうか。アキュムレータと入力を受け取り、別のアキュムレータを返します。したがって、@<code>{my-mapr} と @<code>{my-filterr} が使用する reducing 関数をパラメータ化しても、ビルドする結果の型については何も知りません。試してみましょう。
 
 //emlist{
 (defn my-mapt
@@ -208,10 +208,10 @@ map filter mapcat を行うプロセスは、必ずしも具体的な型に結�
 //}
 
 #@# That's a lot of higher-order functions so let's break it down for a better understanding of what's going on. We'll examine how  my-mapt  works step by step. The mechanics are similar for  my-filtert , so we'll leave it out for now.
-高階関数が多いので、何が起こっているのかを理解するために分解してみましょう。my-mapt がどのように機能するかを段階的に検証していきます。my-filtert の仕組みは似ているので、ここでは省略します。
+高階関数が多いので、何が起こっているのかを理解するために分解してみましょう。@<code>{my-mapt} がどのように機能するかを段階的に検証していきます。@<code>{my-filtert} の仕組みは似ているので、ここでは省略します。
 
 #@# First of all,  my-mapt  takes a mapping function; in the example we are giving it  inc  and getting another function back. Let's replace  f  with  inc  to see what we are building:
-まず、my-mapt　はマッピング関数を取ります。この例では、inc を指定して別の関数を返しています。f を inc に置き換えて、build しているものを確認しましょう。
+まず、@<code>{my-mapt}　はマッピング関数を取ります。この例では、@<code>{inc} を指定して別の関数を返しています。@<code>{f} を @<code>{inc} に置き換えて、build しているものを確認しましょう。
 
 
 #@# Page107
@@ -249,7 +249,7 @@ map filter mapcat を行うプロセスは、必ずしも具体的な型に結�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# We get back a reducing function which uses  inc  to transform the inputs and the  conj  reducing function to accumulate the results. In essence, we have defined map as the transformation of a reducing function.  The functions that transform one reducing function into another are called transducers in ClojureScript.
-入力の変換のために inc 、結果を蓄積するために conj を使用する reducing 関数を取り戻します。本質的に、reducing  関数の変換として map 定義しました。ある reducing 関数を別の reducing 関数に変換する関数のことを ClojureScript では transducers と呼びます。
+入力の変換のために @<code>{inc} 、結果を蓄積するために @<code>{conj} を使用する reducing 関数を取り戻します。本質的に、reducing  関数の変換として map 定義しました。ある reducing 関数を別の reducing 関数に変換する関数のことを ClojureScript では transducers と呼びます。
 
 #@# To ilustrate the generality of transducers, let's use different sources and destinations in our call to  reduce :
 transducer の一般性を示すために、reduce の呼び出しにおいて、異なるソースと出力先を使用してみましょう。
@@ -267,10 +267,10 @@ transducer の一般性を示すために、reduce の呼び出しにおいて�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# The transducer versions of  map  and  filter  transform a process that carries inputs from a source to a destination but don't know anything about where the inputs come from and where they end up. In their implementation they contain the _essence_ of what they accomplish, independent of context.
-map 及び filter の transducer版は、入力をソースから出力先に運ぶプロセスを変換しますが、入力がどこから来てどこで終わるかは知りません。これらの実装においては、文脈に関係なく目的を達成することの本質が含まれています。
+@<code>{map} 及び @<code>{filter} の transducer版は、入力をソースから出力先に運ぶプロセスを変換しますが、入力がどこから来てどこで終わるかは知りません。これらの実装においては、文脈に関係なく目的を達成することの本質が含まれています。
 
 #@# Now that we know more about transducers we can try to implement our own version of  mapcat . We already have a fundamental piece of it: the  map  transducer. What  mapcat  does is map a function over an input and flatten the resulting structure one level. Let's try to implement the catenation part as a transducer:
-transducer についての知識が増えたので、独自のバージョンの mapcat を実装できます。私たちはすでにその基本的な部分を持っています。map transducer です。mapcat が行うことは、関数を入力上にマップし、結果の構造を1レベルの平らさにすることです。結合する箇所を transducer として実装してみましょう。
+transducer についての知識が増えたので、独自のバージョンの @<code>{mapcat} を実装できます。私たちはすでにその基本的な部分を持っています。@<code>{map} transducer です。@<code>{mapcat} が行うことは、関数を入力上にマップし、結果の構造を1レベルの平らさにすることです。結合する箇所を transducer として実装してみましょう。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -320,7 +320,7 @@ my-cat transducer は、その入力をアキュムレータに結合する redu
 #@# Transducers in ClojureScript core
 
 #@# Some of the ClojureScript core functions like  map ,  filter  and  mapcat  support an arity 1 version that returns a transducer. Let's revisit our definition of  process-cluster  and define it in terms of transducers:
-map filter mapcat のような ClojureScript の コア関数は、transducer を返す 1 バージョンの項数をサポートします。 process-cluster の定義を再考して、transducer の観点から定義してみましょう。
+@<code>{map} @<code>{filter} @<code>{mapcat} のような ClojureScript の コア関数は、transducer を返す 1 バージョンの項数をサポートします。@<code>{process-cluster} の定義を再考して、transducer の観点から定義してみましょう。
 
 //emlist{
 (def process-clusters
@@ -331,13 +331,13 @@ map filter mapcat のような ClojureScript の コア関数は、transducer �
 //}
 
 #@# A few things changed since our previous definition  process-clusters . First of all, we are using the transducer-returning versions of  mapcat ,  filter  and  map  instead of partially applying them for working on sequences.
-前の process-clusters の定義からいくつかの点が変わりました。まず、シーケンスの処理に部分的に適用する代わりに、transducer を返すバージョンの mapcat filter map を使用します。
+前の @<code>{process-clusters} の定義からいくつかの点が変わりました。まず、シーケンスの処理に部分的に適用する代わりに、transducer を返すバージョンの @<code>{mapcat} @<code>{filter} @<code>{map} を使用します。
 
 #@# Also you may have noticed that the order in which they are composed is reversed, they appear in the order they are executed. Note that all  map ,  filter  and  mapcat  return a transducer.  filter  transforms the reducing function returned by  map , applying the filtering before proceeding;  mapcat  transforms the reducing function returned by  filter , applying the mapping and catenation before proceeding.
-合成される順序が逆であり、実行された順序で表示されることにお気づきでしょうか。map、filter、mapcat は全て transducer を返すことに注目してください。filter は map が返す reducing 関数を変換して、次に進む前にフィルタリングを適用します。mapcat は filter が返す reducing 関数を変換して、マッピングと結合を適用してから処理を進めます。
+合成される順序が逆であり、実行された順序で表示されることにお気づきでしょうか。@<code>{map}、@<code>{filter}、@<code>{mapcat} は全て transducer を返すことに注目してください。@<code>{filter} は @<code>{map} が返す reducing 関数を変換して、次に進む前にフィルタリングを適用します。@<code>{mapcat} は @<code>{filter} が返す reducing 関数を変換して、マッピングと結合を適用してから処理を進めます。
 
 #@# One of the powerful properties of transducers is that they are combined using regular function composition.  What's even more elegant is that the composition of various transducers is itself a transducer! This means that our  process-cluster  is a transducer too, so we have defined a composable and context-independent algorithmic transformation.
-transducer の強力な特性の一つは、それらが規則的な関数合成を用いて合成されることです。さらにエレガントなのは、様々な transducer の合成そのものが transducer であることです。これは、定義した process-cluster も transducer であることを意味するので、合成可能で文脈に依存しないアルゴリズムの変換を定義したことになります。
+transducer の強力な特性の一つは、それらが規則的な関数合成を用いて合成されることです。さらにエレガントなのは、様々な transducer の合成そのものが transducer であることです。これは、定義した @<code>{process-cluster} も transducer であることを意味するので、合成可能で文脈に依存しないアルゴリズムの変換を定義したことになります。
 
 #@# Page109
 //embed[latex]{
@@ -363,7 +363,7 @@ ClojureScript のコア関数の多くは transducer を受けとりますが、
 //}
 
 #@# Since using  reduce  with the reducing function returned from a transducer is so common, there is a function for reducing with a transformation called  transduce . We can now rewrite the previous call to  reduce  using  transduce :
-transducer から返される reducing 関数を用いて reduce を使用することは非常に一般的であるため、transduce と呼ばれる変換(transformation)で reduce を行う関数が存在します。これで、reduce への前の呼び出しを transduce を用いて書き直すことができます。
+transducer から返される reducing 関数を用いて @<code>{reduce} を使用することは非常に一般的であるため、transduce と呼ばれる変換(transformation)で reduce を行う関数が存在します。これで、reduce への前の呼び出しを @<code>{transduce} を用いて書き直すことができます。
 
 //emlist{
 (transduce process-clusters conj [] grape-clusters)
@@ -376,7 +376,7 @@ transducer から返される reducing 関数を用いて reduce を使用する
 #@# Initialisation
 
 #@# In the last example we provided an initial value to the  transduce  function ( [] ) but we can omit it and get the same result:
-最後の例では、transduce 関数([])に初期値を指定しましたが、省略しても同じ結果が得られます。
+最後の例では、@<code>{transduce} 関数(@<code>{[]})に初期値を指定しましたが、省略しても同じ結果が得られます。
 
 //emlist{
 (transduce process-clusters conj grape-clusters)
@@ -384,7 +384,7 @@ transducer から返される reducing 関数を用いて reduce を使用する
 //}
 
 #@# What's going on here? How can  transduce  know what initial value use as an accumulator when we haven't specified it? Try calling  conj  without any arguments and see what happens:
-何が起こっているのでしょうか。アキュムレータとして使用する初期値を指定していないのに、その値が何であるかを transduce はどのようにして知ることができるのでしょうか。引数なしで conj を呼び出して何が起こるかを確認してみます。
+何が起こっているのでしょうか。アキュムレータとして使用する初期値を指定していないのに、その値が何であるかを @<code>{transduce} はどのようにして知ることができるのでしょうか。引数なしで @<code>{conj} を呼び出して何が起こるかを確認してみます。
 
 //emlist{
 (conj)
@@ -392,7 +392,7 @@ transducer から返される reducing 関数を用いて reduce を使用する
 //}
 
 #@# The  conj  function has a arity 0 version that returns an empty vector but is not the only reducing function that supports arity 0. Let's explore some others:
-conj 関数には空のベクタを返す引数が必要ないバージョンがありますが、これだけが引数なしを許す reducing 関数という訳ではありません。他の関数も見てみましょう。
+@<code>{conj} 関数には空のベクタを返す引数が必要ないバージョンがありますが、これだけが引数なしを許す reducing 関数という訳ではありません。他の関数も見てみましょう。
 
 
 #@# Page110
@@ -441,7 +441,7 @@ transducer によって返される reducing 関数の引数なし版の呼び�
 //}
 
 #@# The call to the arity 0 flows through the transducer stack, eventually calling  (conj) .
-引数がない場合の呼び出しは transducer のスタックを経由して、最終的に (conj) を呼び出します。
+引数がない場合の呼び出しは transducer のスタックを経由して、最終的に @<code>{(conj)} を呼び出します。
 
 === ステートフルな transducer
 
@@ -525,7 +525,7 @@ transducer は reducing 関数の変形であるため、早期終了のため�
 
 
 #@# This is a simplified version of the  take  function present in ClojureScript core. There are a few things to note here so let's break it up in pieces to understand it better.
-これは ClojureScript コアにある take 関数を単純化したものです。注意すべき点がいくつかあるので、少しずつ分けて見ていきましょう。
+これは ClojureScript コアにある @<code>{take} 関数を単純化したものです。注意すべき点がいくつかあるので、少しずつ分けて見ていきましょう。
 
 #@# The first thing to notice is that we are creating a mutable value inside the transducer. Note that we don't create it until we receive a reducing function to transform. If we created it before returning the transducer we couldn't use  my-take  more than once. Since the transducer is handed a reducing function to transform each time it is used, we can use it multiple times and the mutable variable will be created in every use.
 まず最初に注意しなければならないのは、transducer 内で変更可能な値を作成している点です。変換を行う reducing 関数を受け取るまでは値を作成していないことに注意してください。transducer を返す前に作ってしまうと、my-take 関数を 2 回以上使うことはできません。transducer は、使用の度に変換を行う reducing 関数を渡されるので、何度でも使うことができます。また、変更可能な変数は、毎回使うたびに作成されます。
@@ -549,7 +549,7 @@ transducer は reducing 関数の変形であるため、早期終了のため�
 //}
 
 #@# Let's now dig into the reducing function returned from  my-take . First of all we  deref  the volatile to get the number of elements that remain to be taken and decrement it to get the next remaining value.  If there are still remaining items to take, we call  rfn  passing the accumulator and input; if not, we already have the final result.
-ここで、my-take から返される reducing 関数について詳しく見ていきましょう。まず volatile に deref を行い、取得されるべき残りの要素の数を取得して、それをデクリメントして次の残りの値を取得します。もし、まだ取るべきアイテムが残っているなら、アキュムレータと入力を渡して rfn を呼びます。そうでなければ、すでに最終的な結果をもっています。
+ここで、@<code>{my-take} から返される reducing 関数について詳しく見ていきましょう。まず volatile に @<code>{deref} を行い、取得されるべき残りの要素の数を取得して、それをデクリメントして次の残りの値を取得します。もし、まだ取るべきアイテムが残っているなら、アキュムレータと入力を渡して @<code>{rfn} を呼びます。そうでなければ、すでに最終的な結果をもっています。
 
 //emlist{
 ([acc input]
@@ -563,7 +563,7 @@ transducer は reducing 関数の変形であるため、早期終了のため�
 //}
 
 #@# The body of  my-take  should be obvious by now. We check whether there are still items to be processed using the next remainder ( nr ) and, if not, wrap the result in a  reduced  using the  ensure-reduced  function.  ensure-reduced  will wrap the value in a  reduced  if it's not reduced already or simply return the value if it's already reduced. In case we are not done yet, we return the accumulated  result  for further processing.
-my-take の本体は明らかになっているはずです。次の剰余(nr)を使用して、処理されるアイテムがまだ存在するかどうかをチェックします。存在しない場合は、ensure-reduced 関数を使用して、結果を reduced にラップします。ensure-reduced は、まだ reduce されていない場合は、値を reduced でラップして、すでに削減されている場合には単に値を返します。まだ完了していない場合は、累積した結果を返して処理します。
+@<code>{my-take} の本体は明らかになっているはずです。次の剰余(nr)を使用して、処理されるアイテムがまだ存在するかどうかをチェックします。存在しない場合は、ensure-reduced 関数を使用して、結果を reduced にラップします。ensure-reduced は、まだ reduce されていない場合は、値を reduced でラップして、すでに削減されている場合には単に値を返します。まだ完了していない場合は、累積した結果を返して処理します。
 
 
 #@# Page113
@@ -584,7 +584,7 @@ my-take の本体は明らかになっているはずです。次の剰余(nr)�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# We've seen an example of a stateful transducer but it didn't do anything in its completion step. Let's see an example of a transducer that uses the completion step to flush an accumulated value. We'll implement a simplified version of  partition-all , which given a  n  number of elements converts the inputs in vectors of size  n . For understanding its purpose better let's see what the arity 2 version gives us when providing a number and a collection:
-ステートフルな transducer の例を見てきましたが、完了の段階では何もしませんでした。累積値を表示するために完了のステップを使用する transducer の例を見てみましょう。要素の数が n の要素あれば、サイズが n 個のベクタの入力を変換する partition-all の簡素版を実装しましょう。目的をよく理解するために、引数を 2 つとる場合で、数字とコレクションを与えると何が得られるかを見てみましょう。
+ステートフルな transducer の例を見てきましたが、完了の段階では何もしませんでした。累積値を表示するために完了のステップを使用する transducer の例を見てみましょう。要素の数が n の要素あれば、サイズが n 個のベクタの入力を変換する @<code>{partition-all} の簡素版を実装しましょう。目的をよく理解するために、引数を 2 つとる場合で、数字とコレクションを与えると何が得られるかを見てみましょう。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -596,7 +596,7 @@ my-take の本体は明らかになっているはずです。次の剰余(nr)�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# The transducer returning function of  partition-all  will take a number  n  and return a transducer that groups inputs in vectors of size  n . In the completion step it will check if there is an accumulated result and, if so, add it to the result. Here's a simplified version of ClojureScript core  partition-all  function, where  array-list  is a wrapper for a mutable JavaScript array:
-partition-all の transducer を返す関数は、数値 n を取り、n 個のサイズのベクタで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript のコア関数である partition-all を単純化したもので、array-list は変更可能な JavaScript の配列のラッパーです。
+@<code>{partition-all} の transducer を返す関数は、数値 @<code>{n} を取り、@<code>{n} 個のサイズのベクタで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript のコア関数である @<code>{partition-all} を単純化したもので、@<code>{array-list} は変更可能な JavaScript の配列のラッパーです。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -670,7 +670,7 @@ Eduction とは、コレクションと 1 つ以上の変換を組み合わせ�
 #@# More transducers in ClojureScript core
 
 #@# We learned about  map ,  filter ,  mapcat ,  take  and  partition-all , but there are a lot more transducers available in ClojureScript. Here is an incomplete list of some other intersting ones:
-map 、filter 、mapcat 、take 、partition-all について学びましたが、ClojureScript にはもっと多くの transducer があります。以下は、他の興味深いものの一部です。
+@<code>{map} 、@<code>{filter} 、@<code>{mapcat} 、@<code>{take} 、@<code>{partition-all} について学びましたが、ClojureScript にはもっと多くの transducer があります。以下は、他の興味深いものの一部です。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -678,11 +678,11 @@ map 、filter 、mapcat 、take 、partition-all について学びましたが�
 #@# -  distinct  only allows inputs to occur once
 #@# -  dedupe  removes succesive duplicates in input values
 
--  drop は take の双対であり、入力を reducing 関数に渡す前に n の値まで小さくします
+- @<code>{drop} は take の双対であり、入力を reducing 関数に渡す前に @<code>{n} の値まで小さくします
 
-- distinct は、入力を 1 回だけ行うことを許可します。
+- @<code>{distinct} は、入力を 1 回だけ行うことを許可します。
 
--  dedupe は入力値の連続する重複を削除します
+- @<code>{dedupe} は入力値の連続する重複を削除します
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -730,11 +730,11 @@ map 、filter 、mapcat 、take 、partition-all について学びましたが�
 #@#  * arity 1 (completion): used to produce a final value and potentially flush state, must call the arity 1 of the nested transform  xf  *exactly once*
 #@#  * arity 2 (step): the resulting reducing function which will call the arity 2 of the nested transform  xf  zero, one or more times
 
-- 0 番目の引数(init): ネストされた変換 xf の 0 番目の引数を呼び出す必要があります。
+- 0 番目の引数(init): ネストされた変換 @<code>{xf} の 0 番目の引数を呼び出す必要があります。
 
-- 1 番目の引数(completion): 最終値を生成し、潜在的にフラッシュ状態を生成するために使用され、ネストされたトランスフォームの 1 番目の引数を正確に 1 度だけ呼び出す必要があります。
+- 1 番目の引数(completion): 最終値を生成し、潜在的にフラッシュ状態を生成するために使用され、ネストされたトランスフォーム @<code>{xf} の 1 番目の引数を正確に 1 度だけ呼び出す必要があります。
 
-- 2 番目の引数(ステップ): 結果を導く reducing 関数であり、ネストされたトランスフォーム xf の 2 番目の引数を 0 回以上呼び出します。
+- 2 番目の引数(ステップ): 結果を導く reducing 関数であり、ネストされたトランスフォーム @<code>{xf} の 2 番目の引数を 0 回以上呼び出します。
 
 === トランスデゥシブルなプロセス
 
@@ -777,7 +777,7 @@ map 、filter 、mapcat 、take 、partition-all について学びましたが�
 //}
 
 #@# We defined the  Queue  protocol and as you may have noticed the implementation of  UnboundedQueue  doesn't know about transducers at all. It has a  put!  operation as its step function and we're going to implement the transducible process on top of that interface:
-私たちは Queue プロトコルを定義しましたが、お気付きかもしれませんが、UnboundedQueue の実装は transducer をまったく認識しません。そのステップ関数として put! があるので、このインターフェースの上に transducible プロセスを実装します。
+私たちは @<code>{Queue} プロトコルを定義しましたが、お気付きかもしれませんが、@<code>{UnboundedQueue} の実装は transducer をまったく認識しません。そのステップ関数として @<code>{put!} があるので、このインターフェースの上に transducible プロセスを実装します。
 
 //emlist{
 (defn unbounded-queue
@@ -807,7 +807,7 @@ map 、filter 、mapcat 、take 、partition-all について学びましたが�
 //}
 
 #@# As you can see, the  unbounded-queue  constructor uses an  UnboundedQueue  instance internally, proxying the  take!  and  shutdown!  calls and implementing the transducible process logic in the  put!  function. Let's deconstruct it to understand what's going on.
-unbounded-queue コンストラクタは、内部的に UnboundedQueue インスタンスを使用して、take! と shutdown! の呼び出しをプロキシして、put! 関数の中のトランスデゥシブルなロジックを実装します。何が起こっているのか理解するために、少しずつ見ていきましょう。
+@<code>{unbounded-queue} コンストラクタは、内部的に @<code>{UnboundedQueue} インスタンスを使用して、@<code>{take!} と @<code>{shutdown!} の呼び出しをプロキシして、@<code>{put!} 関数の中のトランスデゥシブルなロジックを実装します。何が起こっているのか理解するために、少しずつ見ていきましょう。
 
 
 #@# Page117
@@ -830,7 +830,7 @@ unbounded-queue コンストラクタは、内部的に UnboundedQueue インス
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# First of all, we use  completing  for adding the arity 0 and arity 1 to the  Queue  protocol's  put!  function.  This will make it play nicely with transducers in case we give this reducing function to  xform  to derive another. After that, if a transducer ( xform ) was provided, we derive a reducing function applying the transducer to  put! .  If we're not handed a transducer we will just use  put! .  q  is the internal instance of  UnboundedQueue .
-まず、Queue プロトコルの put! 関数に、引数をとらない場合と引数を 1 つとる場合を追加するために completing を使います。これにより、この reducing 関数を xform に与えて別のものを引き出す場合に、transducer とうまく動作するようになります。その後、もし transducer(xform)が与えられると、transducer を put! に適用しながら reducing 関数を引き出します。transducer が渡されなければ、put! を使います。q は UnboundedQueue の内部インスタンスです。
+まず、Queue プロトコルの put! 関数に、引数をとらない場合と引数を 1 つとる場合を追加するために @<code>{completing} を使います。これにより、この reducing 関数を @<code>{xform} に与えて別のものを引き出す場合に、transducer とうまく動作するようになります。その後、もし transducer(@<code>{xform})が与えられると、transducer を put! に適用しながら reducing 関数を引き出します。transducer が渡されなければ、@<code>{put!} を使います。@<code>{q} は @<code>{UnboundedQueue} の内部インスタンスです。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -856,7 +856,7 @@ unbounded-queue コンストラクタは、内部的に UnboundedQueue インス
 
 
 #@# The exposed  put!  operation will only be performed if the queue hasn't been shut down. Notice that the  put!  implementation of  UnboundedQueue  uses an assert to verify that we can still put values to it and we don't want to break that invariant. If the queue isn't closed we can put values into it, we use the possibly transformed  xput!  for doing so.
-expose された put! 操作は queue がシャットダウンされていない場合にのみ実行されます。UnboundedQueue の put! の実装では、新たな値を入れることができるか、不変性を壊さないかを検証するためにaeert を用います。もし queue が閉じられておらず、値を入れることができる場合は、変換される可能性がある xput! を用います。
+expose された @<code>{put!} 操作は queue がシャットダウンされていない場合にのみ実行されます。UnboundedQueue の @<code>{put!} の実装では、新たな値を入れることができるか、不変性を壊さないかを検証するために assert を用います。もし queue が閉じられておらず、値を入れることができる場合は、変換される可能性がある @<code>{xput!} を用います。
 
 #@# If the put operation gives back a reduced value it's telling us that we should terminate the transducible process.  In this case that means shutting down the queue to not accept more values. If we didn't get a reduced value we can happily continue accepting puts.
 put の操作が reduce された値を返した場合、transducible なプロセスを終了する必要があることを示しています。この場合、queue をシャットダウンして、追加の値を受け入れないようにします。もし reduce された値をえられなければ、puts を引き受け続けることができます。
@@ -935,7 +935,7 @@ transducible なプロセスを実装したかどうかを確認するために�
 
 (take! xq)
 ;; => [1 2]
-;; seems like  partition-all  flushed correctly!
+;; seems like partition-all flushed correctly!
 (take! xq) 
 ;; => [3]
 (take! xq)
@@ -953,10 +953,10 @@ transducible なプロセスを実装したかどうかを確認するために�
 //}
 
 #@# The example of the queue was heavily inspired by how  core.async  channels use transducers in their internal step. We'll discuss channels and their usage with transducers in a later section.
-queue の例は、core.async チャンネルが内部ステップで transducer を使う方法にに大きく影響を受けています。チャンネルと transducer を使ったチャンネルの使い方については、後のセクションで説明します。
+queue の例は、@<code>{core.async} チャンネルが内部ステップで transducer を使う方法にに大きく影響を受けています。チャンネルと transducer を使ったチャンネルの使い方については、後のセクションで説明します。
 
 #@# Transducible processes must respect  reduced  as a way for signaling early termination. For example, building a collection stops when encountering a  reduced  and  core.async  channels with transducers are closed.  The  reduced  value must be unwrapped with  deref  and passed to the completion step, which must be called exactly once.
-Transducible なプロセスは、早期終了のシグナルの伝達手段として reduced を反映しなければいけません。たとえば、コレクションのビルドは、reduced に遭遇したときや、transducer をもつ core.async チャンネルが閉じられた場合に停止します。reduce された値は必ず deref で開封されて、完了のステップに渡されます。完了ステップは 1 度しか呼び出されてはいけません。
+Transducible なプロセスは、早期終了のシグナルの伝達手段として @<code>{reduced} を反映しなければいけません。たとえば、コレクションのビルドは、@<code>{reduced} に遭遇したときや、transducer をもつ @<code>{core.async} チャンネルが閉じられた場合に停止します。reduce された値は必ず @<code>{deref} で開封されて、完了のステップに渡されます。完了ステップは 1 度しか呼び出されてはいけません。
 
 #@# Transducible processes shouldn't expose the reducing function they generate when calling the transducer with their own step function since it may be stateful and unsafe to use from elsewhere.
 transducible なプロセスは、それ自身のステップ関数を用いて transducer を呼び出す際に生成する reducing 関数を expose すべきではありません。なぜなら、それは状態をもち、他の場所から使用することは安全でないからです。
@@ -974,7 +974,7 @@ ClojureScriptの不変で永続的なデータ構造は、それなりのパフ�
 //}
 
 #@# In the above example we are generating a vector of 100 elements  conj -ing one at a time. Every intermediate vector that is not the final result won't be seen by anybody except the  into  function and the array copying required for persistence is an unnecesary overhead.
-上の例では、100 個の要素からなるベクタを一度に一つずつ conj しながら生成しています。最終的な結果でない全ての中間ベクタは into 関数以外では見ることができず、永続化のために必要な配列のコピーは不要なオーバーヘッドです。
+上の例では、100 個の要素からなるベクタを一度に一つずつ @<code>{conj} しながら生成しています。最終的な結果でない全ての中間ベクタは into 関数以外では見ることができず、永続化のために必要な配列のコピーは不要なオーバーヘッドです。
 
 #@# For these situations ClojureScript provides a special version of some of its persistent data structures, which are called transients. Maps, vectors and sets have a transient counterpart.  Transients are always derived from a persistent data structure using the  transient  function, which creates a transient version in constant time:
 このような状況のために、ClojureScript は transient と呼ばれる永続的なデータ構造を提供しています。マップ、ベクタ、セットには、transient に相当するものがあります。Transient は、常に transient 関数を使用して、永続的なデータ構造から生成されます。これにより、一定の時間内に、transient のバージョンが作成されます。
@@ -1032,7 +1032,7 @@ Transient は、対応する永続的な読取り API をサポートします�
 
 
 #@# Since transients don't have persistent and immutable semantics for updates they can't be transformed using the already familiar  conj  or  assoc  functions. Instead, the transforming functions that work on transients end with a bang. Let's look at an example using  conj!  on a transient:
-transient には更新のための永続的で不変なセマンティクスがないので、conj や assoc 関数を使って変換できません。その代わり、transient 上で機能する変換関数は感嘆符 ! をつけます。conj! を使った例を見てみましょう。
+transient には更新のための永続的で不変なセマンティクスがないので、@<code>{conj} や @<code>{assoc} 関数を使って変換できません。その代わり、transient 上で機能する変換関数は感嘆符 ! をつけます。@<code>{conj!} を使った例を見てみましょう。
 
 //emlist{
 (def tv (transient [1 2 3]))
@@ -1045,7 +1045,7 @@ transient には更新のための永続的で不変なセマンティクスが�
 //}
 
 #@# As you can see, the transient version of the vector is neither immutable nor persistent. Instead, the vector is mutated in place. Although we could transform  tv  repeatedly using  conj!  on it we shouldn't abandon the idioms used with the persistent data structures: when transforming a transient, use the returned version of it for further modifications like in the following example:
-このように、ベクタの transient バージョンは不変でも永続でもありません。その代わり、ベクタはその場で変異します。conj! を使って繰り返し tv を変換することもできますが、永続的なデータ構造で使用されるイディオムを放棄してはいけません。transient のデータを変換する場合は、次の例のように、その戻されたバージョンを使用して変更を加えます。
+このように、ベクタの transient バージョンは不変でも永続でもありません。その代わり、ベクタはその場で変異します。@<code>{conj!} を使って繰り返し @<code>{tv} を変換することもできますが、永続的なデータ構造で使用されるイディオムを放棄してはいけません。transient のデータを変換する場合は、次の例のように、その戻されたバージョンを使用して変更を加えます。
 
 //emlist{
 (-> [1 2 3]
@@ -1095,7 +1095,7 @@ transient を永続的な構造に変換する特徴は、一時的なものが�
 //}
 
 #@# Going back to our initial example with  into , here's a very simplified implementation of it that uses a transient for performance, returning a persistent data structure and thus exposing a purely functional interface although it uses mutation internally:
-最初の into の例に戻りましょう。ここではパフォーマンスのために transient を使用してシンプルに実装します。内部的には変異を使用しますが、永続的なデータ構造を返す純粋な関数型のインタフェースを公開します。
+最初の @<code>{into} の例に戻りましょう。ここではパフォーマンスのために transient を使用してシンプルに実装します。内部的には変異を使用しますが、永続的なデータ構造を返す純粋な関数型のインタフェースを公開します。
 
 //emlist{
 (defn my-into
@@ -1154,7 +1154,7 @@ var を定義して、デフォルトでどのメタデータが付加されて�
 //}
 
 #@# Few things to note here. First of all,  #'answer-to-everything  gives us a reference to the  Var  that holds the value of the  answer-to-everything  symbol. We see that it includes information about the namespace ( :ns ) in which it was defined, its name, file (although, since it was defined at a REPL doesn't have a source file), source, position in the file where it was defined, argument list (which only makes sense for functions), documentation string and test function.
-上記のコードにおいて、#'answer-to-everything は、answer-to-everything シンボルの値を保持する var への参照を渡します。これには、定義された名前空間(:ns)、その名前、ファイル(ここではREPLで定義されているため、ソースファイルはありません)、ソース、定義されたファイルでの位置、引数の一覧(関数の場合のみ意味があります)、ドキュメントの文字列、およびテスト関数に関する情報が含まれていることがわかります。
+上記のコードにおいて、@<code>{#'answer-to-everything} は、@<code>{answer-to-everything} シンボルの値を保持する var への参照を渡します。これには、定義された名前空間@<code>{(:ns)}、その名前、ファイル(ここではREPLで定義されているため、ソースファイルはありません)、ソース、定義されたファイルでの位置、引数の一覧(関数の場合のみ意味があります)、ドキュメントの文字列、およびテスト関数に関する情報が含まれていることがわかります。
 
 #@# Let's take a look at a function var's metadata:
 関数における var のメタデータを見てみましょう。
@@ -1191,7 +1191,7 @@ var を定義して、デフォルトでどのメタデータが付加されて�
 //}
 
 #@# We see that the argument lists are stored in the  :arglists  field of the var's metadata and its documentation in the  :doc  field. We'll now define a test function to learn about what  :test  is used for:
-引数のリストは :arglists フィールド、マニュアルは :doc フィールドに格納されます。では テスト関数を定義して、何のために :test フィールドを使うかを見ていきましょう。
+引数のリストは @<code>{:arglists} フィールド、マニュアルは @<code>{:doc} フィールドに格納されます。では テスト関数を定義して、何のために :test フィールドを使うかを見ていきましょう。
 
 //emlist{
 (require '[cljs.test :as t])
@@ -1214,13 +1214,13 @@ var を定義して、デフォルトでどのメタデータが付加されて�
 //}
 
 #@# The  :test  attribute (truncated for brevity) in the  i-pass  var's metadata is a test function. This is used by the  cljs.test  library for discovering and running tests in the namespaces you tell it to.
-i-pass var のメタデータ内の :test フィールドがテスト関数です。テスト関数は、指定した名前空間でテストを検出して実行するために cljs.test ライブラリによって使用されます。
+@<code>{i-pass} var のメタデータ内の @<code>{:test} フィールドがテスト関数です。テスト関数は、指定した名前空間でテストを検出して実行するために @<code>{cljs.test} ライブラリによって使用されます。
 
 
 === 値
 
 #@# We learned that vars can have metadata and what kind of metadata is added to them for consumption by the compiler and the  cljs.test  testing library. Persistent collections can have metadata too, although they don't have any by default. We can use the  with-meta  function to derive an object with the same value and type with the given metadata attached. Let's see how:
-var はメタデータを持つことができ、コンパイラと cljs.test ライブラリが利用するために、どのようなメタデータを付与されるかを学びました。永続コレクションがメタデータをもつことは可能ですが、デフォルトではメタデータはありません。with-meta 関数を使用すると、指定したメタデータが付加された同じ値と型を持つオブジェクトを派生させることができます。例を見てみましょう。
+var はメタデータを持つことができ、コンパイラと @<code>{cljs.test} ライブラリが利用するために、どのようなメタデータを付与されるかを学びました。永続コレクションがメタデータをもつことは可能ですが、デフォルトではメタデータはありません。@<code>{with-meta} 関数を使用すると、指定したメタデータが付加された同じ値と型を持つオブジェクトを派生させることができます。例を見てみましょう。
 
 
 #@# Page124
@@ -1331,10 +1331,10 @@ ClojureScript の reader はメタデータの注釈(annotation)を構文とし�
 //}
 
 #@# Notice how the metadata given in the  answer-to-everything  var definition is merged with the var metadata.
-answer-to-everything の var の定義で指定されたメタデータが var のメタデータとどのようにマージされるかに注意してください。
+@<code>{answer-to-everything} の var の定義で指定されたメタデータが var のメタデータとどのようにマージされるかに注意してください。
 
 #@# A very common use of metadata is to set certain keys to a  true  value. For example we may want to add to a var's metadata that the variable is dynamic or a constant. For such cases, we have a shorthand notation that uses a caret followed by a keyword. Here are some examples:
-メタデータの一般的な使用法は、特定のキーを真の値に設定することです。たとえば、変数が動的まか定数かを var のメタデータに追加できます。このような場合には、キャレットに続けてキーワードを使用する省略表記があります。次に例を示します。
+メタデータの一般的な使用法は、特定のキーの値を @<code>{true} に設定することです。たとえば、変数が動的まか定数かを var のメタデータに追加できます。このような場合には、キャレットに続けてキーワードを使用する省略表記があります。次に例を示します。
 
 
 #@# Page126
@@ -1382,7 +1382,7 @@ answer-to-everything の var の定義で指定されたメタデータが var �
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# We've learned about  meta  and  with-meta  so far but ClojureScript offers a few functions for transforming metadata. There is  vary-meta  which is similar to  with-meta  in that it derives a new object with the same type and value as the original but it doesn't take the metadata to attach directly. Instead, it takes a function to apply to the metadata of the given object to transform it for deriving new metadata. This is how it works:
-これまで meta と with-meta について学んできましたが、ClojureScript にはメタデータを変換するための関数がいくつか用意されています。var-meta は、元のオブジェクトと同じ型と値を持つ新しいオブジェクトを派生させるという点で with-meta と似ていますが、直接的に付与するメタデータをとりません。代わりに、var-meta は、変換する指定のオブジェクトのメタデータに適用する関数をとり、新たなメタデータを派生させます。例を見てみましょう。
+これまで @<code>{meta} と @<code>{with-meta} について学んできましたが、ClojureScript にはメタデータを変換するための関数がいくつか用意されています。@<code>{var-meta} は、元のオブジェクトと同じ型と値を持つ新しいオブジェクトを派生させるという点で @<code>{with-meta} と似ていますが、直接的に付与するメタデータをとりません。代わりに、var-meta は、変換する指定のオブジェクトのメタデータに適用する関数をとり、新たなメタデータを派生させます。例を見てみましょう。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1412,7 +1412,7 @@ answer-to-everything の var の定義で指定されたメタデータが var �
 
 
 #@# If instead we want to change the metadata of an existing var or value we can use  alter-meta!  for changing it by applying a function or  reset-meta!  for replacing it with another map:
-既存の var や値のメタデータを変更する場合、変更のためには alter-meta! 関数を、別のマップに置き換えるには reset-meta! を使うことができます。
+既存の var や値のメタデータを変更する場合、変更のためには @<code>{alter-meta!} 関数を、別のマップに置き換えるには @<code>{reset-meta!} を使うことができます。
 
 //emlist{
 (def map-with-metadata ^{:foo 40} {:language "ClojureScript"})
@@ -1464,7 +1464,7 @@ ClojureScript の core に定義されている関数群がプロトコルを中
 これまでの章で学んだように、関数だけが呼び出されるものとは限りません。ベクタはインデックス、マップはキー、セットは値を関数のように使うことができます。
 
 #@# We can extend types to be callable as functions implementing the  IFn  protocol. A collection that doesn't support calling it as a function is the queue, let's implement  IFn  for the  PersistentQueue  type so we're able to call queues as functions of their indexes:
-IFn プロトコルを実装する関数として呼び出し可能な型に拡張することができます。関数としての呼び出しをサポートしていないコレクションが queue です。PersistentQueue 型に IFn を実装して、queue をインデックスの関数として呼び出すことができるようにします。
+@<code>{IFn} プロトコルを実装する関数として呼び出し可能な型に拡張することができます。関数としての呼び出しをサポートしていないコレクションが queue です。@<code>{PersistentQueue} 型に @<code>{IFn} を実装して、queue をインデックスの関数として呼び出すことができるようにします。
 
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
@@ -1498,7 +1498,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 #@# TODO: IWriter?
 
 #@# For learning about some of the core protocols we'll define a  Pair  type, which will hold a pair of values.
-いくつかの中心的なプロトコルについて学ぶために、値のペアを保持する Pair 型を定義します。
+いくつかの中心的なプロトコルについて学ぶために、値のペアを保持する @<code>{Pair} 型を定義します。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1511,7 +1511,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 #@#***
 
 #@# If we want to customize how types are printed we can implement the  IPrintWithWriter  protocol. It defines a function called  -pr-writer  that receives the value to print, a writer object and options; this function uses the writer object's  -write  function to write the desired  Pair  string representation:
-型の印字方法をカスタマイズしたい場合は、IPrintWithWriter プロトコルを実装できます。出力値、writer オブジェクト、オプションを受け取る -pr-writerと呼ばれる関数を定義します。この関数は、求められる Pair型 の文字列表現を書くために、writer オブジェクトの -write 関数を使用します。
+型の印字方法をカスタマイズしたい場合は、IPrintWithWriter プロトコルを実装できます。出力値、writer オブジェクト、オプションを受け取る @<code>{-pr-writer} と呼ばれる関数を定義します。この関数は、求められる @<code>{Pair}型 の文字列表現を書くために、writer オブジェクトの @<code>{-write} 関数を使用します。
 
 #@# Page129
 #@# @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -1537,7 +1537,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 #@# Sequences
 
 #@# In a xref:the-sequence-abstraction[previous section] we learned about sequences, one of ClojureScript's main abstractions. Remember the  first  and  rest  functions for working with sequences? They are defined in the  ISeq  protocol, so we can extend types for responding to such functions:
-前のセクションでは、ClojureScript の主要な抽象概念の 1 つであるシーケンスについて学びました。シーケンスを操作するための first 関数と rest 関数を覚えているでしょうか。これらは ISeq プロトコルで定義されているので、このような関数に対応する型を拡張することができます。
+前のセクションでは、ClojureScript の主要な抽象概念の 1 つであるシーケンスについて学びました。シーケンスを操作するための @<code>{first} 関数と @<code>{rest} 関数を覚えているでしょうか。これらは @<code>{ISeq} プロトコルで定義されているので、このような関数に対応する型を拡張することができます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -1563,7 +1563,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# Another handy function for working with sequences is  next . Although  next  works as long as the given argument is a sequence, we can implement it explicitly with the  INext  protocol:
-シーケンスを操作する便利な関数として next があります。next は、与えられた引数がシーケンスである限り動作しますが、INext プロトコルを使って明示的に実装することができます。
+シーケンスを操作する便利な関数として @<code>{next} があります。@<code>{next} は、与えられた引数がシーケンスである限り動作しますが、@<code>{INext} プロトコルを使って明示的に実装することができます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -1596,7 +1596,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 
 
 #@# Finally, we can make our own types seqable implementing the  ISeqable  protocol. This means we can pass them to  seq  for getting a sequence back.
-最後に、ISeqable プロトコルを実装する独自の型をシーカブルにすることができます。これは、シーケンスを元に戻すために seq に渡すことができることを意味します。
+最後に、@<code>{ISeqable} プロトコルを実装する独自の型をシーカブルにすることができます。これは、シーケンスを元に戻すために @<code>{seq} に渡すことができることを意味します。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1617,7 +1617,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# Now our  Pair  type works with the plethora of ClojureScript functions for working with sequences:
-これで Pair 型は、ClojureScript のシーケンス操作関数の大半で動作します。
+これで @<code>{Pair} 型は、ClojureScript のシーケンス操作関数の大半で動作します。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1643,7 +1643,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 #@# Collection functions are also defined in terms of protocols. For this section examples we will make the native JavaScript string act like a collection.
 #@# The most important function for working with collection is  conj , defined in the  ICollection  protocol.  Strings are the only type which makes sense to  conj  to a string, so the  conj  operation for strings will be simply a concatenation:
 コレクションの関数もプロトコルで定義されています。このセクションの例では、native な JavaScript の文字列をコレクションのように動作させます。
-コレクションを扱う上で最も重要な関数は、ICollection プロトコルで定義されている conj です。文字列は、文字列への conj に意味を持つ唯一の型であるため、文字列に対する conj の操作は単なる連結になります。
+コレクションを扱う上で最も重要な関数は、@<code>{ICollection} プロトコルで定義されている @<code>{conj} です。文字列は、文字列への @<code>{conj} に意味を持つ唯一の型であるため、文字列に対する @<code>{conj} の操作は単なる連結になります。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -1673,7 +1673,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 
 
 #@# Another handy function for working with collections is  empty , which is part of the  IEmptyable Collection  protocol. Let's implement it for the string type:
-コレクションを操作する empty は便利な関数です。これは IEmptyable Collection プロトコルの一部です。文字列の型に実装してみましょう。
+コレクションを操作する @<code>{empty} は便利な関数です。これは @<code>{IEmptyable} Collection プロトコルの一部です。文字列の型に実装してみましょう。
 
 //emlist{
 (extend-type string
@@ -1686,7 +1686,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 //}
 
 #@# We used the  string  special symbol for extending the native JavaScript string. If you want to learn more about it check the xref:extending-javascript-types[section about extending JavaScript types].
-ここでは、native な JavaScript の文字列を拡張するための特別なシンボルである string を使いました。詳細については、JavaScript の型を拡張するセクションを参照してください。
+ここでは、native な JavaScript の文字列を拡張するための特別なシンボルである @<code>{string} を使いました。詳細については、JavaScript の型を拡張するセクションを参照してください。
 
 
 ===== コレクションの特性
@@ -1697,7 +1697,7 @@ IFn プロトコルを実装する関数として呼び出し可能な型に拡�
 すべてのコレクションに備わっているわけではない特性がいくつかあります。たとえば、一定の時間で数えられることや、可逆的であることなどです。これらの特性がすべてのコレクションに対して意味をもつわけではないので、これらの特性は異なるプロトコルに分割されます。これらのプロトコルを説明するために、前に定義した Pair 型を使用します。
 
 #@# For collections that can be counted in constant time using the  count  function we can implement the  ICounted  protocol. It should be easy to implement it for the  Pair  type:
-count 関数を使用して一定の時間でカウントできるコレクションの場合、ICounted プロトコルを実装できます。Pair型には容易に実装できるはずです。
+@<code>{count} 関数を使用して一定の時間でカウントできるコレクションの場合、@<code>{ICounted} プロトコルを実装できます。@<code>{Pair}型には容易に実装できるはずです。
 
 //emlist{
 (extend-type Pair
@@ -1712,7 +1712,7 @@ count 関数を使用して一定の時間でカウントできるコレクシ�
 //}
 
 #@# Some collection types such as vectors and lists can be indexed by a number using the  nth  function. If our types are indexed we can implement the  IIndexed  protocol:
-ベクタやリストなどのコレクション型は、nth 関数でインデックス番号を付けることができます。もし私たちの型がインデックスされるなら、私たちは IIndexed プロトコルを実装することができます:
+ベクタやリストなどのコレクション型は、@<code>{nth} 関数でインデックス番号を付けることができます。もし私たちの型がインデックスされるなら、私たちは @<code>{IIndexed} プロトコルを実装することができます:
 
 
 #@# Page132
@@ -1765,7 +1765,7 @@ count 関数を使用して一定の時間でカウントできるコレクシ�
 キーを値にマップする連想的なデータ構造が数多くあります。私たちはすでにいくつかの関数に遭遇しており、get、assoc、dissoc 等の関数を知っています。これらの関数を構築しているプロトコルについて説明します。
 
 #@# First of all, we need a way to look up keys on an associative data structure. The  ILookup  protocol defines a function for doing so, let's add the ability to look up keys in our  Pair  type since it is an associative data structure that maps the indices 0 and 1 to values.
-まず最初に、連想的なデータ構造においてキーを検索する方法が必要です。ILookup プロトコルは、そのための関数を定義します。ここでは、Pair 型にキーを検索する機能を追加します。これは、Pair 型がインデックス 0 と 1 を値にマップする連想的なデータ構造であるためです。
+まず最初に、連想的なデータ構造においてキーを検索する方法が必要です。@<code>{ILookup} プロトコルは、そのための関数を定義します。ここでは、Pair 型にキーを検索する機能を追加します。これは、Pair 型がインデックス 0 と 1 を値にマップする連想的なデータ構造であるためです。
 
 //emlist{
 (extend-type Pair
@@ -1806,7 +1806,7 @@ count 関数を使用して一定の時間でカウントできるコレクシ�
 //}
 
 #@# For using  assoc  on a data structure it must implement the  IAssociative  protocol. For our  Pair  type only 0 and 1 will be allowed as keys for associating values.  IAssociative  also has a function for asking whether a key is present or not.
-データ構造で assoc を使用するには、IAssociative プロトコルを実装する必要があります。Pair 型では、値を関連づけるためのキーとして 0 と 1 だけが許可されます。IAssociative には、キーの有無を問い合わせる機能もあります。
+データ構造で @<code>{assoc} を使用するには、@<code>{IAssociative} プロトコルを実装する必要があります。@<code>{Pair} 型では、値を関連づけるためのキーとして 0 と 1 だけが許可されます。@<code>{IAssociative} には、キーの有無を問い合わせる機能もあります。
 
 //emlist{
 (extend-type Pair
@@ -1837,7 +1837,7 @@ count 関数を使用して一定の時間でカウントできるコレクシ�
 //}
 
 #@# The complementary function for  assoc  is  dissoc  and it's part of the  IMap  protocol. It doesn't make much sense for our  Pair  type but we'll implement it nonetheless. Dissociating 0 or 1 will mean putting a  nil  in such position and invalid keys will be ignored.
-assoc を補完する関数として dissoc があり、dissoc は IMapプロトコルの一部です。Pair 型ではあまり意味がありませんが、それでも実装してみましょう。0 または 1 の関連付けを解除すると、そのような位置に nil が配置され、無効なキーは無視されます。
+@<code>{assoc} を補完する関数として @<code>{dissoc} があり、@<code>{dissoc} は @<code>{IMap}プロトコルの一部です。@<code>{Pair} 型ではあまり意味がありませんが、それでも実装してみましょう。0 または 1 の関連付けを解除すると、そのような位置に @<code>{nil} が配置され、無効なキーは無視されます。
 
 
 #@# Page134
@@ -1876,7 +1876,7 @@ assoc を補完する関数として dissoc があり、dissoc は IMapプロト
 //}
 
 #@# Associative data structures are made of key and value pairs we can call entries. The  key  and  val  functions allow us to query the key and value of such entries and they are built upon the  IMapEntry  protocol. Let's see a few examples of  key  and  val  and how map entries can be used to build up maps:
-連想的なデータ構造は、エントリー(entries)と呼ばれるキーと値のペアで構成されます。key 関数と val 関数を使用すると、このようなエントリーのキーと値を参照できます。これらの関数は IMapEntry プロトコルに基づいて構築されています。key 関数と val 関数の例と、マップのエントリーを使用してマップを構築する方法をいくつか見てみましょう。
+連想的なデータ構造は、エントリー(entries)と呼ばれるキーと値のペアで構成されます。@<code>{key} 関数と @<code>{val} 関数を使用すると、このようなエントリーのキーと値を参照できます。これらの関数は @<code>{IMapEntry} プロトコルに基づいて構築されています。@<code>{key} 関数と @<code>{val} 関数の例と、マップのエントリーを使用してマップを構築する方法をいくつか見てみましょう。
 
 //emlist{
 (key [:foo :bar])
@@ -1933,7 +1933,7 @@ Pair 型もマップのエントリーにできます。最初の要素をキー
 #@# Comparison
 
 #@# For checking whether two or more values are equivalent with  =  we must implement the  IEquiv  protocol. Let's do it for our  Pair  type:
-2 つ以上の値が等しいかどうかを = を用いて判定するには、IEquiv プロトコルを実装する必要があります。Pair 型に、IEquiv プロトコルを実装してみましょう:
+2 つ以上の値が等しいかどうかを @<code>{=} を用いて判定するには、@<code>{IEquiv}プロトコルを実装する必要があります。@<code>{Pair} 型に、@<code>{IEquiv} プロトコルを実装してみましょう:
 
 //emlist{
 (def p  (Pair. 1 2))
@@ -1963,7 +1963,7 @@ Pair 型もマップのエントリーにできます。最初の要素をキー
 #@# TODO: IHash?
 
 #@# We can also make types comparable. The function  compare  takes two values and returns a negative number if the first is less than the second, 0 if both are equal and 1 if the first is greater than the second. For making our types comparable we must implement the  IComparable  protocol.
-型を比較できるようにすることもできます。compare 関数は 2 つの値を取り、最初の値が 2 番目の値より小さい場合は負の数を返し、両方が等しい場合は 0 を返し、最初の値が 2 番目の値より大きい場合は 1 を返します。型を比較できるようにするには、IComparable プロトコルを実装する必要があります。
+型を比較できるようにすることもできます。@<code>{compare} 関数は 2 つの値を取り、最初の値が 2 番目の値より小さい場合は負の数を返し、両方が等しい場合は 0 を返し、最初の値が 2 番目の値より大きい場合は 1 を返します。型を比較できるようにするには、@<code>{IComparable} プロトコルを実装する必要があります。
 
 #@# For pairs, comparison will mean checking if the two first values are equal. If they are, the result will be the comparison of the second values. If not, we will return the result of the first comparison:
 Pair 型の場合、比較とは最初の 2 つの値が等しいかどうかをチェックすることを意味します。等しい場合は、結果は 2 番目の値になります。そうでない場合は、最初の比較の結果を返します。
@@ -2007,9 +2007,10 @@ Pair 型の場合、比較とは最初の 2 つの値が等しいかどうかを
 #@# Metadata
 
 #@# The  meta  and  with-meta  functions are also based upon two protocols:  IMeta  and  IWithMeta  respectively.  We can make our own types capable of carrying metadata adding an extra field for holding the metadata and implementing both protocols.
-meta 関数と with-meta 関数も、それぞれ IMeta と IWithMeta という 2 つのプロトコルに基づいています。追加のフィールドをメタデータを保持するために加えて、両プロトコルを実装することにより、メタデータを運ぶ独自の型を作成できます。
+@<code>{meta} 関数と @<code>{with-meta} 関数も、それぞれ @<code>{IMeta} と @<code>{IWithMeta} という 2 つのプロトコルに基づいています。追加のフィールドをメタデータを保持するために加えて、両プロトコルを実装することにより、メタデータを運ぶ独自の型を作成できます。
 
 #@# Let's implement a version of  Pair  that can have metadata:
+メタデータをもつことができる @<code>{Pair} を実装して見ましょう。
 
 //emlist{
 (deftype Pair [fst snd meta]
@@ -2057,13 +2058,13 @@ ClojureScript は JavaScript の VM でホストされるため、ClojureScript 
 #@# Extending JavaScript types
 
 #@# When extending JavaScript objects instead of using JS globals like  js/String ,  js/Date  and such, special symbols are used. This is done for avoiding mutating global JS objects.
-JavaScript のオブジェクトを拡張する場合は、js/String や js/Date などの JavaScript のグローバル環境を使用せずに、特別なシンボルが使用されます。これは、グローバル環境にある JavaScript オブジェクトの変更を避けるために行われます。
+JavaScript のオブジェクトを拡張する場合は、@<code>{js/String} や @<code>{js/Date} などの JavaScript のグローバル環境を使用せずに、特別なシンボルが使用されます。これは、グローバル環境にある JavaScript オブジェクトの変更を避けるために行われます。
 
 #@# The symbols for extending JS types are:  object ,  array ,  number ,  string ,  function ,  boolean  and  nil  is used for the null object. The dispatch of the protocol to native objects uses Google Closure's link:https://google.github.io/closure-library/api/namespace_goog.html#typeOf[goog.typeOf] function. There's a special  default  symbol that can be used for making a default implementation of a protocol for every type.
-JavaScript の型を拡張するシンボルには、object、array、number、string、function、boolean、nil があります。プロトコルを native オブジェクトにディスパッチするには、Google Closure の goog.typeOf 関数を使います。全ての型のためのプロトコルを実装するために使われる特別なデフォルトのシンボルがあります。
+JavaScript の型を拡張するシンボルには、@<code>{object}、@<code>{array}、@<code>{number}、@<code>{string}、@<code>{function}、@<code>{boolean}、@<code>{nil} があります。プロトコルを native オブジェクトにディスパッチするには、Google Closure の goog.typeOf 関数を使います。全ての型のためのプロトコルを実装するために使われる特別なデフォルトのシンボルがあります。
 
 #@# For illustrating the extension of JS types we are going to define a  MaybeMutable  protocol that'll have a  mutable?  predicate as its only function. Since in JavaScript mutability is the default we'll extend the default JS type returning true from  mutable? :
-JavaScript の型の拡張を説明するために、mutable? 関すを用いて MaybeMutable プロトコルを実装します。JavaScript の可変性はデフォルトなので、mutable? かた true を返すデフォルトの JavaScript の型を拡張します。:
+JavaScript の型の拡張を説明するために、@<code>{mutable?} 関すを用いて @<code>{MaybeMutable} プロトコルを実装します。JavaScript の可変性はデフォルトなので、@<code>{mutable?} から true を返すデフォルトの JavaScript の型を拡張します。:
 
 //emlist{
 (defprotocol MaybeMutable
@@ -2092,7 +2093,7 @@ JavaScript の型の拡張を説明するために、mutable? 関すを用いて
 //}
 
 #@# Since fortunately not all JS object's values are mutable we can refine the implementation of  MaybeMutable  for returning  false  for strings and functions.
-幸い、全ての JavaScript オブジェクトの値が可変という訳ではないため、文字列と関数に対して false を返すように MaybeMutable の実装を改良することができます。
+幸い、全ての JavaScript オブジェクトの値が可変という訳ではないため、文字列と関数に対して @<code>{false} を返すように @<code>{MaybeMutable} の実装を改良することができます。
 
 
 #@# Page138
@@ -2131,14 +2132,14 @@ JavaScript の型の拡張を説明するために、mutable? 関すを用いて
 //}
 
 #@# There is no special symbol for JavaScript dates so we have to extend  js/Date  directly. The same applies to the rest of the types found in the global  js  namespace.
-JavaScript では date に特別な記号はないので、js/Date を直接拡張する必要があります。JavaScript のグローバルな名前空間にある残りの型にも同じことが当てはまります。
+JavaScript では date に特別な記号はないので、@<code>{js/Date} を直接拡張する必要があります。JavaScript のグローバルな名前空間にある残りの型にも同じことが当てはまります。
 
 ===== データの変換
 
 #@# Converting data
 
 #@# For converting values from ClojureScript types to JavaScript ones and viceversa we use the  clj->js  and  js->clj  functions, which are based in the  IEncodeJS  and  IEncodeClojure  protocols respectively.
-ClojureScript の型から JavaScript の型、あるいはその逆を行うために、IEncodeJS と IEncodeClojure プロトコルにそれぞれ基づいた clj->js と js->clj 関数を使います。
+ClojureScript の型から JavaScript の型、あるいはその逆を行うために、@<code>{IEncodeJS} と @<code>{IEncodeClojure} プロトコルにそれぞれ基づいた @<code>{clj->js} と @<code>{js->clj} 関数を使います。
 
 #@# For the examples we'll use the Set type introduced in ES6. Note that is not available in every JS runtime.
 この例では、ES6 で導入された Set 型を使用します。これは、全ての JavaScript の実行環境で使用できるわけではありません。
@@ -2155,8 +2156,12 @@ ClojureScript の型から JavaScript の型、あるいはその逆を行うた
 ;; => #js [1 3 2]
 //}
 
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
+
 #@# Let's fix it,  clj->js  is supposed to convert values recursively so we'll make sure to convert all the set contents to JS and creating the set with the converted values:
-これを修正しましょう。clj->js は値を再帰的に変換するので、set の要素を全て JavaScript に変換して、変換された値を使って set を作成します。
+これを修正しましょう。@<code>{clj->js} は値を再帰的に変換するので、set の要素を全て JavaScript に変換して、変換された値を使って set を作成します。
+
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 //emlist{
 (extend-type PersistentHashSet
@@ -2195,7 +2200,7 @@ ClojureScript の型から JavaScript の型、あるいはその逆を行うた
 //}
 
 #@# The  es6-iterator-seq  is an experimental function in ClojureScript core for obtaining a seq from an ES6 iterable.
-es6-iterator-seq は、ES6 のイテレブルから seq を取得するための ClojureScript core にある実験的な関数です。
+@<code>{es6-iterator-seq} は、ES6 のイテレブルから seq を取得するための ClojureScript core にある実験的な関数です。
 
 ===== JavaScript から ClojureScript
 
@@ -2203,7 +2208,7 @@ es6-iterator-seq は、ES6 のイテレブルから seq を取得するための
 
 
 #@# Now it's time to extend the JS set to convert to ClojureScript. As with  clj->js ,  js->clj  recursively converts the value of the data structure:
-今度は JavaScript のセットを拡張して ClojureScript に変換します。clj->js と同様に、js->clj はデータ構造の値を再帰的に変換します。
+今度は JavaScript のセットを拡張して ClojureScript に変換します。@<code>{clj->js} と同様に、@<code>{js->clj} はデータ構造の値を再帰的に変換します。
 
 //emlist{
 (extend-type js/Set
@@ -2229,7 +2234,7 @@ ClojureScript と JavaScript の値は、一対一のマッピングはないこ
 #@# Reductions
 
 #@# The  reduce  function is based on the  IReduce  protocol, which enables us to make our own or third-party types reducible. Apart from using them with  reduce  they will automatically work with  transduce  too, which will allow us to make a reduction with a transducer.
-reduce 関数は IReduce プロトコルに基づいており、このプロトコルを使用すると、独自の型やサードパーティの型を reducible にすることができます。reduce と一緒に使う以外にも、自動的に transduce と一緒に動作するので、transducer  を使って reduce を行うことができます。
+@<code>{reduce} 関数は @<code>{IReduce} プロトコルに基づいており、このプロトコルを使用すると、独自の型やサードパーティの型を reducible にすることができます。@<code>{reduce} と一緒に使う以外にも、自動的に @<code>{transduce} と一緒に動作するので、transducer  を使って reduce を行うことができます。
 
 #@# The JS array is already reducible in ClojureScript:
 JavaScript の配列は ClojureScript でも reduce できます。
@@ -2255,7 +2260,7 @@ JavaScript の配列は ClojureScript でも reduce できます。
 
 #@# However, the new ES6 Set type isn't so let's implement the  IReduce  protocol. We'll get an iterator using the Set's  values  method and convert it to a seq with the  es6-iterator-seq  function; after that we'll delegate to the original  reduce  function to reduce the obtained sequence.
 
-しかし、新しい ES6 に Set 型はそうではないので、IReduce プロトコルを実装しましょう。Set の values メソッドを使ってイテレーターを取得して、これを es6-iterator-seq 関数を使って seq に変換します。その後、元の reduce 関数にデリゲートして、取得したシーケンスを reduce します。
+しかし、新しい ES6 に Set 型はそうではないので、@<code>{IReduce} プロトコルを実装しましょう。Set の @<code>{values} メソッドを使ってイテレーターを取得して、これを @<code>{es6-iterator-seq} 関数を使って seq に変換します。その後、元の @<code>{reduce} 関数にデリゲートして、取得したシーケンスを reduce します。
 
 //emlist{
 (extend-type js/Set
@@ -2276,10 +2281,10 @@ JavaScript の配列は ClojureScript でも reduce できます。
 //}
 
 #@# Associative data structures can be reduced with the  reduce-kv  function, which is based in the  IKVReduce  protocol. The main difference between  reduce  and  reduce-kv  is that the latter uses a three-argument function as a reducer, receiving the accumulator, key and value for each item.
-連想的なデータ構造は IKVReduce プロトコルに基づく reduce‐kv 関数を用いて reduce できます。reduce と reduce-kv の主な違いは、reduce-kv は 3 つの引数をとる関数であり、reducer、アキュムレータの受け取り、各アイテムのキーと値をとることです。
+連想的なデータ構造は @<code>{IKVReduce} プロトコルに基づく @<code>{reduce‐kv} 関数を用いて reduce できます。@<code>{reduce} と @<code>{reduce-kv} の主な違いは、@<code>{reduce-kv} は 3 つの引数をとる関数であり、reducer、アキュムレータの受け取り、各アイテムのキーと値をとることです。
 
 #@# Let's look at an example, we will reduce a map to a vector of pairs. Note that, since vectors associate indexes to values, they can also be reduced with  reduce-kv .
-例を見てみましょう。マップをペアからなるベクタに変換します。ベクタはインデックスを値に関連付けるので、reduce-kv を使って値を reduce することができます。
+例を見てみましょう。マップをペアからなるベクタに変換します。ベクタはインデックスを値に関連付けるので、@<code>{reduce-kv} を使って値を reduce することができます。
 
 //emlist{
 (reduce-kv (fn [acc k v]
@@ -2291,7 +2296,7 @@ JavaScript の配列は ClojureScript でも reduce できます。
 //}
 
 #@# We'll extend the new ES6 map type to support  reduce-kv , we'll do this by getting a sequence of key-value pairs and calling the reducing function with the accumulator, key and value as positional arguments:
-新しい ES6 のマップ型を拡張して、reduce-kv をサポートするようにします。これを行うには、キーと値のペアのシーケンスを取得し、アキュムレータ、キー、値を位置を示す引数として使用して reducing 関数を呼び出します。
+新しい ES6 のマップ型を拡張して、@<code>{reduce-kv} をサポートするようにします。これを行うには、キーと値のペアのシーケンスを取得し、アキュムレータ、キー、値を位置を示す引数として使用して reducing 関数を呼び出します。
 
 
 #@# Page141
@@ -2329,7 +2334,7 @@ JavaScript の配列は ClojureScript でも reduce できます。
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
 #@# In both examples we ended up delegating to the  reduce  function, which is aware of reduced values and terminates when encountering one. Take into account that if you don't implement these protocols in terms of  reduce  you will have to check for reduced values for early termination.
-どちらの例でも、最終的には reduce 関数にデリゲートすることになりました。reduce 関数は、値の reduce された値を認識して、値が見つかると終了します。これらのプロトコルを reduce に関して実装しない場合は、早期終了のために reduce された値をチェックする必要があることを覚えておいてください。
+どちらの例でも、最終的には @<code>{reduce} 関数にデリゲートすることになりました。reduce 関数は、値の reduce された値を認識して、値が見つかると終了します。これらのプロトコルを @<code>{reduce} に関して実装しない場合は、早期終了のために reduce された値をチェックする必要があることを覚えておいてください。
 
 === 遅延計算
 
@@ -2339,8 +2344,8 @@ JavaScript の配列は ClojureScript でも reduce できます。
 
 #@# There are some types that have the notion of asynchronous computation, the value they represent may not be realized yet. We can ask whether a value is realized using the  realized?  predicate.
 #@# Let's ilustrate it with the  Delay  type, which takes a computation and executes it when the result is needed.  When we dereference a delay the computation is run and the delay is realized:
-非同期処理の概念をもついくつかの型があり、それらが表す値はまだ認識(realize)されていないかもしれません。realized? を使って値が認識されたかどうかを確認することができます。
-ここでは、計算を行い、結果が必要になったときにそれを実行する Delay 型を使って見ていきましょう。遅延を逆に参照すると、計算が実行されて、遅延が認識されます。
+非同期処理の概念をもついくつかの型があり、それらが表す値はまだ認識(realize)されていないかもしれません。@<code>{realized?} を使って値が認識されたかどうかを確認することができます。
+ここでは、計算を行い、結果が必要になったときにそれを実行する @<code>{Delay} 型を使って見ていきましょう。遅延を逆に参照すると、計算が実行されて、遅延が認識されます。
 
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
@@ -2365,7 +2370,7 @@ JavaScript の配列は ClojureScript でも reduce できます。
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
 #@# Both  realized?  and  deref  sit atop two protocols:  IPending  and  IDeref .
-realized? と deref は IPending と IDeref のプロトコルの上にあります。
+@<code>{realized?} と @<code>{deref} は @<code>{IPending} と @<code>{IDeref} のプロトコルの上にあります。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -2389,7 +2394,7 @@ Atom や Volatile のような ClojureScript の状態に関する構造体(stat
 ===== Atom
 
 #@# For ilustrating such protocols we will implement our own simplified version of an  Atom . It won't support validators nor metadata, but we will be able to:
-このようなプロトコルを理解するために、私たちは独自の簡素版の Atom を実装します。バリデータやメタデータはサポートしませんが、次のようなことは可能です。
+このようなプロトコルを理解するために、私たちは独自の簡素版の @<code>{Atom} を実装します。バリデータやメタデータはサポートしませんが、次のようなことは可能です。
 
 #@# -  deref  the atom for getting its current value
 #@# -  reset!  the value contained in the atom
@@ -2406,7 +2411,7 @@ Atom や Volatile のような ClojureScript の状態に関する構造体(stat
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
 #@#  deref  is based on the  IDeref  protocol.  reset!  is based on the  IReset  protocol and  swap!  on  ISwap . We'll start by defining a data type and a constructor for our atom implementation:
-deref は IDerefプロトコル、reset! は IReset プロトコル、swap! は ISwap プロトコルに基づいています。まず、Atom の実装のために、データ型とコンストラクターを定義します。
+@<code>{deref} は @<code>{IDeref}プロトコル、@<code>{reset!} は @<code>{IReset} プロトコル、@<code>{swap!} は @<code>{ISwap} プロトコルに基づいています。まず、atom の実装のために、データ型とコンストラクターを定義します。
 
 //emlist{
 (deftype MyAtom [^:mutable state ^:mutable watches]
@@ -2428,7 +2433,7 @@ deref は IDerefプロトコル、reset! は IReset プロトコル、swap! は 
 ここでは、atom の現在の状態と watcher のマップ(watches)の両方を {:mutable true} のメタデータでマークしていることに注目してください。これらを修正して、アノテーションを用いて明示的にします。
 
 #@# Our  MyAtom  type is not very useful yet, we'll start by implementing the  IDeref  protocol so we can dereference its current value:
-この MyAtom 型はまだあまり有用ではありませんが、まず IDeref プロトコルを実装して、現在の値を逆参照できるようにします。
+この @<code>{MyAtom} 型はまだあまり有用ではありませんが、まず @<code>{IDeref} プロトコルを実装して、現在の値を逆参照できるようにします。
 
 //emlist{
 (extend-type MyAtom
@@ -2453,7 +2458,7 @@ deref は IDerefプロトコル、reset! は IReset プロトコル、swap! は 
 
 
 #@# Now that we can dereference it we'll implement the  IWatchable  protocol, which will let us add and remove watches to our custom atom. We'll store the watches in the  watches  map of  MyAtom , associating keys to callbacks.
-参照を解除できるようになったので、IWatchable プロトコルを実装して、独自の atom に watches を追加したり削除したりできるようにします。watches を MyAtom のマップに格納して、キーをコールバックに関連づけます。
+参照を解除できるようになったので、@<code>{IWatchable} プロトコルを実装して、独自の atom に watches を追加したり削除したりできるようにします。@<code>{watches} を @<code>{MyAtom} のマップに格納して、キーをコールバックに関連づけます。
 
 //emlist{
 (extend-type MyAtom
@@ -2472,7 +2477,7 @@ deref は IDerefプロトコル、reset! は IReset プロトコル、swap! は 
 //}
 
 #@# We can now add watches to our atom but is not very useful since we still can't change it. For incorporating change we have to implement the  IReset  protocol and make sure we notify the watches every time we reset the atom's value.
-atom に watches を追加できるようになりましたが、まだ変更できないのであまり役に立ちません。変更を取り込むためには、IReset プロトコルを実装して、atom の値をリセットするたびに watches に通知する必要があります。
+atom に watches を追加できるようになりましたが、まだ変更できないのであまり役に立ちません。変更を取り込むためには、@<code>{IReset} プロトコルを実装して、atom の値をリセットするたびに watches に通知する必要があります。
 
 //emlist{
 (extend-type MyAtom
@@ -2649,7 +2654,7 @@ Volatile は atom よりも単純で、変化の監視をサポートしませ�
 
 
 #@# Our  MyVolatile  still needs to support dereferencing and reseting it, let's implement  IDeref  and  IVolatile , which will enable use to use  deref ,  vreset!  and  vswap!  in our custom volatile:
-私たちの MyVolatile は、参照の解除と再設定をサポートする必要があります。では、IDeref と IVolatile を実装しましょう。これにより、MyVolatile で deref、vreset!、vswap! が使えるようになります。
+私たちの @<code>{MyVolatile} は、参照の解除と再設定をサポートする必要があります。では、@<code>{IDeref} と @<code>{IVolatile} を実装しましょう。これにより、@<code>{MyVolatile} で @<code>{deref}、@<code>{vreset!}、@<code>{vswap!} が使えるようになります。
 
 
 //emlist{
@@ -2693,7 +2698,7 @@ transient のセクションでは、ClojureScript が提供する不変で永�
 #@# From persistent to transient and viceversa
 
 #@# We've learned that we can transform a persistent data structure with the  transient  function, which is based on the  IEditableCollection  protocol; for transforming a transient data structure to a persistent one we use  persistent! , based on  ITransientCollection .
-IEditableCollection プロトコルに基づく transient 関数を使って、永続的なデータ構造を変換できることを学びました。transient を永続的なデータ構造に変換するには、ITransientCollectionに基づく persistent! を使います。
+@<code>{IEditableCollection} プロトコルに基づく @<code>{transient} 関数を使って、永続的なデータ構造を変換できることを学びました。@<code>{transient} を永続的なデータ構造に変換するには、@<code>{ITransientCollection}に基づく @<code>{persistent!} を使います。
 
 #@# Implementing immutable and persistent data structures and their transient counterparts is out of the scope of this book but we recommend taking a look at ClojureScript's data structure implementation if you are curious.
 不変で永続的なデータ構造とそれらの一時的な対応物を実装することはこの本の範囲外ですが、興味があれば ClojureScript のデータ構造の実装を見ることをお勧めします。
@@ -2706,7 +2711,7 @@ IEditableCollection プロトコルに基づく transient 関数を使って、�
 transient のデータ構造のためのプロトコルの大部分は学びましたが、assoc! を transient のベクタに使うための ITransientVector と、disj! を transient のセットに使うための ITransientSet についてまだ取り上げていません。
 
 #@# For illustrating the  ITransientVector  protocol we'll extend the JavaScript array type for making it an associative transient data structure:
-ITransientVector プロトコルを説明するために、連想的な transient のデータ構造にするために、JavaScript の配列型を拡張してみます。
+@<code>{ITransientVector} プロトコルを説明するために、連想的な transient のデータ構造にするために、JavaScript の配列型を拡張してみます。
 
 
 #@# Page147
@@ -2740,7 +2745,7 @@ ITransientVector プロトコルを説明するために、連想的な transien
 //}
 
 #@# For illustrating the  ITransientSet  protocol we'll extend the ES6 Set type for making it a transient set, supporting the  conj! ,  disj!  and  persistent!  operations. Note that we've extended the Set type previously for being able to convert it to ClojureScript and we'll take advantage of that fact.
-ITransientSetプロトコルを説明するために、ES6 の Set 型を拡張して、conj!、disj!、persistent! をサポートします。以前に Set 型を拡張して ClojureScript に変換できるようにしたことを思い出してください。
+@<code>{ITransientSet}プロトコルを説明するために、ES6 の Set 型を拡張して、@<code>{conj!}、@<code>{disj!}、@<code>{persistent!} をサポートします。以前に Set 型を拡張して ClojureScript に変換できるようにしたことを思い出してください。
 
 //emlist{
 (extend-type js/Set
@@ -2788,7 +2793,7 @@ ITransientSetプロトコルを説明するために、ES6 の Set 型を拡張�
 CSP は Communicating Sequential Processes の略で、1978 年に C.A.R.Hoare によって開発された並行システムを記述するための形式であり、チャネルを介したメッセージの受け渡しと同期に基づく並行性のモデルです。CSP の背後にある理論的モデルの詳細については、この本では説明しません。その代わりに、core.async が提供する並行性に関わるプリミティブに焦点を当てます。
 
 #@#  core.async  is not part of ClojureScript core but it's implemented as a library. Even though it is not part of the core language it's widely used. Many libraries build on top of the  core.async  primitives, so we think it is worth covering in the book. It's also a good example of the syntactic abstractions that can be achieved by transforming code with ClojureScript macros, so we'll jump right in. You'll need to have  core.async  installed to run the examples presented in this section.
-core.async は ClojureScript core の一部ではありませんが、ライブラリとして実装されています。言語の一部ではありませんが、広く使用されています。多くのライブラリはcore.asynx のプリミティブの上に構築されています。そのため、本書で取り上げる価値はあると思います。これは、ClojureScript のマクロでコードを変換することにより実現できる構文的な抽象化の良い例でもあります。このセクションで説明する例を実行するには、core.async をインストールする必要があります。
+@<code>{core.async} は ClojureScript core の一部ではありませんが、ライブラリとして実装されています。言語の一部ではありませんが、広く使用されています。多くのライブラリはcore.asynx のプリミティブの上に構築されています。そのため、本書で取り上げる価値はあると思います。これは、ClojureScript のマクロでコードを変換することにより実現できる構文的な抽象化の良い例でもあります。このセクションで説明する例を実行するには、core.async をインストールする必要があります。
 
 === チャンネル
 
@@ -2815,10 +2820,10 @@ core.async は ClojureScript core の一部ではありませんが、ライブ�
 //}
 
 #@# In the above example we created a channel  ch  using the  chan  constructor.  After that we performed a take operation on the channel, providing a callback that will be invoked when the take operation succeeds. After using  put!  to put a value on the channel the take operation completed and the  "Got a value: 42"  string was printed. Note that  put!  returned the value that was just put to the channel.
-上記の例では、chan コンストラクタを使用してチャネル ch を作成しました。その後、チャンネルで take の操作を実行して、take の操作が成功したとき、呼び出されるコールバックを提供します。値をチャンネル上で設定するために put!　を使った後、take の操作が完了して、"Got a value: 42" という文字列が出力されます。put! は、チャンネルに設定されたばかりの値を返します。
+上記の例では、@<code>{chan} コンストラクタを使用してチャネル @<code>{ch} を作成しました。その後、チャンネルで take の操作を実行して、take の操作が成功したとき、呼び出されるコールバックを提供します。値をチャンネル上で設定するために put!　を使った後、take の操作が完了して、"Got a value: 42" という文字列が出力されます。put! は、チャンネルに設定されたばかりの値を返します。
 
 #@# The  put!  function accepts a callback like  take!  does but we didn't provide any in the last example. For puts the callback will be called whenever the value we provided has been taken. Puts and takes can happen in any order, let's do a few puts followed by takes to illustrate the point:
-take! とは異なり、put! 関数はコールバックを受け取りませんが、前の例では何も提供していません。put の場合、コールバックは指定した値が取得されるたびに呼び出されます。put と take は任意の順序で発生しますが。ポイントを説明するために、いくつか put と take を実行してみます。
+@<code>{take!} とは異なり、@<code>{put!} 関数はコールバックを受け取りませんが、前の例では何も提供していません。put の場合、コールバックは指定した値が取得されるたびに呼び出されます。put と take は任意の順序で発生しますが。ポイントを説明するために、いくつか put と take を実行してみます。
 
 
 #@# Page149
@@ -2852,7 +2857,7 @@ take! とは異なり、put! 関数はコールバックを受け取りません
 //}
 
 #@# You may be asking yourself why the  put!  operations return  true . It signals that the put operation could be performed, even though the value hasn't yet been taken. Channels can be closed, which will cause the put operations to not succeed:
-あなたはなぜ put が true を返したか疑問に思っているかもしれません。まだ値が取得されていない場合でも、put の操作を実行できることを示します。チャンネルは閉じることができ、これにより put の操作が失敗します。
+あなたはなぜ @<code>{put!} が @<code>{true} を返したか疑問に思っているかもしれません。まだ値が取得されていない場合でも、put の操作を実行できることを示します。チャンネルは閉じることができ、これにより put の操作が失敗します。
 
 //emlist{
 (require '[cljs.core.async :refer [chan put! close!]])
@@ -2892,7 +2897,7 @@ take! とは異なり、put! 関数はコールバックを受け取りません
 //}
 
 #@# We see that if the channel is closed all the  take!  operations receive a  nil  value.  nil  in channels is a sentinel value that signals to takers that the channel has been closed. Because of that, putting a  nil  value on a channel is not allowed:
-チャンネルが閉じている場合は、すべての take! の操作は nil の値を受け取ります。チャンネルにおいて nil は、チャネルがクローズされたことを受信者に知らせるための指標値です。そのため、チャネルに nil の値を設定することはできません。
+チャンネルが閉じている場合は、すべての @<code>{take!} の操作は @<code>{nil} の値を受け取ります。チャンネルにおいて nil は、チャネルがクローズされたことを受信者に知らせるための指標値です。そのため、チャネルに @<code>{nil} の値を設定することはできません。
 
 //emlist{
 (require '[cljs.core.async :refer [chan put!]])
@@ -2974,10 +2979,10 @@ take! とは異なり、put! 関数はコールバックを受け取りません
 #@# Fixed
 
 #@# The fixed size buffer is the one that is created when we give the  chan  constructor a number and it will have the size specified by the given number. It is the simplest possible buffer: when full, puts will be enqueued.
-固定サイズのバッファは、chan コンストラクタに数値を指定したときに作成され、その数値で指定されたサイズになります。これは可能な限り最も単純なバッファで、いっぱいになると put が queue に入れられます。
+固定サイズのバッファは、@<code>{chan} コンストラクタに数値を指定したときに作成され、その数値で指定されたサイズになります。これは可能な限り最も単純なバッファで、いっぱいになると put が queue に入れられます。
 
 #@# The  chan  constructor accepts either a number or a buffer as its first argument. The two channels created in the following example both use a fixed buffer of size 32:
-chan コンストラクタは、最初の引数として数値またはバッファのいずれかを受け入れます。次の例で作成した 2 つのチャンネルは、どちらもサイズ 32 の固定バッファを使用します。
+@<code>{chan} コンストラクタは、最初の引数として数値またはバッファのいずれかを受け入れます。次の例で作成した 2 つのチャンネルは、どちらもサイズ 32 の固定バッファを使用します。
 
 //emlist{
 (require '[cljs.core.async :refer [chan buffer]])
@@ -3134,17 +3139,17 @@ reducing 関数が reduce された値を返したとき、チャンネルはど
 
 
 #@# We used the  take  stateful transducer to allow maximum 2 puts into the channel.  We then performed three take operations on the channel and we expect only two to receive a value. As you can see in the above example the third take got the sentinel  nil  value which indicates that the channel was closed. Also, the third put operation returned  false  indicating that it didn't take place.
-チャンネルに最大 2 回の入力を許可するので、take stateful transducerを使用しました。次に、チャンネルで 3 つの take の操作を実行して、値を受け取るのは 2 つだけだと予想します。上の例でわかるように、3 番目の take はチャンネルが閉じていることを示す sentinel nil 値を取得します。また、3 回目のput の操作は false を返して、失敗したことを示します。
+チャンネルに最大 2 回の入力を許可するので、@<code>{take}、@<code>{stateful}、@<code>{transducer}を使用しました。次に、チャンネルで 3 つの take の操作を実行して、値を受け取るのは 2 つだけだと予想します。上の例でわかるように、3 番目の take はチャンネルが閉じていることを示す sentinel nil 値を取得します。また、3 回目のput の操作は false を返して、失敗したことを示します。
 
 ===== 例外処理
 
 #@# Handling exceptions
 
 #@# If adding a value to a buffer throws an exception  core.async  the operation will fail and the exception will be logged to the console. However, channel constructors accept a third argument: a function for handling exceptions.
-バッファに値を追加するとして例外が発生した場合、core.asyncでは操作が失敗し、例外がコンソールに記録されます。しかし、チャンネルのコンストラクターは 3 番目の引数(例外を処理する関数)を受け入れます。
+バッファに値を追加するとして例外が発生した場合、@<code>{core.async}では操作が失敗し、例外がコンソールに記録されます。しかし、チャンネルのコンストラクターは 3 番目の引数(例外を処理する関数)を受け入れます。
 
 #@# When creating a channel with an exception handler it will be called with the exception whenever an exception occurs. If the handler returns  nil  the operation will fail silently and if it returns another value the add operation will be retried with such value.
-例外ハンドラを持つチャンネルを作成すると、例外が発生するたびに例外ハンドラが呼び出されます。ハンドラが nil を返した場合は操作は暗黙的に失敗して、別の値を返した場合はその値で add の操作が再試行されます。
+例外ハンドラを持つチャンネルを作成すると、例外が発生するたびに例外ハンドラが呼び出されます。ハンドラが @<code>{nil} を返した場合は操作は暗黙的に失敗して、別の値を返した場合はその値で add の操作が再試行されます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan put! take!]])
@@ -3177,13 +3182,13 @@ reducing 関数が reduce された値を返したとき、チャンネルはど
 #@# Offer and Poll
 
 #@# We've learned about the two basic operations on channels so far:  put!  and  take! . They either take or put a value and are enqueued if they can't be performed immediately. Both functions are asynchronous because of their nature: they can succeed but be completed at a later time.
-これまでに、チャンネルに関する 2 つの基本的な操作である put! と take!について学びました。それらは、値を取得または設定しますが、すぐに実行できない場合は enqueue されます。どちらの関数もその性質的に非同期であり、すぐに成功することができますが、後で完了することもできます。
+これまでに、チャンネルに関する 2 つの基本的な操作である @<code>{put!} と @<code>{take!}について学びました。それらは、値を取得または設定しますが、すぐに実行できない場合は enqueue されます。どちらの関数もその性質的に非同期であり、すぐに成功することができますが、後で完了することもできます。
 
 #@#  core.async  has two synchronous operations for putting or taking values:  offer!  and  poll! . Let's see how they work through examples.
-core.async には値の設定と取得のために 2 つの同期的な操作があります。offer! と poll! です。それらがどのように機能するかを例を見てみましょう。
+@<code>{core.async} には値の設定と取得のために 2 つの同期的な操作があります。@<code>{offer!} と @<code>{poll!} です。それらがどのように機能するかを例を見てみましょう。
 
 #@#  offer!  puts a value in a channel if it's possible to do so immediately. It returns  true  if the channel received the value and  false  otherwise. Note that, unlike with  put! ,  offer!  cannot distinguish between closed and open channels.
-offer! はすぐに値を設定できる場合は、チャンネルに値を設定します。チャンネルが値を受け取った場合は true を返し、それ以外の場合は false を返します。put! とは異なり、offer! は閉じたチャンネルと開いたチャンネルを区別できない点に注意してください。
+@<code>{offer!} はすぐに値を設定できる場合は、チャンネルに値を設定します。チャンネルが値を受け取った場合は @<code>{true} を返し、それ以外の場合は @<code>{false} を返します。@<code>{put!} とは異なり、@<code>{offer!} は閉じたチャンネルと開いたチャンネルを区別できない点に注意してください。
 
 
 #@# Page155
@@ -3209,7 +3214,7 @@ offer! はすぐに値を設定できる場合は、チャンネルに値を設�
 //}
 
 #@#  poll!  takes a value from a channel if it's possible to do so immediately. Returns the value if succesful and  nil  otherwise. Unlike  take! ,  poll!  cannot distinguish closed and open channels.
-poll! がすぐに値を取得できる場合は、チャンネルから値を取得します。成功した場合は値を返し、それ以外の場合は nil を返します。take! とは異なり、poll!閉じたチャンネルと開いたチャンネルを区別できません。
+@<code>{poll!} がすぐに値を取得できる場合は、チャンネルから値を取得します。成功した場合は値を返し、それ以外の場合は @<code>{nil} を返します。@<code>{take!} とは異なり、@<code>{poll!} は閉じたチャンネルと開いたチャンネルを区別できません。
 
 //emlist{
 (require '[cljs.core.async :refer [chan offer! poll!]])
@@ -3235,7 +3240,7 @@ poll! がすぐに値を取得できる場合は、チャンネルから値を�
 チャンネルについてはすべて学びましたが、プロセスについては詳しく取り上げていませんでした。プロセスは、独立して実行されて、通信と調整のためにチャンネルを使用するロジックです。プロセス内での put および take は、操作が完了するとプロセスが停止します。プロセスの停止により ClojureScript が実行される環境にあるスレッドだけがブロックされるわけではありません。代わりに、操作の実行を待機しているときに再開されます。
 
 #@# Processes are launched using the  go  macro and puts and takes use the  <!  and  >!  placeholders. The  go  macro rewrites your code to use callbacks but inside  go  everything looks like synchronous code, which makes understanding it straightforward:
-プロセスは go マクロを使って起動されて、put と take には <! および >! のプレースホルダをつけます。go マクロはコールバックを使用するようにコードを書き換えますが、go の内部ではすべてが同期的なコードに見えるため、理解が容易です。
+プロセスは @<code>{go} マクロを使って起動されて、@<code>{put} と @<code>{take} には @<code>{<!} および @<code>{>!} のプレースホルダをつけます。@<code>{go} マクロはコールバックを使用するようにコードを書き換えますが、go の内部ではすべてが同期的なコードに見えるため、理解が容易です。
 
 //emlist{
 (require '[cljs.core.async :refer [chan <! >!]])
@@ -3277,16 +3282,16 @@ poll! がすぐに値を取得できる場合は、チャンネルから値を�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# In the above example we are launching a process with  go  that takes a value from  ch  and prints it to the console. Since the value isn't immediately available it will park until it can resume. After that we launch another process that puts a value on the channel.
-上記の例では、chから値を取得してコンソールに出力するプロセスをgoで起動しています。値がすぐに使用可能になるわけではないので、値が使用可能になるまで一時停止します。その後、チャンネルに価値をもたらす別のプロセスを開始します。
+上記の例では、@<code>{ch} から値を取得してコンソールに出力するプロセスを@<code>{go}で起動しています。値がすぐに使用可能になるわけではないので、値が使用可能になるまで一時停止します。その後、チャンネルに価値をもたらす別のプロセスを開始します。
 
 #@# Since there is a pending take the put operation succeeds and the value is delivered to the first process, then both processes terminate.
 保留中の take があるため、put の操作は成功します。値が最初のプロセスに渡されると、両方のプロセスが終了します。
 
 #@# Both  go  blocks run independently and, even though they are executed asynchronously, they look like synchronous code. The above go blocks are fairly simple but being able to write concurrent processes that coordinate via channels is a very powerful tool for implementing complex asynchronous workflows. Channels also offer a great decoupling of producers and consumers.
-どちらの go ブロックも独立して実行されて非同期に実行されますが、同期的なコードに見えます。上記の go ブロックはかなり単純ですが、チャンネルを介して調整する並行プロセスを書けることは、複雑な非同期のワークフローを実装するために非常に強力なツールとなります。チャンネルはまた、producer と consumer を分離します。
+どちらの @<code>{go} ブロックも独立して実行されて非同期に実行されますが、同期的なコードに見えます。上記の go ブロックはかなり単純ですが、チャンネルを介して調整する並行プロセスを書けることは、複雑な非同期のワークフローを実装するために非常に強力なツールとなります。チャンネルはまた、producer と consumer を分離します。
 
 #@# Processes can wait for an arbitrary amount of time too, there is a  timeout  function that return a channel that will be closed after the given amount of miliseconds. Combining a timeout channel with a take operation inside a go block gives us the ability to sleep:
-プロセスは任意の時間だけ待つことができ、与えられたミリ秒後に閉じられるチャンネルを返す timeout 関数があります。go ブロック内で timeout チャンネルと take の操作を組み合わせると、スリープさせることができます。
+プロセスは任意の時間だけ待つことができ、与えられたミリ秒後に閉じられるチャンネルを返す @<code>{timeout} 関数があります。go ブロック内で timeout チャンネルと take の操作を組み合わせると、スリープさせることができます。
 
 
 //emlist{
@@ -3384,13 +3389,13 @@ timeout 関数と ats! を組み合わせることで、簡単にチャンネル
 
 
 #@# In the example above we launched a go block that, after waiting for a second, puts a value in the  ch  channel. The other go block creates a  cancel  channel, which will be closed after 300 miliseconds. After that, it tries to read from both  ch  and  cancel  at the same time using  alts! , which will succeed whenever it can take a value from either of those channels. Since  cancel  is closed after 300 miliseconds,  alts!  will succeed since takes from closed channel return the  nil  sentinel. Note that  alts!  returns a two-element vector with the returned value of the operation and the channel where it was performed.
-上の例では、1 秒待ってから ch チャンネルに値を入れる go ブロックを起動しました。もう一方の go ブロックは、300 ミリ秒後に閉じる cancel チャンネルを作成します。その後、alts! を使って ch からの読み込みとキャンセルを同時に行おうとします。これらいずれかのチャンネルから値を取得できる場合は、常に成功します。cancel は 300 ミリ秒後にクローズされて、閉じたチャンネルからの take が　nil sentinel を返すため、alts! は成功します。alts! が 2 つの要素からなるベクタを返することに注目してください。それらは、操作による返り値と、実行されたチャンネルを含みます。
+上の例では、1 秒待ってから @<code>{ch} チャンネルに値を入れる go ブロックを起動しました。もう一方の @<code>{go} ブロックは、300 ミリ秒後に閉じる @<code>{cancel} チャンネルを作成します。その後、@<code>{alts!} を使って @<code>{ch} からの読み込みとキャンセルを同時に行おうとします。これらいずれかのチャンネルから値を取得できる場合は、常に成功します。@<code>{cancel} は 300 ミリ秒後にクローズされて、閉じたチャンネルからの @<code>{take} が　@<code>{nil} sentinel を返すため、@<code>{alts!} は成功します。@<code>{alts!} が 2 つの要素からなるベクタを返することに注目してください。それらは、操作による返り値と、実行されたチャンネルを含みます。
 
 #@# This is why we are able to detect whether the read operation was performed in the  cancel  channel or in  ch . I suggest you copy this example and set the first process timeout to 100 miliseconds to see how the read operation on  ch  succeeds.
-このため、candel チャンネルで read の操作が行われたか、ch チャンネルで行われたかを検出することができます。この例をコピーして、最初のプロセスの timeout を 100 ミリ秒に設定して、ch チャンネルに対する read の操作がどのように成功するかを確認することをお勧めします。
+このため、@<code>{candel} チャンネルで read の操作が行われたか、@<code>{ch} チャンネルで行われたかを検出することができます。この例をコピーして、最初のプロセスの timeout を 100 ミリ秒に設定して、ch チャンネルに対する read の操作がどのように成功するかを確認することをお勧めします。
 
 #@# We've learned how to choose between read operations so let's look at how to express a conditional write operation in  alts! . Since we need to provide the channel and a value to try to put on it, we'll use a two element vector with the channel and the value for representing write operations.
-read の操作間での選択方法を学んだので、alt! で条件付きの read の操作を表現する方法を見てみましょう。チャンネルとその上に置こうとする値を提供する必要があるため、チャンネルと write の操作を表す値を持つ 2 つの要素のベクタを使用します。
+read の操作間での選択方法を学んだので、@<code>{alt!} で条件付きの read の操作を表現する方法を見てみましょう。チャンネルとその上に置こうとする値を提供する必要があるため、チャンネルと write の操作を表す値を持つ 2 つの要素のベクタを使用します。
 
 #@# Let's see an example:
 
@@ -3430,7 +3435,7 @@ read の操作間での選択方法を学んだので、alt! で条件付きの 
 //}
 
 #@# When running the above example only the put operation on the  a-ch  channel has succeeded. Since both channels are ready to take a value when the  alts!  occurs you may get different results when running this code.
-上記の例を実行すると、a-ch チャンネルでの put の操作だけが成功します。両方のチャンネルは、値を取得する準備ができています。このコードを実行すると異なる結果が得られることがあります。
+上記の例を実行すると、@<code>{a-ch} チャンネルでの put の操作だけが成功します。両方のチャンネルは、値を取得する準備ができています。このコードを実行すると異なる結果が得られることがあります。
 
 
 #@# Page159
@@ -3448,7 +3453,7 @@ read の操作間での選択方法を学んだので、alt! で条件付きの 
 #@# Priority
 
 #@#  alts!  default is to make a non-deterministic choice whenever several operations are ready to be performed. We can instead give priority to the operations passing the  :priority  option to  alts! . Whenever  :priority  is  true , if more than one operation is ready they will be tried in order.
-デフォルトで alt! は、複数の操作を実行する準備ができている場合は、常に非決定的な選択を行いますが、代わりに alts! に :priority のオプションを渡す操作を優先させることができます。:priority が true の場合、もし 複数の操作が準備できていれば、順番に試行されます。
+デフォルトで @<code>{alt!} は、複数の操作を実行する準備ができている場合は、常に非決定的な選択を行いますが、代わりに alts! に :priority のオプションを渡す操作を優先させることができます。:priority が true の場合、もし 複数の操作が準備できていれば、順番に試行されます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -3489,14 +3494,14 @@ read の操作間での選択方法を学んだので、alt! で条件付きの 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# Since both  a-ch  and  another-ch  had a value to read when the  alts!  was executed and we set the  :priority  option to true,  a-ch  has preference. You can try deleting the  :priority  option and running the example multiple times to see that, without priority,  alts!  makes a non-deterministic choice.
-a-ch と another-ch は両方とも、いつ alts! を read するかの値を持っており、:priority オプションを true に設定すると a-ch が優先されます。:priority オプションを削除してこの例を複数回実行すると、alts! は priority なしで非決定論的な選択をします。
+@<code>{a-ch} と @<code>{another-ch} は両方とも、いつ @<code>{alts!} を read するかの値を持っており、@<code>{:priority} オプションを true に設定すると @<code>{a-ch} が優先されます。@<code>{:priority} オプションを削除してこの例を複数回実行すると、@<code>{alts!} は priority なしで非決定論的な選択をします。
 
 ===== デフォルト
 
 #@# Defaults
 
 #@# Another interesting bit of  alts!  is that it can return immediately if no operation is ready and we provide a default value. We can conditionally do a choice on the operations if and only if any of them is ready, returning a default value if it's not.
-alts! についてもう一つの興味深いことに、操作の準備ができておらず、デフォルト値を指定すれば、すぐに戻ることができます。いずれかの操作が準備できている場合に限り、条件付きで操作を選択することができます。準備できていない場合にはデフォルト値を返します。
+@<code>{alts!} についてもう一つの興味深いことに、操作の準備ができておらず、デフォルト値を指定すれば、すぐに戻ることができます。いずれかの操作が準備できている場合に限り、条件付きで操作を選択することができます。準備できていない場合にはデフォルト値を返します。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -3536,7 +3541,7 @@ alts! についてもう一つの興味深いことに、操作の準備がで�
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# As you can see in the above example, if no operation is ready the value returned by  alts!  is the one we supplied after the  :default  key when calling it and the channel is the  :default  keyword itself.
-上の例でわかるように、操作の準備ができていない場合は、alts! による返される値は、呼び出し時に :default キーの後に指定したものであり、channel は :default キーワード自体です。
+上の例でわかるように、操作の準備ができていない場合は、@<code>{alts!} による返される値は、呼び出し時に @<code>{:default} キーの後に指定したものであり、@<code>{channel} は @<code>{:default} キーワード自体です。
 
 
 === コンビネーター
@@ -3553,7 +3558,7 @@ alts! についてもう一つの興味深いことに、操作の準備がで�
 #@# pipe
 
 #@#  pipe  takes an input and output channels and pipes all the values put on the input channel to the output one. The output channel is closed whenever the source is closed unless we provide a  false  third argument:
-pipe は入力チャンネルと出力チャンネルを取り、入力チャンネルに設定されたすべての値を出力チャンネルに渡します。3 番目の引数に false を指定しない限り、ソースが閉じられるたびに出力チャンネルが閉じられます。
+@<code>{pipe} は入力チャンネルと出力チャンネルを取り、入力チャンネルに設定されたすべての値を出力チャンネルに渡します。3 番目の引数に @<code>{false} を指定しない限り、ソースが閉じられるたびに出力チャンネルが閉じられます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -3595,14 +3600,14 @@ pipe は入力チャンネルと出力チャンネルを取り、入力チャン
 
 
 #@# In the above example we used the  go-loop  macro for reading values recursively until the  out  channel is closed. Notice that when we close the  in  channel the  out  channel is closed too, making the  go-loop  terminate.
-上記の例では、go-loop マクロを使用して、out チャンネルが閉じられるまで値を繰り返し読み取ります。in チャンネルを閉じると、out チャンネルも閉じられて go-loop が終了します。
+上記の例では、@<code>{go-loop} マクロを使用して、@<code>{out} チャンネルが閉じられるまで値を繰り返し読み取ります。@<code>{in} チャンネルを閉じると、@<code>{out} チャンネルも閉じられて @<code>{go-loop} が終了します。
 
 @<embed>{|latex|\vspace{-0.5\Cvs\}}
 
 ===== pipeline-async
 
 #@#  pipeline-async  takes a number for controlling parallelism, an output channel, an asynchronous function and an input channel. The asynchronous function has two arguments: the value put in the input channel and a channel where it should put the result of its asynchronous operation, closing the result channel after finishing. The number controls the number of concurrent go blocks that will be used for calling the asynchronous function with the inputs.
-pipeline-async は ある数字を受け取りますが、その数字は、並列性の制御、出力チャンネル、非同期の関数、入力チャンネルのためのものです。非同期の関数には 2 つの引数があり、入力チャンネルに格納された値と、非同期操作の結果を格納するチャンネルのために使います。result チャンネルは終了後に閉じられます。その数は、入力を使用して非同期関数を呼び出すために使用される並行的に動作する go ブロックの数を制御します。
+@<code>{pipeline-async} は ある数字を受け取りますが、その数字は、並列性の制御、出力チャンネル、非同期の関数、入力チャンネルのためのものです。非同期の関数には 2 つの引数があり、入力チャンネルに格納された値と、非同期操作の結果を格納するチャンネルのために使います。result チャンネルは終了後に閉じられます。その数は、入力を使用して非同期関数を呼び出すために使用される並行的に動作する go ブロックの数を制御します。
 
 #@# The output channel will receive outputs in an order relative to the input channel, regardless the time each asynchronous function call takes to complete. It has an optional last parameter that controls whether the output channel will be closed when the input channel is closed, which defaults to  true .
 出力チャンネルは、非同期関数の呼び出しが完了するまでに要する時間に関係なく、入力チャンネルに相対的な順序で出力を受け取ります。これにはオプションの last パラメータがあり、入力チャンネルが閉じられたときに出力チャンネルを閉じるかどうかを制御します。デフォルトは true です。
@@ -3665,7 +3670,7 @@ pipeline-async は ある数字を受け取りますが、その数字は、並�
 ===== pipeline
 
 #@#  pipeline  is similar to  pipeline-async  but instead of taking and asynchronous function it takes a transducer instead. The transducer will be applied independently to each input.
-パイプラインは pipeline-async に似ていますが、非同期の関数を取る代わりに transducer を使います。 transducer は各入力に独立して適用されます。
+pipeline @<code>{pipeline-async} に似ていますが、非同期の関数を取る代わりに transducer を使います。 transducer は各入力に独立して適用されます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan pipeline put! <! close!]])
@@ -3703,7 +3708,7 @@ pipeline-async は ある数字を受け取りますが、その数字は、並�
 ===== split
 
 #@# split  takes a predicate and a channel and returns a vector with two channels, the first of which will receive the values for which the predicate is true, the second will receive those for which the predicate is false. We can optionally pass a buffer or number for the channels with the third (true channel) and fourth (false channel) arguments.
-split は述部とチャンネルを取り、2 つのチャンネルを持つベクタを返します。最初のチャンネルは述部が true の値を受け取り、2 番目のチャンネルは述部が false の値を受け取ります。オプションで 3 番目(true チャンネル)と4番目(false チャンネル)の引数を使って、チャンネルのバッファまたは数字を渡すことができます。
+@<code>{split} は述部とチャンネルを取り、2 つのチャンネルを持つベクタを返します。最初のチャンネルは述部が true の値を受け取り、2 番目のチャンネルは述部が false の値を受け取ります。オプションで 3 番目(true チャンネル)と4番目(false チャンネル)の引数を使って、チャンネルのバッファまたは数字を渡すことができます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan split put! <! close!]])
@@ -3763,7 +3768,7 @@ split は述部とチャンネルを取り、2 つのチャンネルを持つベ
 ===== reduce
 
 #@#  reduce  takes a reducing function, initial value and an input channel. It returns a channel with the result of reducing over all the values put on the input channel before closing it using the given initial value as the seed.
-reduce は、reducing 関数、初期値、および input チャンネルをとります。指定された初期値を seed として使用して、input チャンネルに設定されたすべての値に reduce を行い、閉じたチャンネルを返します。
+ @<code>{reduce} は、reducing 関数、初期値、および input チャンネルをとります。指定された初期値を seed として使用して、input チャンネルに設定されたすべての値に reduce を行い、閉じたチャンネルを返します。
 
 //emlist{
 (require '[cljs.core.async :as async :refer [chan put! <! close!]])
@@ -3796,7 +3801,7 @@ reduce は、reducing 関数、初期値、および input チャンネルをと
 ===== onto-chan
 
 #@#  onto-chan  takes a channel and a collection and puts the contents of the collection into the channel. It closes the channel after finishing although it accepts a third argument for specifying if it should close it or not. Let's rewrite the  reduce  example using  onto-chan :
-onto-chan はチャンネルとコレクションを取得して、コレクションの内容をチャンネルに格納します。終了後にチャンネルを閉じますが、チャンネルを閉じるかどうかを指定する 3 番目の引数を受け入れます。onto-chan を用いて reduce の例を書きかえてみましょう。
+@<code>{onto-chan} はチャンネルとコレクションを取得して、コレクションの内容をチャンネルに格納します。終了後にチャンネルを閉じますが、チャンネルを閉じるかどうかを指定する 3 番目の引数を受け入れます。@<code>{onto-chan} を用いて @<code>{reduce} の例を書きかえてみましょう。
 
 //emlist{
 (require '[cljs.core.async :as async :refer [chan put! <! close! onto-chan]])
@@ -3816,7 +3821,7 @@ onto-chan はチャンネルとコレクションを取得して、コレクシ�
 ===== to-chan
 
 #@#  to-chan  takes a collection and returns a channel where it will put every value in the collection, closing the channel afterwards.
-to-chan はコレクションを取得して、コレクション内のすべての値を格納するチャンネルを返し、その後、チャンネルを閉じます。
+@<code>{to-chan} はコレクションを取得して、コレクション内のすべての値を格納するチャンネルを返し、その後、チャンネルを閉じます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan put! <! close! to-chan]])
@@ -3845,7 +3850,7 @@ to-chan はコレクションを取得して、コレクション内のすべて
 ===== merge
 
 #@#  merge  takes a collection of input channels and returns a channel where it will put every value that is put on the input channels. The returned channel will be closed when all the input channels have been closed. The returned channel will be unbuffered by default but a number or buffer can be provided as the last argument.
-merge は入力チャンネルのコレクションを取得して、入力チャンネルに設定されたすべての値を格納するチャンネルを返します。すべての入力チャンネルを閉じると、返されたチャンネルが閉じます。返されるチャンネルはデフォルトではバッファされませんが、最後の引数として数値またはバッファを指定できます。
+@<code>{merge} は入力チャンネルのコレクションを取得して、入力チャンネルに設定されたすべての値を格納するチャンネルを返します。すべての入力チャンネルを閉じると、返されたチャンネルが閉じます。返されるチャンネルはデフォルトではバッファされませんが、最後の引数として数値またはバッファを指定できます。
 
 
 #@# Page165
@@ -3898,14 +3903,14 @@ merge は入力チャンネルのコレクションを取得して、入力チ�
 #@# Higher-level abstractions
 
 #@# We've learned the about the low-level primitives of  core.async  and the combinators that it offers for working with channels.  core.async  also offers some useful, higher-level abstractions on top of channels that can serve as building blocks for more advanced functionality.
-core.async の低レベルなプリミティブと、それらがチャンネルと動作するために提供されているコンビネータについて学びました。さらに core.async は、より高度な機能の構成要素として機能するチャンネルの上に、役に立つ高レベルの抽象化を提供します。
+@<code>{core.async} の低レベルなプリミティブと、それらがチャンネルと動作するために提供されているコンビネータについて学びました。さらに @<code>{core.async} は、より高度な機能の構成要素として機能するチャンネルの上に、役に立つ高レベルの抽象化を提供します。
 
 ===== Mult
 
 #@# Mult
 
 #@# Whenever we have a channel whose values have to be broadcasted to many others, we can use  mult  for creating a multiple of the supplied channel. Once we have a mult, we can attach channels to it using  tap  and dettach them using  untap . Mults also support removing all tapped channels at once with  untap-all .
-値を多くの他のチャンネルにブロードキャストする必要があるチャンネルがある場合は、mult を使用して、指定されたチャンネルを複数作成できます。モジュールができると tap を用いてチャンネルに接続し、untap してチャンネルを切り離します。また、mults は untap-all を使用して、タップしたすべてのチャンネルを一度に削除することもできます。
+値を多くの他のチャンネルにブロードキャストする必要があるチャンネルがある場合は、@<code>{mult} を使用して、指定されたチャンネルを複数作成できます。モジュールができると @<code>{tap} を用いてチャンネルに接続し、@<code>{untap} してチャンネルを切り離します。また、@<code>{mults} は @<code>{untap-all} を使用して、タップしたすべてのチャンネルを一度に削除することもできます。
 
 #@# Every value put in the source channel of a mult is broadcasted to all the tapped channels, and all of them must accept it before the next item is broadcasted. For preventing slow takers from blocking the mult's values we must use buffering on the tapped channels judiciously.
 mult のソースチャンネルに入力されたすべての値は、タップされたすべてのチャンネルにブロードキャストされて、次のアイテムがブロードキャストされる前にすべてのチャンネルがそれを受け入れる必要があります。遅い taker が mult の値をブロックするのを防ぐためには、タップしたチャンネルのバッファリングを慎重に使用する必要があります。
@@ -3974,13 +3979,13 @@ mult のソースチャンネルに入力されたすべての値は、タップ
 ===== Pub-sub
 
 #@# After learning about mults you could imagine how to implement a pub-sub abstraction on top of  mult ,  tap  and  untap  but since it's a widely used communication mechanism  core.async  already implements this functionality.
-mult について学んだ後で、mult の上に pub-sub の抽象化を実装する方法を想像してみてください。core.async はすでにこの機能を実装しています。
+@<code>{mult} について学んだ後で、@<code>{mult} の上に @<code>{pub-sub} の抽象化を実装する方法を想像してみてください。@<code>{core.async} はすでにこの機能を実装しています。
 
 #@# Instead of creating a mult from a source channel, we create a publication with  pub  giving it a channel and a function that will be used for extracting the topic of the messages.
-source チャンネルから mult を作成する代わりに、pub にチャンネル、またメッセージのトピックを抽出するために使用する関数を指定して publicztion を作成します。
+source チャンネルから mult を作成する代わりに、@<code>{pub} にチャンネル、またメッセージのトピックを抽出するために使用する関数を指定して publicztion を作成します。
 
 #@# We can subscribe to a publication with  sub , giving it the publication we want to subscribe to, the topic we are interested in and a channel to put the messages that have the given topic. Note that we can subscribe a channel to multiple topics.
-sub を持つ publicztion を subscribe して、subscribe したいpublicztion、関心のあるトピック、そのトピックを持つメッセージを配置するチャンネルを指定できます。1 つのチャンネルを複数のトピックに subscribe できます。
+@<code>{sub} を持つ publicztion を subscribe して、subscribe したいpublicztion、関心のあるトピック、そのトピックを持つメッセージを配置するチャンネルを指定できます。1 つのチャンネルを複数のトピックに subscribe できます。
 
 
 #@# Page167
@@ -3994,7 +3999,7 @@ sub を持つ publicztion を subscribe して、subscribe したいpublicztion�
 
 
 #@#  unsub  can be given a publication, topic and channel for unsubscribing such channel from the topic.  unsub-all  can be given a publication and a topic to unsubscribe every channel from the given topic.
-unsub には、そのようなチャンネルをトピックから unsubscribe するためのpublication、トピック、チャンネルを指定できます。unsub-all には、publication とトピックを指定して、指定したトピックからすべてのチャンネルをunsubscribeできます。
+@<code>{unsub} には、そのようなチャンネルをトピックから unsubscribe するための publication、トピック、チャンネルを指定できます。@<code>{unsub-all} には、publication とトピックを指定して、指定したトピックからすべてのチャンネルをunsubscribeできます。
 
 //emlist{
 (require '[cljs.core.async :refer [chan put! <! close! pub sub]])
@@ -4040,10 +4045,10 @@ unsub には、そのようなチャンネルをトピックから unsubscribe �
 ===== Mixer
 
 #@# As we learned in the section about  core.async  combinators, we can use the  merge  function for combining multiple channels into one. When merging multiple channels, every value put in the input channels will end up in the merged channel. However, we may want more finer-grained control over which values put in the input channels end up in the output channel, that's where mixers come in handy.
-core.async のセクションで学んだように、複数のチャンネルを 1 つに結合する merge 関数を使用できます。複数のチャンネルを merge する場合、入力チャンネルに入力されたすべての値はマージされたチャンネルになります。ただし、入力チャンネルに入力された値が出力チャンネルに出力されるようにするには、より細かく制御する必要がある場合があります。この場合、Mixer が便利です。
+@<code>{core.async} のセクションで学んだように、複数のチャンネルを 1 つに結合する @<code>{merge} 関数を使用できます。複数のチャンネルを merge する場合、入力チャンネルに入力されたすべての値はマージされたチャンネルになります。ただし、入力チャンネルに入力された値が出力チャンネルに出力されるようにするには、より細かく制御する必要がある場合があります。この場合、Mixer が便利です。
 
 #@#  core.async  gives us the mixer abstraction, which we can use to combine multiple input channnels into an output channel. The interesting part of the mixer is that we can mute, pause and listen exclusively to certain input channels.
-core.async では、複数の入力チャンネルを 1 つの出力チャンネルに結合するために使用できる Mixer の抽象化が提供されます。Mixer の面白いところは、特定の input チャンネルだけをミュート、一時停止、再生できることです。
+@<code>{core.async} では、複数の入力チャンネルを 1 つの出力チャンネルに結合するために使用できる Mixer の抽象化が提供されます。Mixer の面白いところは、特定の input チャンネルだけをミュート、一時停止、再生できることです。
 
 
 #@# Page168
@@ -4057,10 +4062,10 @@ core.async では、複数の入力チャンネルを 1 つの出力チャンネ
 
 
 #@# We can create a mixer given an output channel with  mix . Once we have a mixer we can add input channels into the mix using  admix , remove it using  unmix  or remove every input channel with  unmix-all .
-mixで出力チャンネルを指定して Mixer を作成できます。Mixerができたら、admix を使って入力チャンネルを Mix に追加したり、unmix を使って削除したり、unmix-all を使ってすべての入力チャンネルを削除したりできます。
+@<code>{mix} で出力チャンネルを指定して Mixer を作成できます。Mixerができたら、@<code>{admix} を使って入力チャンネルを mix に追加したり、@<code>{unmix} を使って削除したり、@<code>{unmix-all} を使ってすべての入力チャンネルを削除したりできます。
 
 #@# For controlling the state of the input channel we use the  toggle  function giving it the mixer and a map from channels to their states. Note that we can add channels to the mix using  toggle , since the map will be merged with the current state of the mix. The state of a channel is a map which can have the keys  :mute ,  :pause  and  :solo  mapped to a boolean.
-入力チャンネルの状態を制御するために、Mixer とチャンネルからその状態へのマップを与える toggle 関数を使用します。マップは Mix の現在の状態とマージされるため、toggle を使用してチャンネルを Mix に追加できます。チャンネルの状態はマップで、boolean にマップされる :mute :pause :sole のキーを持つことができます
+入力チャンネルの状態を制御するために、Mixer とチャンネルからその状態へのマップを与える toggle 関数を使用します。マップは Mix の現在の状態とマージされるため、@<code>{toggle} を使用してチャンネルを Mix に追加できます。チャンネルの状態はマップで、boolean にマップされる @<code>{:mute} @<code>{:pause} @<code>{:sole} のキーを持つことができます
 
 #@# Let's see what muting, pausing and soloing channels means:
 チャンネルの mute、pause、sole の意味を見てみましょう。
@@ -4186,7 +4191,7 @@ n-2 チャンネルを一時停止し、すべての input チャンネルに値
 
 
 #@# We put a value  2  in the  in-2  channel and, since the channel was muted at the time, the value is discarded and never put into  out . Let's look at the third state a channel can be inside a mixer: solo.
-in-2 チャンネルに値 2 を設定しました。その時点でチャンネルがミュートされていたため、この値は廃棄されて出力されることはありません。チャンネルが Mixer の中にある 3 番目の状態 sole を見てみましょう。
+@<code>{in-2} チャンネルに値 @<code>{2} を設定しました。その時点でチャンネルがミュートされていたため、この値が破棄されて @<code>{out} に入ることはありません。チャンネルが Mixer の中にある 3 番目の状態 sole を見てみましょう。
 
 #@# As we mentioned before, soloing channels of a mixer implies muting the rest of them by default:
 前述したように、ミキサーのチャンネルを sole にすると、デフォルトで残りのチャンネルがミュートされます。
