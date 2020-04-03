@@ -18,7 +18,7 @@
 Lisp は 1958 年に John McCarthy 氏 によって発明された最も古いプログラミング言語の 1 つです。現在も様々な分野で利用されており、Lisp 方言と呼ばれる多くの派生が進化してきました。CloureScript も Lisp 方言の 1 つです。元々 Lisp ではリストは丸括弧で囲われますが、Clojure(Script) では独自のデータ構造が実装されており、読み書きが容易です。
 
 #@# A list with a function in the first position is used for calling a function in  ClojureScript . In the example below, we apply the addition function to three arguments. Note that unlike in other languages, + is not an operator but a function. Lisp has no operators; it only has functions.
-ClojureScript では、リストの 1 番目に関数がある場合、関数を呼び出すために使われます。次の例では加算する関数を 3 つの引数に適用させています。他の言語とは異なり、+ は演算子ではなく関数であることに注意してください。Lisp には演算子はなく、関数しかありません。
+ClojureScript では、リストの 1 番目に関数がある場合、関数を呼び出すために使われます。次の例では加算する関数を 3 つの引数に適用させています。他の言語とは異なり、@<code>{+} は演算子ではなく関数であることに注意してください。Lisp には演算子はなく、関数しかありません。
 
 //emlist{
 (+ 1 2 3)
@@ -26,7 +26,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 //}
 
 #@# In the example above, we're applying the addition function + to the arguments 1 , 2 and 3. ClojureScript allows many unusual characters like ? or - in symbol names, which makes it easier to read:
-上の例では、加算するための関数である + を、1 2 3 に適用しています。ClojureScript では ? や - のような文字をシンボルの名前として利用できます。このことにより、ClojureScript で書かれたプログラムは読みやすくなっています。
+上の例では、加算するための関数である @<code>{+} を @<code>{1}, @<code>{2}, @<code>{3} に適用しています。ClojureScript では @<code>{?} や @<code>{-} のような文字をシンボルの名前として利用できます。このことにより、ClojureScript で書かれたプログラムは読みやすくなっています。
 
 //emlist{
 (zero? 0)
@@ -34,7 +34,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 //}
 
 #@# To distinguish function calls from lists of data items, we can quote lists to keep them from being evaluated.  The quoted lists will be treated as data instead of as a function call:
-関数の呼び出しとデータとを区別するために、リストの前にクオート ' をつけます。クオートがつけられたリストは、関数の呼び出しではなく、データとして処理されます。
+関数の呼び出しとデータとを区別するために、リストの前にクオート @<code>{'} をつけます。クオートがつけられたリストは、関数の呼び出しではなく、データとして処理されます。
 
 
 #@# Page12
@@ -51,7 +51,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 //}
 
 #@# ClojureScript uses more than lists for its syntax. The full details will be covered later, but here is an example of the usage of a vector (enclosed in brackets) for defining local bindings:
-ClojureScript ではリスト以外の構文も使います。詳細な説明は後の章で行いますが、ベクタの使い方を例として取り上げます。ベクタは角括弧 [ ] で囲まれて、ローカルな束縛を定義します。
+ClojureScript ではリスト以外の構文も使います。詳細な説明は後の章で行いますが、ベクタの使い方を例として取り上げます。ベクタは角括弧 @<code>{[ ]} で囲まれて、ローカルな束縛を定義します。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -125,8 +125,8 @@ ClojureScript においてキーワードは、常にキーワードへ評価さ
 
 #@# As you can see, the keywords are all prefixed with :, but this character is only part of the literal syntax and is not part of the name of the object.
 #@# You can also create a keyword by calling the keyword function. Don't worry if you don't understand or are unclear about anything in the following example;<<function-section,functions>> are discussed in a later section.
-キーワードはリテラルとしてコロン : を使います。コロンはオブジェクトの名前の一部ではありません。
-keyword 関数によりキーワードを作成することも可能です。以下の例は、今は理解できなくても構いません。後に関数の章で取り上げます。
+キーワードはリテラルとしてコロン @<code>{:} を使います。コロンはオブジェクトの名前の一部ではありません。
+@<code>{keyword} 関数によりキーワードを作成することも可能です。以下の例は、今は理解できなくても構いません。後に関数の章で取り上げます。
 
 //emlist{
 (keyword "foo")
@@ -134,7 +134,7 @@ keyword 関数によりキーワードを作成することも可能です。以
 //}
 
 #@# When prefixing keywords with a double colon ::, the keyword will be prepended by the name of the current namespace. Note that namespacing keywords affects equality comparisons.
-キーワードをダブルコロン :: で始めると、キーワードの前に現在の名前空間が付きます。名前空間付きのキーワードは、等価性の比較に影響を与えるので注意してください。
+キーワードをダブルコロン @<code>{::} で始めると、キーワードの前に現在の名前空間が付きます。名前空間付きのキーワードは、等価性の比較に影響を与えるので注意してください。
 
 //emlist{
 ::foo
@@ -155,7 +155,7 @@ keyword 関数によりキーワードを作成することも可能です。以
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
 #@# The keyword function has an arity- 2   var iant where we can specify the namespace as the first parameter:
-keyword 関数は 2 つの引数をとることができます。第 1 引数で名前空間を指定します。
+@<code>{keyword} 関数は 2 つの引数をとることができます。第 1 引数で名前空間を指定します。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
@@ -182,7 +182,7 @@ keyword 関数は 2 つの引数をとることができます。第 1 引数で
 ClojureScript においてシンボルは、キーワードとよく似ています。シンボルは、自分自身を評価するのではなく、参照対象(関数や変数など)に対して評価されます。
 
 #@# Symbols start with a non numeric character and can contain alphanumeric characters as well as *, +, !, -, _, ', and ? such as :
-シンボルの名前はアルファベットで始まり、記号(* + ! - _ ' ?) を含むことができますが、数字で始めることはできません。
+シンボルの名前はアルファベットで始まり、記号(@<code>{*}, @<code>{+}, @<code>{!}, @<code>{-}, @<code>{_}, @<code>{'}, @<code>{?}) を含むことができますが、数字で始めることはできません。
 
 //emlist{
 sample-symbol
@@ -269,12 +269,12 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
 #@# As you can see, all list examples are prefixed with the ' char. This is because lists in  Lisp -like languages are often used to express things like function or macro calls. In that case, the first item should be a symbol that will evaluate to something callable, and the rest of the list elements will be function arguments. However, in the preceding examples, we don't want the first item as a symbol; we just want a list of items.
-上記の例では、リストの先頭にクオート ' がついています。これは Lisp 系言語では、リストが関数やマクロの呼び出しに使われるためです。リストを関数やマクロの呼び出しに使う場合、初めの要素は関数やマクロのシンボル、残りの要素はその引数である必要があります。上の例ではリストの先頭にクオートがついているため、要素のリストとして扱われます。
+上記の例では、リストの先頭にクオート @<code>{'} がついています。これは Lisp 系言語では、リストが関数やマクロの呼び出しに使われるためです。リストを関数やマクロの呼び出しに使う場合、初めの要素は関数やマクロのシンボル、残りの要素はその引数である必要があります。上の例ではリストの先頭にクオートがついているため、要素のリストとして扱われます。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
       
 #@# The following example shows the difference between a list without and with the preceding single quote mark:
-リスト先頭にクオート ' があるかどうかで、動作がどう違うかを確認しましょう。
+リスト先頭にクオート @<code>{'} があるかどうかで、動作がどう違うかを確認しましょう。
 
 //emlist{
 (inc 1)
@@ -285,10 +285,10 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 //}
 
 #@# As you can see, if you evaluate `(inc 1)` without prefixing it with ', it will resolve the inc symbol to the *inc* function and will execute it with 1 as the first argument, returning the value 2 .
-先頭にクオートをつけずに (inc 1) として評価した場合、inc シンボルは inc 関数として評価されます。1 が第 1 引数として評価されて、2 という値が返ります。
-      
+先頭にクオートをつけずに @<code>{(inc 1)} として評価した場合、@<code>{inc} シンボルは inc 関数として評価されます。@<code>{1} が第 1 引数として評価されて、@<code>{2} という値が返ります。
+
 #@# You can also explicitly create a list with the list function:
-リストを作るために、明示的に list 関数を使うことも可能です。
+リストを作るために、明示的に @<code>{list} 関数を使うことも可能です。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
@@ -332,7 +332,7 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 
 #@# Like lists, vectors can contain objects of any type, as you can observe in the preceding example.
 #@# You can also explicitly create a vector with the vector function, but this is not commonly used in ClojureScript programs:
-リストと同様に、ベクタはどの型のオブジェクトを含むことができます。vector 関数を用いてベクタを作成できますが、あまり一般的ではありません。
+リストと同様に、ベクタはどの型のオブジェクトを含むことができます。@<code>{vector} 関数を用いてベクタを作成できますが、あまり一般的ではありません。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
@@ -377,7 +377,7 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 #@# Sets
 
 #@# Sets store zero or more unique items of any type and are unordered. Like maps, they use curly braces for their literal syntax, with the difference being that they use a `#` as the leading character. You can also use the set function to convert a collection to a set:
-最後はセットです。セットは任意の型のデータを 0 個以上保存することができますが、要素間に順序はありません。セットのためには、マップのように波括弧 {} を使います。波括弧の前に シャープ # をつける点がマップとは異なります。set 関数を用いてコレクションをセットに変換することもできます。
+最後はセットです。セットは任意の型のデータを 0 個以上保存することができますが、要素間に順序はありません。セットのためには、マップのように波括弧 @<code>${ }$ を使います。波括弧の前に シャープ @<code>{#} をつける点がマップとは異なります。@<code>{set}関数を用いてコレクションをセットに変換することもできます。
 
 @<embed>{|latex|\vspace{-0.2\Cvs\}}
 
@@ -409,11 +409,11 @@ ClojureScript のコレクションには多くの型があります。ClojureSc
 #@#  vars
 
 #@# ClojureScript is a mostly functional language that focuses on immutability. Because of that, it does not have the concept of  var iables as you know them in most other programming languages. The closest analogy to  variables are the  variables you define in algebra; when you say `x == 6` in mathematics, you are saying that you want the symbol x to stand for the number six.
-ClojureScript は関数型プログラミング言語であり、不変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で x == 6 というときには、x というシンボルが 6 を表すということを意味します。
+ClojureScript は関数型プログラミング言語であり、不変性に重点をおいています。そのため、他の言語の変数にあたる概念がありません。代数学における変数にあたる概念はあります。つまり数学で@<code>{x = 6}というときには、@<code>{x}というシンボルが 6 を表すということを意味します。
 
 #@# In  ClojureScript ,  var s are represented by symbols and store a single value together with metadata.
 #@# You can define a var using the def special form:
-ClojureScript において var はシンボルで表現されて、メタデータと一緒に 1 つの値を保存します。特殊形式の def を使うことで、var を 1 つ定義することができます。
+ClojureScript において var はシンボルで表現されて、メタデータと一緒に 1 つの値を保存します。特殊形式の @<code>{def} を使うことで、var を 1 つ定義することができます。
 
 //emlist{
 (def x 2 2)
@@ -421,7 +421,7 @@ ClojureScript において var はシンボルで表現されて、メタデー�
 //}
 
 #@#  var s are always top level in the namespace (<<namespace-section,which we will explain later>>). If you use def in a function call, the var will be defined at the namespace level, but we do not recommend this - instead, you should use let to define  var iables within a function.
-var は名前空間において常にトップレベルです。名前空間については後に詳しく説明します。もし def を関数の呼び出しの中で使う場合、var は名前空間のレベルに定義されますが、これは推奨されません。関数の中で変数を定義するには let を使うことが推奨されます。
+var は名前空間において常にトップレベルです。名前空間については後に詳しく説明します。もし@<code>{def}を関数の呼び出しの中で使う場合、var は名前空間のレベルに定義されますが、これは推奨されません。関数の中で変数を定義するには@<code>{let}を使うことが推奨されます。
 
 
 == 関数
@@ -447,7 +447,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 //}
 
 #@# In the example above, inc is a function and is part of the ClojureScript runtime, and 1 is the first argument for the inc function.
-この例では inc は関数であり、実行時に利用できる関数の 1 つです。この場合、1 は inc 関数の第 1 引数です。
+この例では@<code>{inc}は関数であり、実行時に利用できる関数の 1 つです。この場合、@<code>{1} は@<code>{inc}関数の第 1 引数です。
 
 //emlist{
 (+ 1 2 3)
@@ -465,7 +465,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 
 
 #@# The + symbol represents an add function. It allows multiple parameters, whereas in ALGOL-type languages, + is an operator and only allows two parameters.
-+ シンボルは加算を意味します。複数の引数をとることができる点ができ、ALGOL型のプログラミング言語が 2 つの引数しかとることができないことと対照的です。
+@<code>{+} シンボルは加算を意味します。複数の引数をとることができる点ができ、ALGOL型のプログラミング言語が 2 つの引数しかとることができないことと対照的です。
 
 #@# The prefix notation has huge advantages, some of them not always obvious. ClojureScript does not make a distinction between a function and an operator; everything is a function. The immediate advantage is that the prefix notation allows an arbitrary number of arguments per "operator". It also comp let ely eliminates the problem of operator precedence.
 前置記法には大きな利点があり、その中には必ずしも明白でないものもあります。ClojureScript では関数とオペレータを区別しません。全てが関数です。すぐに分かる長所としては、前置記法ではオペレータが任意の数の引数を許容することです。また、演算子の優先順位の問題も解消されます。
@@ -475,7 +475,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 #@# Defining your own functions
 
 #@# You can define an unnamed (anonymous) function with the fn special form. This is one type of function definition; in the following example, the function takes two parameters and returns their average.
-特殊形式の fn を用いると、無名関数を定義することができます。次の例では、関数は 2 つの引数を取り、それらの平均を返します。
+特殊形式の @<code>{fn} を用いると、無名関数を定義することができます。次の例では、関数は 2 つの引数を取り、それらの平均を返します。
 
 //emlist{
 (fn [param1 param2]
@@ -501,7 +501,7 @@ ClojureScript は Lisp 方言の 1 つであり、関数の呼び出しは、次
 //}
 
 #@# ClojureScript also offers the defn macro as a little syntactic sugar for making function definition more idiomatic:
-ClojureScript には、関数定義の糖衣構文として defn マクロがあります。
+ClojureScript には、関数定義の糖衣構文として @<code>{defn} マクロがあります。
 
 //emlist{
 (defn square
@@ -550,7 +550,7 @@ ClojureScript は任意の数の引数をとる関数を定義することがで
 
 #@# This line: `([x] (myinc x 1))` says that if there is only one argument, call the function myinc  with that argument and the number 1 as the second argument. The other function body `([x increment] (+ x increment))` says that if there are two arguments, return the result of adding them.
 #@# Here are some examples using the previously defined multi-arity function. Observe that if you call a function with the wrong number of arguments, the compiler will emit an error message.
-([x] (myinc x 1)) は、もし引数が 1 つの場合、myinc 関数に x を第 1 引数、1 を第 2 引数として渡すということを表しています。([x increment] (+ x increment)) は、もし引数が 2 つの場合、2 つの引数を足した結果を返します。
+@<code>{([x] (myinc x 1))} は、もし引数が 1 つの場合、@<code>{myinc} 関数に @<code>{x} を第 1 引数、@<code>{1} を第 2 引数として渡すということを表しています。@<code>{([x increment] (+ x increment))} は、もし引数が 2 つの場合、2 つの引数を足した結果を返します。
 ここで定義した関数を使ってみましょう。引数の数を間違えて関数を呼び出すと、コンパイラからエラーメッセージが出力されることに注目してください。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
@@ -581,7 +581,7 @@ Arity の概念を本書で説明することは、本書の範囲を超えて�
 可変長引数をとる関数を定義することでも、複数の引数を受け取る関数を定義することができます。可変長引数をとる関数は、任意の数の引数をとることができます。
 
 #@# The way to denote a  var iadic function is using the & symbol prefix on its arguments vector.
-可変長引数関数を定義するには & シンボルを引数のベクタにつけます。
+可変長引数関数を定義するには @<code>{&} シンボルを引数のベクタにつけます。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -610,7 +610,7 @@ Arity の概念を本書で説明することは、本書の範囲を超えて�
 #@# Short syntax for anonymous functions
 
 #@# ClojureScript provides a shorter syntax for defining anonymous functions using the `#()` reader macro (usually leads to one-liners). Reader macros are "special" expressions that will be transformed to the appropriate language form at compile time; in this case, to some expression that uses the fn special form.
-ClojureScript では、無名関数のための簡潔な構文としてリーダマクロの #() を使うことができます(ワンライナーを書くためによく用いられます)。リーダーマクロとは、コンパイル時に適当なフォームに変換される「特別な」表現方法です。この場合、fn のフォームに変換されます。
+ClojureScript では、無名関数のための簡潔な構文としてリーダマクロの @<code>{#()} を使うことができます(ワンライナーを書くためによく用いられます)。リーダーマクロとは、コンパイル時に適当なフォームに変換される「特別な」表現方法です。この場合、@<code>{fn}のフォームに変換されます。
 
 //emlist{
 (def average #(/ (+ %1 %2) 2))
@@ -620,7 +620,7 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 //}
 
 #@# The preceding definition is shorthand for:
-この average の定義は、次のように展開されます。
+この @<code>{average} の定義は、次のように展開されます。
 
 //emlist{
 (def average-longer (fn [a b] (/ (+ a b) 2)))
@@ -630,13 +630,13 @@ ClojureScript では、無名関数のための簡潔な構文としてリーダ
 //}
 
 #@# The % 1 , % 2 ... %N are simple markers for parameter positions that are implicitly declared when the reader macro will be interpreted and converted to a fn expression.
-%1 や %2 は引数の位置を示す印であり、リーダーマクロが fn の式に変換される時に暗黙的に宣言されます。
+@<code>{%1} や @<code>{%2} は引数の位置を示す印であり、リーダーマクロが@<code>{fn}の式に変換される時に暗黙的に宣言されます。
 
 #@# If a function only accepts one argument, you can omit the number after the % symbol, e.g., a function that squares a number: `#(* % 1 % 1))` はcan be written `++#++(* % %))`.
-もし関数が 1 つしか引数を取らない場合、% シンボルの後の数字は省略できます。例えば、#(* %1 %1) は #(* % %) と書くことができます。
+もし関数が 1 つしか引数を取らない場合、@<code>{%} シンボルの後の数字は省略できます。例えば、@<code>{#(* %1 %1)} は @<code>{#(* % %)} と書くことができます。
 
 #@# Additionally, this syntax also supports the  var iadic form with the %& symbol:
-さらに %& シンボルにより可変長引数にすることができます。
+さらに @<code>{%&} シンボルにより可変長引数にすることができます。
 
 //emlist{
 (def my-variadic-set #(set %&))
@@ -658,7 +658,7 @@ ClojureScript のフロー制御は、JavaScript や C などとアプローチ�
 #@# Branching with if
 
 #@#  let 's start with a basic one: if. In  ClojureScript , the if is an expression and not a statement, and it has three parameters: the first one is the condition expression, the second one is an expression that will be evaluated if the condition expression evaluates to logical true, and the third expression will be evaluated otherwise.
-ClojureScript において if は文ではなく式であり、3 つの引数をとります。1 つ目は条件式、2 つ目は条件が真の場合に評価される式、3 つ目は条件が偽の場合に評価される式です。
+ClojureScript において @<code>{if} は文ではなく式であり、3 つの引数をとります。1 つ目は条件式、2 つ目は条件が真の場合に評価される式、3 つ目は条件が偽の場合に評価される式です。
 
 
 #@# Page21
@@ -689,7 +689,7 @@ ClojureScript において if は文ではなく式であり、3 つの引数を
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
       
 #@# The block expression do can be used to have multiple expressions in an if branch.  xref:block-section[do is explained in the next section].
-if の条件分岐の中で複数の式を実行するには do を使います。do については次のセクションで説明します。
+@<code>{if} の条件分岐の中で複数の式を実行するには @<code>{do} を使います。@<code>{do}については次のセクションで説明します。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -699,7 +699,7 @@ if の条件分岐の中で複数の式を実行するには do を使います�
 
 #@# Sometimes, the if expression can be slightly limiting because it does not have the "else if" part to add more than one condition. The cond macro comes to the rescue.
 #@# With the cond expression, you can define multiple conditions:
-if 式には複数の条件を追加するための else if の部分がないため、多少制限されますが、cond マクロでこの点を解決できます。cond では複数の条件を定義できます。
+@<code>{if}式には複数の条件を追加するための else if の部分がないため、多少制限されますが、@<code>{cond} マクロでこの点を解決できます。@<code>{cond}では複数の条件を定義できます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -719,10 +719,10 @@ if 式には複数の条件を追加するための else if の部分がない�
 @<embed>{|latex|\vspace{-0.4\Cvs\}}      
       
 #@# Also, cond has another form, called condp, that works very similarly to the simple cond but looks cleaner when the condition (also called a predicate) is the same for all conditions:
-また、cond には condp と呼ばれる別の形式もあり、単純な cond と非常によく似た働きをしますが、条件(述語とも呼ばれます)が全ての条件に対して同じ場合は、より綺麗に見えます。
+また、@<code>{cond}には @<code>{condp} と呼ばれる別の形式もあり、単純な@<code>{cond}と非常によく似た働きをしますが、条件(述語とも呼ばれます)が全ての条件に対して同じ場合は、より綺麗に見えます。
 
 #@# The line `condp = (keyword code)` means that, in each of the following lines, ClojureScript will apply the = function to the result of evaluating `(keyword code)`.
-以下の各行では、ClojureScript は (keyword code) を評価した結果に = 関数を適用します。
+以下の各行では、ClojureScript は @<code>{(keyword code)} を評価した結果に @<code>{=} 関数を適用します。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -756,7 +756,7 @@ if 式には複数の条件を追加するための else if の部分がない�
 
 #@# The case branching expression has a similar use as our previous example with condp. The main differences are that case always uses the == predicate/function and its branching values are evaluated at compile time. This results in a more performant form than cond or condp but has the disadvantage that the condition value must be static.
 #@# Here is the previous example rewritten to use case:
-case は、前例の condp と同様の使い方をします。主な違いは、常に = 述語(関数)が使用されて、その分岐値がコンパイル時に評価されることです。そのため cond や condp よりもパフォーマンスが良いですが、条件の値が静的でなければならないという欠点があります。
+@<code>{case} は、前例の@<code>{condp}と同様の使い方をします。主な違いは、常に @<code>{=} 述語(関数)が使用されて、その分岐値がコンパイル時に評価されることです。そのため @<code>{cond}や@<code>{condp}よりもパフォーマンスが良いですが、条件の値が静的でなければならないという欠点があります。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -781,10 +781,10 @@ case は、前例の condp と同様の使い方をします。主な違いは�
 #@# Truthiness
 
 #@# This is the aspect where each language has its own semantics (mostly wrongly). The majority of languages consider empty collections, the integer 0, and other things like this to be false.  In  ClojureScript , unlike in other languages, only two values are considered as false: nil and false. Everything else is treated as logical true.
-真偽判定はプログラミング言語によりセマンティクスが異なります。多くの言語では、空のコレクションや整数の 0 、またこれらと同様の値を偽と見なします。ClojureScript では nil と false だけが偽と見なされ、その他は論理的に真として扱われます。
+真偽判定はプログラミング言語によりセマンティクスが異なります。多くの言語では、空のコレクションや整数の 0 、またこれらと同様の値を偽と見なします。ClojureScript では @<code>{nil} と @<code>{false} だけが偽と見なされ、その他は論理的に真として扱われます。
 
 #@# Jointly with the ability to implement the callable protocol (the IFn, explained more in detail later), data structures like sets can be used just as predicates, without need of additional wrapping them in a function:
-callable プロトコル(IFn については後述)を実装する能力と一緒に、集合のようなデータ構造は、関数の中でそれらを追加的にラップする必要なしに、述語として使うことができます。
+callable プロトコル(@<code>{IFn} については後述)を実装する能力と一緒に、集合のようなデータ構造は、関数の中でそれらを追加的にラップする必要なしに、述語として使うことができます。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -796,7 +796,7 @@ callable プロトコル(IFn については後述)を実装する能力と一�
 //}
 
 #@# This works because a set returns either the value itself for all contained elements or nil:
-このように動作するのは、セットが、全ての要素の値自体か nil を返すためです。
+このように動作するのは、セットが、全ての要素の値自体か @<code>{nil} を返すためです。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -841,7 +841,7 @@ ClojureScript には ALGOL のような変数の概念がありませんが、�
 //}
 
 #@# In the preceding example, the symbol x is bound to the value `(inc 1)`, which comes out to 2 , and the symbol y is bound to the sum of x and 1 , which comes out to 3. Given those bindings, the expressions `(println "Simple message from the body of a  let ")` and `(* x y)` are evaluated.
-上の例では、シンボル x が (inc 1) の値に束縛されて、シンボル y が x と 1 の合計(つまり 3 )に束縛されます。これらの束縛を受けて、(println "Simple message from the body of a  let") と (* x y) が評価されます。
+上の例では、シンボル @<code>{x} が @<code>{(inc 1)} の値に束縛されて、シンボル @<code>{y} が @<code>{x} と 1 の合計(つまり 3 )に束縛されます。これらの束縛を受けて、 @<code>{(println "Simple message from the body of a  let")} と @<code>{(* x y)} が評価されます。
 
 === ブロック
 
