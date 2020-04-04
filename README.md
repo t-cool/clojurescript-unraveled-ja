@@ -4,6 +4,12 @@
 
 <kbd><img src="https://github.com/t-cool/clojurescript-unraveled/blob/master/images/cover.png" width="320"></kbd>
 
+## 電子版の入手サイト
+
+電子版(PDF) は Leanpub で入手可能です。
+
+[https://leanpub.com/clojurescript-unraveled-ja](https://leanpub.com/clojurescript-unraveled-ja)
+
 ## 原著について
 
 原著 `ClojureScript Unraveled` は [https://github.com/funcool/clojurescript-unraveled](https://github.com/funcool/clojurescript-unraveled) で公開されています。
