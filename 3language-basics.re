@@ -1265,6 +1265,8 @@ ClojureScript のコレクションは永続的でイミュータブルだと言
 #@# For illustrating the structural sharing of ClojureScript data structures,  let 's compare whether some parts of the old and new versions of a data structure are actually the same object with the identical? predicate. We'll use the list data type for this purpose:
 ClojureScript におけるデータ構造の構造共有を説明するために、古いデータ構造と新しいデータ構造の一部が同じオブジェクトかどうかを @<code>{identical?} を用いて比較してみます。ここではリストを例に説明します。
 
+@<embed>{|latex|\vspace{-0.4\Cvs\}}
+
 //emlist{
 (let [xs (list 1 2 3)
       ys (cons 0 xs)]
@@ -1277,6 +1279,8 @@ ClojureScript におけるデータ構造の構造共有を説明するために
 ;; (rest ys): (1 2 3)
 ;; => true
 //}
+
+@<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# As you can see in the example, we used cons (construct) to prepend a value to the xs list and we got a new list ys with the element added. The rest of the ys list (all the values but the first) are the same object in memory as the xs list, thus xs and ys share structure.
 リストの @<code>{xs} に @<code>{cons} 関数を使って値を追加して新たなリスト @<code>{ys} を作成しています。リスト @<code>{ys} の @<code>{rest} はリスト @<code>{xs} とメモリでは等しくなります。この挙動を見ると、リスト @<code>{xs} と リスト @<code>{ys} がデータ構造を共有していることがわかります。
@@ -2129,8 +2133,12 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 ;; => ("o" "u" "o")
 //}
 
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
+
 #@# Sets have a sorted counterpart like maps do that are created using the functions sorted-set and sorted-set-by which are analogous to map's sorted-map and sorted-map-by.
 セットの要素に順序をつけて扱うには、マップの場合と同様に、@<code>{sorted-set} 関数と @<code>{sorted-set-by} 関数が用意されています。マップの @<code>{sorted-map} と @<code>{sorted-map-by} に似ています。
+
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 //emlist{
 (def unordered-set #{[0] [1] [2]})
@@ -2161,6 +2169,8 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 #@# Using conj to add values to a queue adds items onto the rear:
 値をキューに追加するために conj を使うと、アイテムは末尾に追加されます。
 
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
+
 //emlist{
 (def pq #queue [1 2 3])
 ;; => #queue [1 2 3]
@@ -2169,8 +2179,12 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 ;; => #queue [1 2 3 4 5]
 //}
 
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
+
 #@# A thing to bear in mind about queues is that the stack operations don't follow the usual stack semantics (pushing and popping from the same end). pop takes values from the front position, and conj pushes (appends) elements to the back.
 キューに関して留意すべき点は、スタック操作が通常のスタックのセマンティクス(同じ終点から出し入れすること)に従わないことです。@<code>{pop} は前の位置から値を取り、@<code>{conj} は要素を後ろに push(もしくは append) します。
+
+@<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# Page45
 //embed[latex]{
