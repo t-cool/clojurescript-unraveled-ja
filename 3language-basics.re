@@ -2569,10 +2569,10 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 #@# This is an easy way avoid null pointer exceptions.
 これにより、ヌル・ポインタ・エクセプションを簡単に回避することができます。
 
-;; 注釈
-;; user=> (inc nil)
-;; Execution error (NullPointerException) at user/eval241 (REPL:1).
-;; null
+#@# ;; 注釈
+#@# ;; user=> (inc nil)
+#@# ;; Execution error (NullPointerException) at user/eval241 (REPL:1).
+#@# ;; null
 
 === thread-cond マクロ ( cond-> cond->> )
 
