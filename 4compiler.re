@@ -565,10 +565,10 @@ cljs.user=> (+ 1 2)
 === Node.js REPL
 
 #@# You must, of course, have Node.js installed on your system to use this REPL.
-まず初めに Node.js が必要です。このREPLを使用するには、Node.js をシステムにインストールしてください。
+まず初めに Node.js が必要です。この REPL を使用するには、Node.js をシステムにインストールしてください。
 
 #@# You may be wondering why we might want a Node.js REPL, when we already have thenashorn REPL available which doesn't have any external dependencies. The answer isvery simple: Node.js is the most used JavaScript execution environment on the backend,and it has a great number of community packages built around it.
-外部依存関係を持たない Nashorn REPL がすでに使用可能になっているのに、なぜ Node.js が必要なのか不思議に思うかもしれません。。答えは非常に単純です。Node.js はバックエンドで最もよく使われている JavaScript 実行環境であり、その上に構築された数多くのコミュニティーによるパッケージが存在するからです。
+外部依存関係を持たない Nashorn REPL がすでに使用可能になっているのに、なぜ Node.js が必要なのか不思議に思うかもしれません。答えは非常に単純です。Node.js はバックエンドで最もよく使われている JavaScript 実行環境であり、その上に構築された数多くのコミュニティーによるパッケージが存在するからです。
 
 #@# The good news is that starting a Node.js REPL is very easy once you have it installedin your system. Start adding the following content into `tools.clj` script:
 幸いなことに、Node.js の REPLは、一度システムにインストールすれば非常に簡単に起動できます。次の内容を @<code>{tools.clj} に追加します。
@@ -609,7 +609,7 @@ cljs.user=> (+ 1 2)
 === Browser REPL
 
 #@# This REPL is the most laborious to get up and running. This is because it uses abrowser for its execution environment and it has additional requirements.
-この REPL は、起動と実行に最も手間がかかります。これは 実行環境 のためにブラウザを使用しており、追加の要件があるためです。
+この REPL は、起動と実行に最も手間がかかります。これは実行環境のためにブラウザを使用しており、追加の要件があるためです。
 
 #@# Let’s start by creating a file named brepl.clj with the following content:
 まず、brepl.clj という名前のファイルを作成して、次のように編集します。
