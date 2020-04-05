@@ -6,7 +6,7 @@
 
 ## 電子版の入手サイト
 
-電子版(PDF) は Leanpub で入手可能です。
+電子版(PDF) は Leanpub で入手可能です。(2020年内の予定)
 
 [https://leanpub.com/clojurescript-unraveled-ja](https://leanpub.com/clojurescript-unraveled-ja)
 
@@ -28,17 +28,21 @@ t-cool
 
 [athos さん](https://github.com/athos)
 
-### バージョン管理
-
-[https://github.com/funcool/clojurescript-unraveled](https://github.com/funcool/clojurescript-unraveled) の master ブランチと同期します。
-
 ### ライセンス
 
 原著のライセンスに準じます。
 
 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0)
 
-## 出版に関わる会計報告
+## 出版の方針
+
+・Clojure(Script) の普及を目的とするプロジェクトです。
+
+・Clojurescript Unraveled の改訂に合わせて、翻訳版をアップデートします。
+
+・電子版を無料で配布します。また、印刷資金を募り、物理本を各種イベントで配布します。
+
+## 会計報告
 
 https://docs.google.com/spreadsheets/d/1fHjWdqpzGTAlGluV3eq2pFPhPRZPOTurwA_-lpbGXlU/edit?usp=sharing
 
