@@ -1065,10 +1065,10 @@ goog.scope(function() {
 //}
 
 #@# Now, open the repl, require the namespace and try to use the exposed function:
-REPL を開いて名前空間を reqire して、公開された関数を使用してみます。
+では、REPL を開き、名前空間を reqire して、expose された関数を使用してみます。
 
 you can open the nodejs repl just executing ./scripts/repl on the root of the repository.
-レポジトリのルートで /scripts/repl を実行するだけで、Node.js の REPL を開くことができます。
+レポジトリのルートで @<code>{./scripts/repl} を実行するだけで、Node.js の REPL を開くことができます。
 
 //emlist{
 (require '[myextmods.myclosuremodule :as cm])
