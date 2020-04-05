@@ -2064,7 +2064,7 @@ JavaScript のオブジェクトを拡張する場合は、@<code>{js/String} �
 JavaScript の型を拡張するシンボルには、@<code>{object}、@<code>{array}、@<code>{number}、@<code>{string}、@<code>{function}、@<code>{boolean}、@<code>{nil} があります。プロトコルを native オブジェクトにディスパッチするには、Google Closure の goog.typeOf 関数を使います。全ての型のためのプロトコルを実装するために使われる特別なデフォルトのシンボルがあります。
 
 #@# For illustrating the extension of JS types we are going to define a  MaybeMutable  protocol that'll have a  mutable?  predicate as its only function. Since in JavaScript mutability is the default we'll extend the default JS type returning true from  mutable? :
-JavaScript の型の拡張を説明するために、@<code>{mutable?} 関すを用いて @<code>{MaybeMutable} プロトコルを実装します。JavaScript の可変性はデフォルトなので、@<code>{mutable?} から true を返すデフォルトの JavaScript の型を拡張します。:
+JavaScript の型の拡張を説明するために、@<code>{mutable?} 関数を用いて @<code>{MaybeMutable} プロトコルを実装します。JavaScript の可変性はデフォルトなので、@<code>{mutable?} から true を返すデフォルトの JavaScript の型を拡張します。:
 
 //emlist{
 (defprotocol MaybeMutable
