@@ -1014,6 +1014,14 @@ ClojureScript には存在しませんが、すでに JavaScript に実装され
 #@# There are many ways that you can do it mainly depending on the library that you want to include. Let see some ways.
 含めるライブラリによって、多くの方法があります。いくつか見ていきましょう。
 
+
+==== Closure 対応のライブラリ
+
+#@# Closure Module compatible library
+
+#@# If you have a library that is just written to be compatible with google closure module system and you want to include it on your project you should just put it in the source (classpath) and access it like any other clojure namespace.
+Google Closure モジュールとの互換性を持つように作成されたライブラリをプロジェクトに含める場合には、そのライブラリをソース(クラスパス)に配置して、他の Clojure 名前空間と同じようにアクセスします。
+
 #@# Page95
 #@# @<embed>{|latex|\vspace{-0.5\Cvs\}}
 //embed[latex]{
@@ -1023,13 +1031,6 @@ ClojureScript には存在しませんが、すでに JavaScript に実装され
 \clearpage
 //}
 
-
-==== Closure 対応のライブラリ
-
-#@# Closure Module compatible library
-
-#@# If you have a library that is just written to be compatible with google closure module system and you want to include it on your project you should just put it in the source (classpath) and access it like any other clojure namespace.
-Google Closure モジュールとの互換性を持つように作成されたライブラリをプロジェクトに含める場合には、そのライブラリをソース(クラスパス)に配置して、他の Clojure 名前空間と同じようにアクセスします。
 
 #@# This is the most simplest case, because google closure modules are directly compatible and you can mix your clojure code with javascript code written using google closure module system without any additional steps.
 これは最も単純なケースです。Google Closure モジュールは直接互換性があり、Google Closure モジュールシステムを使って書かれた JavaScript コードは、あなたの Clojure のコードと、追加の手順なしでミックスできます。
@@ -1078,12 +1079,16 @@ you can open the nodejs repl just executing ./scripts/repl on the root of the re
 
 ==== CommonJS モジュール互換のライブラリ
 
+@<embed>{|latex|\vspace{0.5\Cvs\}}
+
 #@# CommonJS modules compatible libraries
 
 #@# Due to the Node.JS popularity the commonjs used in node is today the most used module format for javascript libraries, independently if they will be used in server side development using nodejs or using browser side applications.
 Node.js  の人気により、Node.js で用いられる CommonJS の人気は、現在 JavaScript のライブラリで最も使用されているモジュール形式です。サーバサイド開発で使用されるか、ブラウザ側のアプリケーションで使用されるかにより、利用法は別々です。
 
 #@# Let’s play with that. Start creating a simple file using commonjs module format (pretty analogous to the previous example using google closure modules):
+CommonJS のモジュール形式(Google Closure モジュールを用いた前例と類似点が多い)を使用した単純なファイルを作成します。
+
 
 #@# Page96
 #@# @<embed>{|latex|\vspace{-0.5\Cvs\}}
@@ -1093,8 +1098,6 @@ Node.js  の人気により、Node.js で用いられる CommonJS の人気は�
 //embed[latex]{
 \clearpage
 //}
-
-CommonJS のモジュール形式(Google Closure モジュールを用いた前例と類似点が多い)を使用した単純なファイルを作成します。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -1146,6 +1149,8 @@ scripts/repl.clj を開いて、次のように変更します。
 //}
 
 ==== 従来のモジュール化されていない(グローバルスコープの)ライブラリ
+
+@<embed>{|latex|\vspace{0.5\Cvs\}}
 
 #@# Legacy, module-less (global scope) libraries
 
