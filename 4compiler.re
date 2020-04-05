@@ -801,7 +801,7 @@ Leiningen 2.5.1 on Java 1.8.0_45 OpenJDK 64-Bit Server VM
 //}
 
 #@# We assume here that you are using a Unix-like system such as Linux or BSD. If you are a Windows user, please check the instructions on the Leiningen homepage. You can also get the Linux/Mac OS X/BSD version of the leiningen script at the web site.
-ここでは、Linux や BSD のような Unix ライクなシステムを使っていると仮定しています。Windows ユーザの方は、Leiningen のホームページの説明を参照してください。Linux、Mac OS X、BSD 版の Leiningen スクリプトは Web サイトから入手することもできます。
+ここでは、Linux や BSD のような Unix 系のシステムを使っていると仮定しています。Windows ユーザの方は、Leiningen のホームページの説明を参照してください。Linux、Mac OS X、BSD 版の Leiningen スクリプトは Web サイトから入手することもできます。
 
 
 === 初めてのプロジェクト
