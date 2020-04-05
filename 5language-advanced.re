@@ -2226,7 +2226,7 @@ ClojureScript の型から JavaScript の型、あるいはその逆を行うた
 //}
 
 #@# Note that there is no one-to-one mapping between ClojureScript and JavaScript values. For example, ClojureScript keywords are converted to JavaScript strings when passed to  clj->js .
-ClojureScript と JavaScript の値は、一対一のマッピングはないことに注意してください。たとえば、ClojureScript のキーワードは、clj->js に渡されると JavaScript の文字列に変換されます。
+ClojureScript と JavaScript の値は、一対一のマッピングはないことに注意してください。たとえば、ClojureScript のキーワードは、@<code>{clj->js} に渡されると JavaScript の文字列に変換されます。
 
 
 === リダクション
