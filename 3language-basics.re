@@ -863,7 +863,7 @@ JavaScript において波括弧 @<code>${ }$ は「共に属する」コード�
 //}
 
 #@# The body of the let expression, explained in the previous section, is very similar to the do expression in that it allows multiple expressions. In fact, the let has an implicit do.
-先ほど説明した @<code>{let} の本体は、複数の式をもつことができる点において @<code>{do} とよく似ています。実際、@<code>{let} は暗黙の @<code>{do} をもちます。
+先ほど説明した@<code>{let}の本体は、複数の式をもつことができる点において @<code>{do} とよく似ています。実際、@<code>{let} は暗黙の @<code>{do} をもちます。
 
 
 #@# Page24

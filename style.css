@@ -158,6 +158,7 @@ pre.emlist, pre.source, pre.list {
     margin: 0;
 /*    padding: 1px;*/
     border: 1px #aaa solid;
+    font-family: monospace;
 }
 div p.caption {
     margin: 0;
