@@ -6,7 +6,7 @@
 
 ## 電子書籍(PDF)
 
-電子書籍(PDF) は本レポジトリの [books ディレクトリ](./books)からダウンロードできます。
+電子書籍(PDF) は [Leanpub](https://leanpub.com/clojurescript-unraveled-ja) で公開予定です。
 
 ## 原著について
 
