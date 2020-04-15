@@ -2574,7 +2574,7 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 #@# ;; Execution error (NullPointerException) at user/eval241 (REPL:1).
 #@# ;; null
 
-=== thread-cond マクロ ( @<code>{cond->} @<code>{cond->>} )
+=== thread-cond マクロ ( @<code>{cond->} と @<code>{cond->>} )
 
 #@# The `cond\->` and `cond\->>` macros are analgous to `\->` and `\->>` that offers the ability to conditionally skip some steps from the pipeline. let see an example:
 @<code>{cond->} と @<code>{cond->>} マクロは @<code>{->} と @<code>{->>} と似ており、パイプラインからの処理を条件によりスキップできます。例を見てみましょう。
