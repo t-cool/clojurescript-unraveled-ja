@@ -2538,7 +2538,7 @@ thread-last マクロ (@<code>{->>}) は、シーケンスのデータを変形�
 //}
 
 
-=== thread-some マクロ ( some-> と some->> )
+=== thread-some マクロ ( @<code>{some->} と @<code>{some->>} )
 
 #@# Two of the more specialized threading macros that ClojureScript comes with. They work in the same way as their analagous `\->` and `\->>` macros with the additional support for short-circuiting the expression if one of the expresions evaluates　to nil.
 ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します。これらは @<code>{->} と @<code>{->>} と同じように動作します。式の 1 つが @<code>{nil} と評価された場合に式を短絡することをサポートします。
@@ -2574,7 +2574,7 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 #@# ;; Execution error (NullPointerException) at user/eval241 (REPL:1).
 #@# ;; null
 
-=== thread-cond マクロ ( cond-> cond->> )
+=== thread-cond マクロ ( @<code>{cond->} @<code>{cond->>} )
 
 #@# The `cond\->` and `cond\->>` macros are analgous to `\->` and `\->>` that offers the ability to conditionally skip some steps from the pipeline. let see an example:
 @<code>{cond->} と @<code>{cond->>} マクロは @<code>{->} と @<code>{->>} と似ており、パイプラインからの処理を条件によりスキップできます。例を見てみましょう。
@@ -2644,7 +2644,7 @@ ClojureScript のより特殊なスレッド系マクロを 2 つ紹介します
 #@# As you can observe, `#?` reading macro looks very similar to cond, the difference is that the condition is just a keyword that identifies the platform, where :cljs is for ClojureScript and :clj is for _Clojure_. The advantage of this approach, is that it is evaluated at compile time so no runtime performance overhead exists for using this.
 リーダマクロの @<code>{#?} は @<code>{cond} と同じように見えますが、条件部にキーワードを用いて、ClojureScript には @<code>{:cljs} 、Clojure には @<code>{:clj} をプラットフォームの特定のために使います。リーダマクロはコンパイル時に評価されるので、実行時にオーバーヘッドが発生しません。
 
-=== Splicing ( #?@ )
+=== Splicing ( @<code>{#?@} )
 
 #@# Splicing (`#?@`)
 
