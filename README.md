@@ -1,7 +1,5 @@
 # 明解 ClojureScript
 
-[![CircleCI](https://circleci.com/gh/t-cool/clojurescript-unraveled.svg?style=svg&circle-token=44b12537d2e6d9d809eea5b8699c68f2d25730ac)](https://circleci.com/gh/t-cool/clojurescript-unraveled)
-
 <kbd><img src="https://github.com/t-cool/clojurescript-unraveled/blob/master/images/cover.png" width="320"></kbd>
 
 ## 電子書籍(PDF)
