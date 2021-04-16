@@ -6,7 +6,6 @@ yarn.lock
 
 .texmf-var
 .DS_Store
-book.pdf
 
 
 example/myapp1/out/*
