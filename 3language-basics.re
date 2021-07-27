@@ -76,7 +76,7 @@ ClojureScript ではリスト以外の構文も使います。詳細な説明は
 他のプログラミング言語と同様、ClojureScript には多くのデータ型が用意されています。ClojureScript には、数値、文字列、浮動小数などのスカラー型のデータ構造があります。これら以外にも、シンボル、キーワード、正規表現、変数、アトム、Volatile などのデータ構造もあります。
 
 #@# ClojureScript embraces the host language, and where possible, uses the host's provided types. For example: numbers and strings are used as is and behave in the same way as in  JavaScript .
-ClojureScript はホスト言語に包含されるので、ホスト言語がもつデータ型を可能な限り利用することができます。例えば、数値と文字列は、JavaScript の数値と文字列と同じように利用して結果を得ることができます。
+ClojureScript はホスト言語を採用し、可能な限りホスト言が提供する型を使用します。例えば、数値と文字列は、JavaScript の数値と文字列と同じように利用して、結果を得ることができます。
 
 === 数値
 
@@ -179,7 +179,7 @@ ClojureScript においてキーワードは、常にキーワードへ評価さ
 #@# Symbols
 
 #@# Symbols in ClojureScript are very, very similar to *keywords* (which you now know about). But instead of evaluating to themselves, symbols are evaluated to something that they refer to, which can be functions,  var iables, etc.
-ClojureScript においてシンボルは、キーワードとよく似ています。シンボルは、自分自身を評価するのではなく、参照対象(関数や変数など)に対して評価されます。
+ClojureScript のシンボルはキーワードとよく似ていますが、自分自身に対して評価されるのではなく、シンボルが参照している対象(関数や変数等)に対して評価されます。
 
 #@# Symbols start with a non numeric character and can contain alphanumeric characters as well as *, +, !, -, _, ', and ? such as :
 シンボルの名前はアルファベットで始まり、記号(@<code>{*}, @<code>{+}, @<code>{!}, @<code>{-}, @<code>{_}, @<code>{'}, @<code>{?}) を含むことができますが、数字で始めることはできません。
@@ -505,7 +505,7 @@ ClojureScript には、関数定義の糖衣構文として @<code>{defn} マク
 
 //emlist{
 (defn square
-  "特定の数字の 2 乗を返す"
+  "特定の数字の2乗を返す"
   [x]
   (* x x))
 //}
@@ -671,7 +671,7 @@ ClojureScript において @<code>{if} は文ではなく式であり、3 つの
 
 //emlist{
 (defn discount
-  "1 点以上の購入で 5 % 割引されます"
+  "1点以上の購入で5%割引されます"
   [quantity]
   (if (>= quantity 100)
     0.05
@@ -697,7 +697,7 @@ ClojureScript において @<code>{if} は文ではなく式であり、3 つの
 
 #@# Sometimes, the if expression can be slightly limiting because it does not have the "else if" part to add more than one condition. The cond macro comes to the rescue.
 #@# With the cond expression, you can define multiple conditions:
-@<code>{if}式には複数の条件を追加するための else if の部分がないため、多少制限されますが、@<code>{cond} マクロでこの点を解決できます。@<code>{cond}では複数の条件を定義できます。
+@<code>{if}式には複数の条件を追加するための @<code>{else if} の部分がないため、多少制限されますが、@<code>{cond} マクロでこの点を解決できます。@<code>{cond}では複数の条件を定義できます。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -779,7 +779,7 @@ ClojureScript において @<code>{if} は文ではなく式であり、3 つの
 #@# Truthiness
 
 #@# This is the aspect where each language has its own semantics (mostly wrongly). The majority of languages consider empty collections, the integer 0, and other things like this to be false.  In  ClojureScript , unlike in other languages, only two values are considered as false: nil and false. Everything else is treated as logical true.
-真偽判定はプログラミング言語によりセマンティクスが異なります。多くの言語では、空のコレクションや整数の 0 、またこれらと同様の値を偽と見なします。ClojureScript では @<code>{nil} と @<code>{false} だけが偽と見なされ、その他は論理的に真として扱われます。
+真偽判定はプログラミング言語によりセマンティクスが異なります。多くの言語では、空のコレクションや整数の @<code>{0} 、またこれらと同様の値を偽と見なします。ClojureScript では @<code>{nil} と @<code>{false} だけが偽と見なされ、その他は論理的に真として扱われます。
 
 #@# Jointly with the ability to implement the callable protocol (the IFn, explained more in detail later), data structures like sets can be used just as predicates, without need of additional wrapping them in a function:
 callable プロトコル(@<code>{IFn} については後述)を実装する能力と一緒に、集合のようなデータ構造は、関数の中でそれらを追加的にラップする必要なしに、述語として使うことができます。
@@ -794,7 +794,7 @@ callable プロトコル(@<code>{IFn} については後述)を実装する能�
 //}
 
 #@# This works because a set returns either the value itself for all contained elements or nil:
-このように動作するのは、セットが、全ての要素の値自体か @<code>{nil} を返すためです。
+このように動作するのは、セットが全ての要素の値自体か @<code>{nil} を返すためです。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -854,8 +854,8 @@ JavaScript において波括弧 @<code>${ }$ は「共に属する」コード�
 (do
   (println "hello world")
   (println "hola mundo")
-  ;; this value will not be returned; it is thrown away
-  (* 3 5) ; この値は返され図に捨てられます
+  ;; この値は返却されずに捨てられます。
+  (* 3 5)
   (+ 1 2))
 ;; hello world
 ;; hola mundo
@@ -910,7 +910,7 @@ ClojureScript は関数型のアプローチを採用しているので、JavaSc
 //}
 
 #@# In the above snippet, we bind the name x to the value 0 and execute the body. Since the condition is not met the first time, it's rerun with recur, incrementing the binding value with the inc function. We do this once more until the condition is met and, since there aren't any more recur calls, exit the loop.
-上の例では、まず @<code>{x} を @<code>{0} に束縛して本体を実行します。@<code>{if} の条件が満たされていないので、@<code>{(recur (inc x))} で @<code>{inc} で @<code>{x} に @<code>{1} が加算されてループが再実行されます。条件が満たされると @<code>{recur} の呼び出しが止まり ループが終了します。
+上の例では、まず @<code>{x} を @<code>{0} に束縛して本体を実行します。@<code>{if} の条件が満たされていないので、@<code>{(recur (inc x))} で @<code>{inc} で @<code>{x} に @<code>{1} が加算されてループが再実行されます。条件が満たされると @<code>{recur} の呼び出しが止まり、ループが終了します。
 
 #@# Note that loop isn't the only point we can recur to; using recur inside a function executes the body of the function recursively with the new bindings:
 @<code>{recur} を使うことができるのは @<code>{loop} だけではありません。関数の中で @<code>{recur} を使用すると、新しい束縛値で本体が再帰的に実行されます。
@@ -992,7 +992,7 @@ ClojureScript は関数型のアプローチを採用しているので、JavaSc
 //}
 
 #@# If your function is short, you can use an anonymous function instead, either the normal or short syntax:
-高階関数に渡す関数が短い場合は、無名関数を使うこともできます。無名関数には @<code>{fn} を用いても @<code>{#}  を用いてもどちらでも可能です。
+高階関数に渡す関数が短い場合は、無名関数を使うこともできます。無名関数には @<code>{fn} か @<code>{#} のどちらを用いても構いません。
  
 //emlist{
 (map (fn [x] (+ (* 3 x) 5)) [1 2 3 4 5])
@@ -1166,7 +1166,7 @@ ClojureScript の @<code>{for} は、反復のためではなくシーケンス�
 //}
 
 #@# We can combine the modifiers shown above for expressing complex sequence generations or more clearly expressing the intent of our comprehension:
-複雑なシーケンス生成を表現するために、または内包表現の目的をより明確に表現するために、上記の修飾子を組み合わせることができます。
+上記のような修飾語を組み合わせることで、複雑な配列の生成を表現したり、理解の意図をより明確に表現することができます。
 
 //emlist{
 (for [x [1 2 3]
@@ -1178,8 +1178,7 @@ ClojureScript の @<code>{for} は、反復のためではなくシーケンス�
 //}
 
 #@# When we outlined the most common usages of the for construct in imperative programming languages, we mentioned that sometimes we want to run a computation for every value in a sequence, not caring about the result. Presumably we do this for achieving some sort of side-effect with the values of the sequence.
-先ほど、命令型プログラミング言語での @<code>{for} の用法として、結果を気にせずにシーケンス内のすべての値に対して計算を実行したい場合があることを述べました。おそらく、シーケンスの各値で何らかの副作用を達成するためにこれを行います。
-
+命令型プログラミング言語における @<code>{for} 構文の最も一般的な使用方法を説明した際に、結果を気にせずにシーケンスのすべての値に対して計算を実行したい場合があると述べました。おそらく、シーケンスの値を用いて何らかの副次的効果を得るために、このようなことをするのでしょう。
 
 #@# Page29
 //embed[latex]{

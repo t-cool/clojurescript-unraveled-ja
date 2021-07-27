@@ -5,7 +5,7 @@
 #@# //quote{Why are we doing this? Because Clojure _rocks_, and JavaScript _reaches_.- Rich Hickey//}
 
 //quote{
-なぜ ClojureScript をしてるかだって？Clojure が最高で JavaScript が流行ってるからさ。
+なぜ ClojureScript をしてるかだって？ Clojure がロックで JavaScript が流行っているからさ。
 
 - Rich Hickey
 //}
@@ -81,5 +81,4 @@ ClojureScript は JavaScript をターゲットにした Clojure の実装です
 @<embed>{|latex|\vspace{1\Cvs\}}
 
 #@# We hope you enjoy the book and ClojureScript brings the same joy and inspiration that　has brought to us.
-
-私たちが ClojureScript から感じた楽しみや感銘をこの本から受けていただければ幸いです。
+私たちが ClojureScript から感じた楽しみやインスピレーションをこの本から受けていただければ幸いです。
