@@ -1256,10 +1256,10 @@ ClojureScript のコレクションは永続的でイミュータブルだと言
 上の例では @<code>{xs} に要素を 1 つ追加して新たなベクタ @<code>{ys} を作成しています。ベクタ @<code>{xs} はイミュータブルなので変更されません。
 
 #@# A persistent data structure is a data structure that returns a new version of itself when transforming it, leaving the original unmodified. ClojureScript makes this memory and time efficient using an implementation technique called _structural sharing_, where most of the data shared between two versions of a value is not duplicated and transformations of a value are implemented by copying the minimal amount of data required.
-永続的なデータ構造は、変換時に新しいバージョンを返して、元のデータを変更しないデータ構造です。ClojureScript では構造共有(structural sharing)という実装手法を利用して、このメモリと実行時間を効率的にします。この手法では、2 つのバージョンの値の間で共有されるデータの大部分は複製されずに、必要最小限のデータをコピーすることで値の変換が実装されます。
+永続的なデータ構造とは、変換時に元のバージョンを残したまま新しいバージョンを返すデータ構造のことです。ClojureScript では、構造共有 (structural sharing) と呼ばれる実装技術を用いて、メモリと時間の効率化を図っており、2 つのバージョンの値の間で共有されるデータのほとんどは重複しません。
 
 #@# If you want to see an example of how structural sharing works, read on. If you're not interested in more details you can skip over to the xref:the-sequence-abstraction[next section].
-構造共有がどのように動作しているかを知りたい場合、読み進めてください。もし興味がない場合、次のセクションは読み飛ばしてください。
+構造共有がどのように動作しているかを知りたい場合は読み進めてください。もし興味がない場合は、読み飛ばして次のセクション(シーケンスの抽象化)に進んでください。
 
 #@# For illustrating the structural sharing of ClojureScript data structures,  let 's compare whether some parts of the old and new versions of a data structure are actually the same object with the identical? predicate. We'll use the list data type for this purpose:
 ClojureScript におけるデータ構造の構造共有を説明するために、古いデータ構造と新しいデータ構造の一部が同じオブジェクトかどうかを @<code>{identical?} を用いて比較してみます。ここではリストを例に説明します。
@@ -1508,7 +1508,7 @@ ClojureScript コレクションを変換するための中心的な関数は、
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
 #@# Similar predicates exist for checking if a value is a sequence (with seq?) or a seqable (with seqable?):
-同様に、データ構造がシーケンスかどうかを判別する述語 @<code>{seq?} 、シーカブルかどうかを判別したりする述語 @<code>{seqable?} があります。
+同様に、データ構造がシーケンスかどうかを判別する @<code>{seq?} 述語、シーカブルかどうかを判別したりする@<code>{seqable?} 述語があります。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
