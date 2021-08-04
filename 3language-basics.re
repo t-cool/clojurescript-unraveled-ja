@@ -2434,18 +2434,18 @@ destructuring は @<code>{let} での束縛に限定されないことに注意�
 //}
 
 
-== スレッディングマクロ (Threading Macro)
+== Threading マクロ
 
 #@# Threading Macros
 
 #@# Threading macros, also known as arrow functions, enables one to write more readable code when multiple nested function calls are performed.
-スレッドマクロはアロー関数として知られています。スレッドマクロを使うことで、ネストされた複数の関数呼び出しを実行するときに、読みやすいコードを記述できます。
+Threading マクロはアロー関数として知られています。Threading マクロを使うことで、ネストされた複数の関数呼び出しを実行するときに、読みやすいコードを記述できます。
 
 #@# Imagine you have `(f (g (h x)))` where a function f receives as its first parameter the result of executing function g, repeated multiple times. With the most basic `->` threading macro you can convert that into `(\-> x (h) (g) (f))` which is easier to read.
-例えば @<code>{(f (g (h x)))} というコードにおいて、@<code>{f} は @<code>{g} の結果を第 1 引数として受け取ります。スレッドマクロ @<code>{->} を使うことで、@<code>{(-> x (h) (g) (f))} と書くことができます。こちらのほうが読みやすいですね。
+例えば @<code>{(f (g (h x)))} というコードにおいて、@<code>{f} は @<code>{g} の結果を第 1 引数として受け取ります。Threading マクロ @<code>{->} を使うことで、@<code>{(-> x (h) (g) (f))} と書くことができます。こちらのほうが読みやすいですね。
 
 #@# The result is syntactic sugar, because the arrow functions are defined as macros and it does not imply any runtime performance. The `(\-> x (h) (g) (f))` is automatically converted to (f (g (h x))) at compile time.
-スレッドマクロはマクロとして定義されているため、実行時のパフォーマンスに影響を与えません。@<code>{(-> x (h) (g) (f))} はコンパイル時に @<code>{(f (g (h x)))} に変換されます。
+Threading マクロはマクロとして定義されているため、実行時のパフォーマンスに影響を与えません。@<code>{(-> x (h) (g) (f))} はコンパイル時に @<code>{(f (g (h x)))} に変換されます。
 
 #@# Take note that the parenthesis on h, g and f are optional, and can be ommited: `(f (g (h x)))` is the same as `(\-> x h g f)`.
 @<code>{h}, @<code>{g}, @<code>{f} の括弧はなくてもかまいません。@<code>{(f (g (h x)))} は @<code>{(-> x h g f)} と省略して書くこともできます。
@@ -2456,7 +2456,7 @@ destructuring は @<code>{let} での束縛に限定されないことに注意�
 @<code>{->} は thread-firstマクロ と呼ばれますが、複数の式が実行されていく中で、最初の引数に値を挿入していくことから、そのような名前がつけられています。
 
 #@# Using a more concrete example, this is how the code looks without using threading macros:
-では具体例として、まずはスレッドマクロを使わない場合を見てみましょう。
+では具体例として、まずは Threading マクロを使わない場合を見てみましょう。
 
 //emlist{
 (def book {:name "Lady of the Lake"
