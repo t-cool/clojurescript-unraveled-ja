@@ -315,12 +315,12 @@ my-cat transducer は、その入力をアキュムレータに結合する redu
 //}
 
 
-=== ClojureScript コアにおける Transducer
+=== ClojureScript core における Transducer
 
 #@# Transducers in ClojureScript core
 
 #@# Some of the ClojureScript core functions like  map ,  filter  and  mapcat  support an arity 1 version that returns a transducer. Let's revisit our definition of  process-cluster  and define it in terms of transducers:
-@<code>{map} @<code>{filter} @<code>{mapcat} のような ClojureScript の コア関数は、transducer を返す 1 バージョンの項数をサポートします。@<code>{process-cluster} の定義を再考して、transducer の観点から定義してみましょう。
+@<code>{map} @<code>{filter} @<code>{mapcat} のような ClojureScript の core 関数は、transducer を返す 1 バージョンの項数をサポートします。@<code>{process-cluster} の定義を再考して、transducer の観点から定義してみましょう。
 
 //emlist{
 (def process-clusters
@@ -348,7 +348,7 @@ transducer の強力な特性の一つは、それらが規則的な関数合成
 //}
 
 #@# Many of the core ClojureScript functions accept a transducer, let's look at some examples with our newly created  process-cluster :
-ClojureScript のコア関数の多くは transducer を受けとりますが、新しく作成した process-cluster でいくつか例を見てみましょう。
+ClojureScript の core 関数の多くは transducer を受けとりますが、新しく作成した process-cluster でいくつか例を見てみましょう。
 
 //emlist{
 (into [] process-clusters grape-clusters)
@@ -525,7 +525,7 @@ transducer は reducing 関数の変形であるため、早期終了のため�
 
 
 #@# This is a simplified version of the  take  function present in ClojureScript core. There are a few things to note here so let's break it up in pieces to understand it better.
-これは ClojureScript コアにある @<code>{take} 関数を単純化したものです。注意すべき点がいくつかあるので、少しずつ分けて見ていきましょう。
+これは ClojureScript の core にある @<code>{take} 関数を単純化したものです。注意すべき点がいくつかあるので、少しずつ分けて見ていきましょう。
 
 #@# The first thing to notice is that we are creating a mutable value inside the transducer. Note that we don't create it until we receive a reducing function to transform. If we created it before returning the transducer we couldn't use  my-take  more than once. Since the transducer is handed a reducing function to transform each time it is used, we can use it multiple times and the mutable variable will be created in every use.
 まず最初に注意しなければならないのは、transducer 内で変更可能な値を作成している点です。変換を行う reducing 関数を受け取るまでは値を作成していないことに注意してください。transducer を返す前に作ってしまうと、my-take 関数を 2 回以上使うことはできません。transducer は、使用の度に変換を行う reducing 関数を渡されるので、何度でも使うことができます。また、変更可能な変数は、毎回使うたびに作成されます。
@@ -596,7 +596,7 @@ transducer は reducing 関数の変形であるため、早期終了のため�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# The transducer returning function of  partition-all  will take a number  n  and return a transducer that groups inputs in vectors of size  n . In the completion step it will check if there is an accumulated result and, if so, add it to the result. Here's a simplified version of ClojureScript core  partition-all  function, where  array-list  is a wrapper for a mutable JavaScript array:
-@<code>{partition-all} の transducer を返す関数は、数値 @<code>{n} を取り、@<code>{n} 個のサイズのベクタで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript のコア関数である @<code>{partition-all} を単純化したもので、@<code>{array-list} は変更可能な JavaScript の配列のラッパーです。
+@<code>{partition-all} の transducer を返す関数は、数値 @<code>{n} を取り、@<code>{n} 個のサイズのベクタで入力をグループ化する transducer を返しまる。完了する段階では、累積結果があるかどうかを確認して、ある場合は結果に追加します。以下は、ClojureScript の core 関数である @<code>{partition-all} を単純化したもので、@<code>{array-list} は変更可能な JavaScript の配列のラッパーです。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -665,7 +665,7 @@ Eduction とは、コレクションと 1 つ以上の変換を組み合わせ�
 //}
 
 
-=== ClojureScript コアにおける他の Transducer 
+=== ClojureScript core における他の Transducer 
 
 #@# More transducers in ClojureScript core
 
@@ -687,7 +687,7 @@ Eduction とは、コレクションと 1 つ以上の変換を組み合わせ�
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
 #@# We encourage you to explore ClojureScript core to see what other transducers are out there.
-他にどんな transducer があるのかを知るために、ClojureScript コアを調べてみることをお勧めします。
+他にどんな transducer があるのかを知るために、ClojureScript core を調べてみることをお勧めします。
 
 === Transducer を定義する
 
