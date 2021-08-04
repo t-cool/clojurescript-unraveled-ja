@@ -608,7 +608,7 @@ Arity の概念を本書で説明することは、本書の範囲を超えて�
 #@# Short syntax for anonymous functions
 
 #@# ClojureScript provides a shorter syntax for defining anonymous functions using the `#()` reader macro (usually leads to one-liners). Reader macros are "special" expressions that will be transformed to the appropriate language form at compile time; in this case, to some expression that uses the fn special form.
-ClojureScript では、無名関数のための簡潔な構文としてリーダマクロの @<code>{#()} を使うことができます(ワンライナーを書くためによく用いられます)。リーダーマクロとは、コンパイル時に適当なフォームに変換される「特別な」表現方法です。この場合、@<code>{fn}のフォームに変換されます。
+ClojureScript では、無名関数のためのシンプルな構文としてリーダマクロの @<code>{#()} を使うことができます(ワンライナーを書くためによく用いられます)。リーダーマクロとは、コンパイル時に適当なフォームに変換される「特別な」表現方法です。この場合、@<code>{fn}のフォームに変換されます。
 
 //emlist{
 (def average #(/ (+ %1 %2) 2))
@@ -2216,7 +2216,7 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 #@# Destructuring
 
 #@# Destructuring, as its name suggests, is a way of taking apart structured data such as collections and focusing on individual parts of them. ClojureScript offers a concise syntax for destructuring both indexed sequences and associative data structures that can be used any place where bindings are declared.
-destructuring(分割)という言葉が示すように、destructuring はコレクションのような構造化されたデータを分割して、個別の要素に焦点を当てる方法です。ClojureScript は分割のための構文は簡潔です。destructuring は、インデックスがついたシーケンスに対しても、連想型のデータ構造に対しても、束縛が宣言された場所であればどこでも使うことができます。
+destructuring(分割)という言葉が示すように、destructuring はコレクションのような構造化されたデータを分割して、個別の要素に焦点を当てる方法です。ClojureScript は分割のための構文はシンプルです。destructuring は、インデックスがついたシーケンスに対しても、連想型のデータ構造に対しても、束縛が宣言された場所であればどこでも使うことができます。
 
 #@#  let 's see an example of what destructuring is useful for that will help us understand the previous statements better. Imagine that you have a sequence but are only interested in the first and third item. You could get a reference to them easily with the nth function:
 前の説明を理解するために、destructuring の使用例を見てみましょう。シーケンスがあり、1 番目と 3 番目の要素だけに関心があるとします。これらへの参照は、@<code>{nth} 関数で簡単に取得できます。
@@ -2230,7 +2230,7 @@ destructuring(分割)という言葉が示すように、destructuring はコレ
 //}
 
 #@# However, the previous code is overly verbose. Destructuring  let s us extract values of indexed sequences more succintly using a vector on the left-hand side of a binding:
-しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクタを使用して、インデックスがついたシーケンスからより簡潔に値を取り出すことができます。
+しかし、前のコードは冗長すぎます。destructuring では、束縛の左側のベクタを使用して、インデックスがついたシーケンスからよりシンプルに値を取り出すことができます。
 
 //emlist{
 (let [[fst _ thrd] [0 1 2]]

@@ -29,7 +29,7 @@ ClojureScript は JavaScript をターゲットにした Clojure の実装です
 
 #@# - ClojureScript enforces the functional programming paradigm with its design decisions and idioms. Although being strongly opinionated about functional programming it's a pragmatic language rather than pursuing theoretical purity.
 //noindent
-- ClojureScript では、設計の決定と表現手法において、関数型プログラミングのパラダイムに従う必要があります。関数型プログラミングに固執しますが、理論的な純粋さを追求するような言語ではなく、実用的な言語です。
+- ClojureScript では、デザインの決定とイディオムにおいて、関数型プログラミングのパラダイムに従う必要があります。ClojureScript は関数型プログラミングにこだわりますが、理論的な純粋さを追求するような言語ではなく、実用的な言語です。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
@@ -41,7 +41,7 @@ ClojureScript は JavaScript をターゲットにした Clojure の実装です
 
 #@# - It makes a clear distinction of identity and its state, with explicit constructs for managing change as a series of immutable values over time.
 //noindent
-- ClojureScript では、identity(識別) と state(状態) を明確に区別します。変更を不変な値の一連の流れとして管理するために、明示的に状態を生成します。
+- ClojureScript では、identity と state を明確に区別します。変更を不変な値の一連の流れとして管理するために、明示的に状態を生成します。
 
 //embed[latex]{
 \enlargethispage{15mm}
@@ -53,18 +53,18 @@ ClojureScript は JavaScript をターゲットにした Clojure の実装です
 
 #@# - It has type-based and value-based polymorphism, elegantly solving the expression problem.
 //noindent
-- ClojureScript には、値に基づくポリモーフィズムと、型に基づくポリモーフィズムがあり、Expression Problem を簡潔に解決することができます。
+- ClojureScript には、値に基づくポリモーフィズムと、型に基づくポリモーフィズムがあり、Expression Problem をシンプルに解決することができます。
 
 @<embed>{|latex|\vspace{0.5\Cvs\}}
 
 #@# - It is a Lisp dialect so programs are written in the programming language's own data structures, a property known as _homoiconicity_ that makes metaprogramming (programs that write programs) as simple as it can be.
 //noindent
-- ClojureScript は Lisp 方言なので、プログラムはプログラミング言語自体のデータ構造で書くことができます。同図像性として知られる性質により、メタプログラミング(つまりプログラムを書くプログラム)をできるだけ簡潔に行うことができます。
+- ClojureScript は Lisp 方言なので、プログラムはプログラミング言語自体のデータ構造で書くことができます。同図像性として知られる性質により、メタプログラミング(つまりプログラムを書くプログラム)を可能な限りシンプルに行うことができます。
 
 @<embed>{|latex|\vspace{1\Cvs\}}
 
 #@# These ideas together have a great influence in the way you design and implement　software, even if you are not using ClojureScript. Functional programming, decoupling　of data (which is immutable) from the operations to transform it, explicit idioms for　managing change over time and polymorphic constructs for programming to abstractions　greatly simplify the systems we write.
-以上の概念を合わせることにより、たとえ ClojureScript を使わないとしても、ソフトウェアの実装方法は大きな影響を受けるでしょう。関数型プログラミング、(不変な)データと値の変更の分離、変更を管理する明示的なイディオム、抽象化へのプログラミングのためのポリモーフィズムの構成により、私たちが書くシステムをより簡潔にすることができます。
+以上の概念を合わせることにより、たとえ ClojureScript を使わないとしても、ソフトウェアの実装方法は大きな影響を受けるでしょう。関数型プログラミング、(不変な)データと値の変更の分離、変更を管理する明示的なイディオム、抽象化へのプログラミングのためのポリモーフィズムの構成により、私たちが書くシステムをよりシンプルにすることができます。
 
 #@#?? polymorphic constructs
 
