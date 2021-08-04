@@ -443,7 +443,7 @@ transducer によって返される reducing 関数の引数なし版の呼び�
 #@# The call to the arity 0 flows through the transducer stack, eventually calling  (conj) .
 引数がない場合の呼び出しは transducer のスタックを経由して、最終的に @<code>{(conj)} を呼び出します。
 
-=== ステートフルな transducer
+=== ステートフルな Transducer
 
 #@# So far we've only seen purely functional transducer; they don't have any implicit state and are very predictable. However, there are many data transformation functions that are inherently stateful, like  take .  take  receives a number  n  of elements to keep and a collection and returns a collection with at most  n  elements.
 
@@ -665,7 +665,7 @@ Eduction とは、コレクションと 1 つ以上の変換を組み合わせ�
 //}
 
 
-=== ClojureScript コアにおける他の transducer 
+=== ClojureScript コアにおける他の Transducer 
 
 #@# More transducers in ClojureScript core
 
@@ -689,7 +689,7 @@ Eduction とは、コレクションと 1 つ以上の変換を組み合わせ�
 #@# We encourage you to explore ClojureScript core to see what other transducers are out there.
 他にどんな transducer があるのかを知るために、ClojureScript コアを調べてみることをお勧めします。
 
-=== transducer を定義する
+=== Transducer を定義する
 
 #@# Defining our own transducers
 
