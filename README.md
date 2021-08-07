@@ -4,7 +4,7 @@
 
 ## 公開と配布
 
-電子版は [https://t-cool.github.io/clojurescript-unraveled-ja/](https://t-cool.github.io/clojurescript-unraveled-ja/) で配布しています。
+電子版は [https://t-cool.github.io/clojurescript-unraveled-ja/book.pdf](https://t-cool.github.io/clojurescript-unraveled-ja/book.pdf) で配布しています。
 
 Clojure(Script) 普及のため、印刷した紙媒体の書籍を各種イベントにて配布予定です。
 
