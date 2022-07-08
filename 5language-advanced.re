@@ -1712,8 +1712,7 @@ ClojureScript の core に定義されている関数群がプロトコルを中
 //}
 
 #@# Some collection types such as vectors and lists can be indexed by a number using the  nth  function. If our types are indexed we can implement the  IIndexed  protocol:
-ベクタやリストなどのコレクション型は、@<code>{nth} 関数でインデックス番号を付けることができます。もし私たちの型がインデックスされるなら、私たちは @<code>{IIndexed} プロトコルを実装することができます:
-
+ベクタやリストなどのコレクション型は @<code>{nth} 関数でインデックス番号を付けることができます。このような型にインデックスが付けられれば、@<code>{IIndexed} プロトコルを実装することができます。
 
 #@# Page132
 #@# @<embed>{|latex|\vspace{-0.4\Cvs\}}

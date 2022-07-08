@@ -33,15 +33,16 @@ ClojureScript の公式ドキュメントは良質ですが少ないので、私
 
 #@# - already know some Clojure and want to learn how ClojureScript differs from it, plus practical topics like how to target both languages with the same code base.
 //noindent
-- Clojure の経験があり、ClojureScript と Clojure の違いを学びたい。また、同じコードから 2 つの言語をターゲットにする実践的な方法を学びたい。
+- Clojure をある程度知っていて、ClojureScript とどう違うのか、さらに同じコードベースで両方の言語をターゲットにする方法など、実用的なトピックを学びたい。
 
 @<embed>{|latex|\vspace{1.5\Cvs\}}
 
 #@# Don't be turned off if you don't see yourself in any of the above groups. We　encourage you to give this book a try and to give us feedback on how we can make it　more accessible.  Our goal is to make ClojureScript more friendly to newcomers and　spread the ideas about programming that Clojure has helped popularize, as we see a　lot of value in them.
-どの条件にも合わなかったとしても大丈夫です。読み進められるようにサポートします。本書が読みやすいものになるように、フィードバックも受けつけています。私たちは ClojureScript が入門者の方々が学びやすいものにすること、また Clojure が進めてきたプログラミング手法を普及させることを目標にしています。私たちはこの目標に大きな価値があると信じています。
+どの条件にも合わなかったとしても、気を落とさないでください。。本書を試し読みしていただき、どうしたらもっと親しみやすいものになるか、ご意見をいただけるとありがたいです。私たちの目標は、ClojureScript を新しい人にも親しみやすいものにし、Clojure が普及に貢献したプログラミングに関する考え方を広めることです。
 
 #@# This is a list of translations of the book:
 
 翻訳版としては、ウクライナ語版@<fn>{ukline}と日本語版があります。
 
 //footnote[ukline][https://lambdabooks.github.io/clojurescript-unraveled]
+

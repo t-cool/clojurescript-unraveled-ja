@@ -1241,7 +1241,7 @@ scripts/repl.clj を開いて、次のように変更します。
 言語に関係なく、Unit テストの主な目的は、いくつかのテスト・ケースを実行し、テスト対象のコードが予期したとおりに動作し、予期しない例外を発生させずに戻ることを検証することです。
 
 #@# The immutablity of ClojureScript data structures helps to make programs less error prone, and facilitates testing a little bit. Another advantage of ClojureScript is that it tends to use plain data instead of complex objects. Building "mock" objects for testing is thus greatly simplified.
-ClojureScriptのデータ構造は不変であるため、プログラムのエラーが発生しにくく、テストが少し容易になります。ClojureScript のもう 1 つの利点は、複雑なオブジェクトではなく、プレーン・データを使用する傾向があることです。したがって、テスト用の「モック」オブジェクトの構築が大幅に簡略化されます。
+ClojureScript のデータ構造の不変性は、プログラムのエラーを少なくし、テストを容易にするのに役立ちます。ClojureScript のもう一つの利点は、複雑なオブジェクトではなく、平易なデータを使用する傾向があることです。このため、テスト用の「モック」オブジェクトの作成が大幅に簡略化されます。
 
 
 === 初めの一歩
@@ -1252,7 +1252,7 @@ ClojureScriptのデータ構造は不変であるため、プログラムのエ�
 公式の ClojureScript のテスト・フレームワークは、名前空間 cljs.test にあります。これは非常に単純なライブラリですが、私たちの目的には十分すぎるはずです。
 
 #@# There are other libraries that offer additional features or directly different approaches to testing, such as test.check. However, we will not cover them here.
-他にも、追加の機能を提供したり、テストに対して直接的に異なるアプローチを提供するライブラリがあります (例えば test.check など)。ただし、ここでは説明しません。
+他にも、追加の機能を提供したり、テストに対して直接的に異なるアプローチを提供するライブラリ (test.check 等) がありますが、ここでは説明しません。
 
 #@# Start creating a new project using the mies leiningen template for experimenting with tests:
 テストを試すために mies テンプレートを使用して、新しいプロジェクトを作成します。
