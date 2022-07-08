@@ -51,7 +51,7 @@ ClojureScript では、リストの 1 番目に関数がある場合、関数を
 //}
 
 #@# ClojureScript uses more than lists for its syntax. The full details will be covered later, but here is an example of the usage of a vector (enclosed in brackets) for defining local bindings:
-ClojureScript ではリスト以外の構文も使います。詳細な説明は後の章で行いますが、ベクタの使い方を例として取り上げます。ベクタは角括弧 @<code>{[ ]} で囲まれて、ローカルな束縛を定義します。
+ClojureScript ではリスト以外の構文も使います。詳細な説明は後の章で行いますが、ベクタの使い方を例として取り上げます。ベクタは角括弧 @<code>{[ ]} で囲み、ローカルな束縛を定義します。
 
 @<embed>{|latex|\vspace{-0.4\Cvs\}}
 
@@ -247,7 +247,7 @@ ClojureScript の文字列で特異な点は、Lisp の構文に由来するも�
 #@# Another big step in explaining a language is to explain its collections and collection abstractions. ClojureScript is not an exception to this rule.
 #@# ClojureScript comes with many types of collections. The main difference between ClojureScript collections and collections in other languages is that they are persistent and immutable.
 #@# Before moving on to these (possibly) unknown concepts, we'll present a high-level overview of existing collection types in  ClojureScript .
-あるプログラミング言語について詳しく知るためには、その言語でコレクションがどのように抽象化されているかを知る必要があります。ClojureScript にも当てはまります。
+あるプログラミング言語について詳しく知るためには、その言語でコレクションがどのように抽象化されているかを知る必要があり、ClojureScript にも当てはまります。
 ClojureScript のコレクションには多くの型があります。ClojureScript が他の言語のコレクションと違うのは、コレクションが永続的で不変であることです。
 詳しい説明に入る前に ClojureScript のコレクションに存在する型について概要を見ましょう。
 
@@ -826,7 +826,7 @@ callable プロトコル(@<code>{IFn} については後述)を実装する能�
 #@# Locals
 
 #@# ClojureScript does not have the concept of  var iables as in ALGOL-like languages, but it does have locals. Locals, as per usual, are immutable, and if you try to mutate them, the compiler will throw an error.
-ClojureScript には ALGOL のような変数の概念がありませんが、ローカル(local)はあります。ローカルはイミュータブルであり、変更しようとするとエラーが発生します。
+ClojureScript には ALGOL のような変数の概念がありませんが、ローカル(local)はあります。ローカルは不変であり、変更しようとするとエラーが発生します。
 
 #@# Locals are defined with the let expression. The expression starts with a vector as the first parameter followed by an arbitrary number of expressions. The first parameter (the vector) should contain an arbitrary number of pairs that give a _binding form_ (usually a symbol) followed by an expression whose value will be bound to this new local for the remainder of the let expression.
 ローカルは @<code>{let} 式で定義されます。@<code>{let}式は、最初のパラメータとしてベクタで始まり、その後に任意の数の式が続きます。最初のパラメータのベクタには束縛フォームを与えて、その @<code>{let} 内のローカルで有効な名前と値のペアを宣言します。
@@ -1223,14 +1223,14 @@ ClojureScript の @<code>{for} は、反復のためではなくシーケンス�
 
 #@# Collection types
 
-=== イミュータブルと永続性
+=== 不変性と永続性
 
 #@# Immutable and persistent
 
 #@# We mentioned before that ClojureScript collections are persistent and immutable, but we didn't explain what that meant.
 #@# An immutable data structure, as its name suggests, is a data structure that cannot be changed. In-place updates are not allowed in immutable data structures.
 #@#  let 's illustrate that with an example: appending values to a vector using the conj (conjoin) operation.
-ClojureScript のコレクションは永続的でイミュータブルだと言及しましたが、詳しく説明していませんでした。イミュータブルなデータ構造は、変更ができないデータ構造です。イミュータブルなデータ構造において、部分的な更新は許されません。@<code>{conj} を用いてベクタに値を付け加える例を見てみましょう。
+ClojureScript のコレクションは永続的で不変だと言及しましたが、詳しく説明していませんでした。不変のデータ構造とは、変更ができないデータ構造です。不変なデータ構造においては、部分的な更新は許されません。@<code>{conj} を用いてベクタに値を付け加える例を見てみましょう。
 
 //emlist{
 (let [xs [1 2 3]
@@ -1253,7 +1253,7 @@ ClojureScript のコレクションは永続的でイミュータブルだと言
 
 
 #@# As you can see, we derived a new version of the xs vector appending an element to it and got a new vector ys with the element added. However, the xs vector remained unchanged because it is immutable.
-上の例では @<code>{xs} に要素を 1 つ追加して新たなベクタ @<code>{ys} を作成しています。ベクタ @<code>{xs} はイミュータブルなので変更されません。
+上の例では @<code>{xs} に要素を 1 つ追加して新たなベクタ @<code>{ys} を作成しています。ベクタ @<code>{xs} は不変なので変更されません。
 
 #@# A persistent data structure is a data structure that returns a new version of itself when transforming it, leaving the original unmodified. ClojureScript makes this memory and time efficient using an implementation technique called _structural sharing_, where most of the data shared between two versions of a value is not duplicated and transformations of a value are implemented by copying the minimal amount of data required.
 永続的なデータ構造とは、変換時に元のバージョンを残したまま新しいバージョンを返すデータ構造のことです。ClojureScript では、構造共有 (structural sharing) と呼ばれる実装技術を用いて、メモリと時間の効率化を図っており、2 つのバージョンの値の間で共有されるデータのほとんどは重複しません。
@@ -1290,7 +1290,7 @@ ClojureScript におけるデータ構造の構造共有を説明するために
 #@# The sequence abstraction
 
 #@# One of the central ClojureScript abstractions is the _sequence_ which can be thought of as a list and can be derived from any of the collection types. It is persistent and immutable like all collection types, and many of the core ClojureScript functions return sequences.
-ClojureScript による抽象化で中心的な概念の 1 つに シーケンス(sequence) があります。シーケンスはリストとして見なされ、どのコレクションの型もシーケンスとして見なすことができます。シーケンスは全てのコレクションの型のように永続的でイミュータブルです。大半の ClojureScript の関数はシーケンスを返します。
+ClojureScript による抽象化で中心的な概念の 1 つに シーケンス(sequence) があります。シーケンスはリストとして見なされ、どのコレクションの型もシーケンスとして見なすことができます。シーケンスは全てのコレクションの型のように永続的で変更不可能です。大半の ClojureScript の関数はシーケンスを返します。
 
 #@# The types that can be used to generate a sequence are called "seqables"; we can call seq on them and get a sequence back. Sequences support two basic operations: first and rest. They both call seq on the argument we provide them:
 シーケンスを生成するために使うことができる型はシーカブル(seqables)と呼ばれます。@<code>{seq} を シーカブルに対して呼び出して、シーケンスをえることができます。シーケンスは 基本的な関数 @<code>{first} と @<code>{rest} をサポートします。どちらも @<code>{first} と @<code>{rest} に与える引数に対して @<code>{seq} を呼び出します。
@@ -2072,7 +2072,7 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 #@# A nice property of immutable sets is that they can be nested. Languages that have mutable sets can end up containing duplicate values, but that can't happen in  ClojureScript . In fact, all ClojureScript data structures can be nested arbitrarily due to immutability.
 #@# Sets also support the generic conj operation just like every other collection does.
 
-イミュータブルなセットの優れた特性はネストできることです。ミュータブルなセットをもつプログラミング言語では重複した値を含みますが、ClojureSript では重複を許しません。実際、全ての ClojureScript のデータ構造はイミュータブルの性質のおかげで任意にネストすることができます。セットは他のコレクションのデータ型と同様に @<code>{conj} を使うことも可能です。
+不変であるセットの優れた特性はネストできることです。可変であるセットをもつプログラミング言語では重複した値を含みますが、ClojureSript では重複を許しません。実際、全ての ClojureScript のデータ構造は不変性の性質のおかげで任意にネストすることができます。セットは他のコレクションのデータ型と同様に @<code>{conj} を使うことも可能です。
 
 //embed[latex]{
 \vspace{-0.4\Cvs}
@@ -2135,7 +2135,7 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
 #@# Sets have a sorted counterpart like maps do that are created using the functions sorted-set and sorted-set-by which are analogous to map's sorted-map and sorted-map-by.
-セットの要素に順序をつけて扱うには、マップの場合と同様に、@<code>{sorted-set} 関数と @<code>{sorted-set-by} 関数が用意されています。マップの @<code>{sorted-map} と @<code>{sorted-map-by} に似ています。
+セットにもマップのようにソート版があり、マップの @<code>{sorted-map} と @<code>{sorted-map-by} に相当する @<code>{sorted-set} と @<code>{sorted-set-by} 関数で作成されます。
 
 @<embed>{|latex|\vspace{-0.3\Cvs\}}
 
@@ -2158,7 +2158,7 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 #@# Queues
 
 #@# ClojureScript also provides a persistent and immutable queue. Queues are not used as pervasively as other collection types.  They can be created using the `#queue []` literal syntax, but there are no convenient constructor functions for them.
-さらに ClojureScript では、永続的でイミュータブルなキューを使うことができます。キューは他のコレクションのように広くは使われていません。キューを作成するためのリテラル表現として @<code>{#queue []} が用意されています。キューを作成するためのコンストラクタ関数はありません。
+さらに ClojureScript は、永続的で不変であるキューを提供します。キューは他のコレクションのように広くは使われていません。キューは @<code>{#queue []} というリテラル構文で作ることができますが、便利なコンストラクタ関数はありません。
 
 //emlist{
 (def pq #queue [1 2 3])
@@ -2216,7 +2216,7 @@ ClojureScript のセットは @<code>$#{}$ のリテラル表現を用いて作�
 #@# Destructuring
 
 #@# Destructuring, as its name suggests, is a way of taking apart structured data such as collections and focusing on individual parts of them. ClojureScript offers a concise syntax for destructuring both indexed sequences and associative data structures that can be used any place where bindings are declared.
-destructuring(分割)という言葉が示すように、destructuring はコレクションのような構造化されたデータを分割して、個別の要素に焦点を当てる方法です。ClojureScript は分割のための構文はシンプルです。destructuring は、インデックスがついたシーケンスに対しても、連想型のデータ構造に対しても、束縛が宣言された場所であればどこでも使うことができます。
+destructuring（非構造化）という言葉が示すように、destructuring はコレクションのような構造化されたデータを分解して、個別の要素に焦点を当てる方法です。ClojureScript は分割のための構文はシンプルです。destructuring は、インデックスがついたシーケンスに対しても、連想型のデータ構造に対しても、束縛が宣言された場所であればどこでも使うことができます。
 
 #@#  let 's see an example of what destructuring is useful for that will help us understand the previous statements better. Imagine that you have a sequence but are only interested in the first and third item. You could get a reference to them easily with the nth function:
 前の説明を理解するために、destructuring の使用例を見てみましょう。シーケンスがあり、1 番目と 3 番目の要素だけに関心があるとします。これらへの参照は、@<code>{nth} 関数で簡単に取得できます。
@@ -3680,7 +3680,7 @@ ClojureScript で独自の型を作成するための最も低レベルな構文
 //}
 
 #@# specify is an immutable version of specify! that can be used on immutable, copyable values implementing ICloneable (e.g. ClojureScript collections).
-@<code>{specify} は @<code>{specify!} のイミュータブル版です。これは @<code>{ICloneable} を実装しているイミュータブルでコピー可能な値(ClojureScript のコレクション等)に対して使えます。
+@<code>{specify} は @<code>{specify!} の不変版です。これは @<code>{ICloneable} を実装している不変でコピー可能な値(ClojureScript のコレクション等)に対して使えます。
 
 //emlist{
 (def a {})
@@ -4077,10 +4077,10 @@ b
 #@# State management
 
 #@# We've learned that one of  ClojureScript 's fundamental ideas is immutability. Both scalar values and collections are immutable in  ClojureScript , except those mutable types present in the JS host like Date.
-ClojureScript の基本的なアイデアの 1 つがイミュータブルな性質であることを学びました。ClojureScript ではスカラー値もコレクションもイミュータブルですが、@<code>{Date} のように JS のホスト環境に存在する可変型は例外です。
+ClojureScript の根本的なアイデアの 1 つが不変性にあることを学びました。ClojureScript ではスカラー値もコレクションも不変ですが、@<code>{Date} のように JS のホスト環境に存在する可変型は例外です。
 
 #@# Immutability has many great properties but we are sometimes faced with the need to model values that change over time. How can we achieve this if we can't change data structures in place?
-イミュータブルな性質は多くの優れた特性がありますが、時とともに変化する値をモデル化する必要に迫られることもあります。データ構造を適切に変更できない場合、これを実現するにはどうすればよいでしょうか。
+不変性は多くの優れた特性がありますが、時とともに変化する値をモデル化する必要に迫られることもあります。データ構造を適切に変更できない場合、これを実現するにはどうすればよいでしょうか。
 
 
 #@# Page75
@@ -4105,7 +4105,7 @@ var は名前空間内で自由に再定義できますが、いつ変更され�
 自由に変更できる値を含むオブジェクトとして、ClojureScript は @<code>{Atom} 型を提供します。値を変更するだけでなく、付加したり切り離したりできる watcher 関数による監視や、アトムに含まれる値が常に有効であることを確認するバリデーションもサポートします。
 
 #@# If we were to model an identity corresponding to a person called Ciri, we could wrap an immutable value containing Ciri's data in an atom. Note that we can get the atom's value with the deref function or using its shorthand @ notation:
-もし Ciri という名前の人に対応するアイデンティティをモデル化するとすれば、Ciriのデータを含むイミュータブルな値を 1 つのアトムでラップすることができます。アトムの値は、@<code>{deref} 関数またはその短縮表記 @<code>{@} を使用して取得できます。
+もし Ciri という名前の人に対応するアイデンティティをモデル化するとすれば、Ciriのデータを含む不変な値を 1 つのアトムでラップすることができます。アトムの値は、@<code>{deref} 関数またはその短縮表記 @<code>{@} を使用して取得できます。
 
 //emlist{
 (def ciri (atom {:name "Cirilla" :lastname "Fiona" :age 20}))

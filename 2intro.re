@@ -5,7 +5,7 @@
 #@# //quote{Why are we doing this? Because Clojure _rocks_, and JavaScript _reaches_.- Rich Hickey//}
 
 //quote{
-なぜ ClojureScript をしてるかだって？ Clojure がロックで JavaScript が流行っているからさ。
+なぜこれをしてるかだって？ Clojure が最高で JavaScript がリーチしてるからさ。
 
 - Rich Hickey
 //}

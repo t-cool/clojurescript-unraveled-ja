@@ -1241,7 +1241,7 @@ scripts/repl.clj を開いて、次のように変更します。
 言語に関係なく、Unit テストの主な目的は、いくつかのテスト・ケースを実行し、テスト対象のコードが予期したとおりに動作し、予期しない例外を発生させずに戻ることを検証することです。
 
 #@# The immutablity of ClojureScript data structures helps to make programs less error prone, and facilitates testing a little bit. Another advantage of ClojureScript is that it tends to use plain data instead of complex objects. Building "mock" objects for testing is thus greatly simplified.
-ClojureScriptのデータ構造はイミュータブルであるため、プログラムのエラーが発生しにくく、テストが少し容易になります。ClojureScript のもう 1 つの利点は、複雑なオブジェクトではなく、プレーン・データを使用する傾向があることです。したがって、テスト用の「モック」オブジェクトの構築が大幅に簡略化されます。
+ClojureScriptのデータ構造は不変であるため、プログラムのエラーが発生しにくく、テストが少し容易になります。ClojureScript のもう 1 つの利点は、複雑なオブジェクトではなく、プレーン・データを使用する傾向があることです。したがって、テスト用の「モック」オブジェクトの構築が大幅に簡略化されます。
 
 
 === 初めの一歩

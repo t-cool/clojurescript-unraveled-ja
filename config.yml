@@ -27,9 +27,10 @@ booktitle: 明解 ClojureScript
 
 # 著者名。「, 」で区切って複数指定できる
 # 読みを入れる例 aut: [{name: "青木峰郎", file-as: "アオキミネロウ"}, {name: "武藤健志", file-as: "ムトウケンシ"}, {name: "高橋征義", file-as: "タカハシマサヨシ"}, {name: "角征典", file-as: "カドマサノリ"}]
-aut: ["Andrey Antukh and Alejandro Gomez"]
+aut: [" Andrey Antukh・Alejandro Gomez"]
+trl: ["Hiroki Noguchi"]
 
-#trl: ["野口 浩幹"]
+# a-csl, csl: 監修
 
 
 # 以下はオプション
@@ -49,7 +50,6 @@ aut: ["Andrey Antukh and Alejandro Gomez"]
 # a-bkp, bkp: メディア制作責任者
 # a-clb, clb: 限定参加または補足者
 # a-cmm, cmm: 解釈・分析・考察者
-# a-csl, csl: 監修者
 # a-dsr, dsr: デザイナ
 # a-edt, edt: 編集者
 # a-ill, ill: イラストレータ
@@ -73,7 +73,7 @@ aut: ["Andrey Antukh and Alejandro Gomez"]
 # 複数指定する場合は次のように記述する
 # [["初版第1刷の日付", "初版第2刷の日付"], ["第2版第1刷の日付"]]
 # 日付の後ろを空白文字で区切り、任意の文字列を置くことも可能。
-history: [["2020年2月29日"]]
+# history: [["2022年2月29日"]]
 # 権利表記(配列で複数指定可)
 # rights: (C) 2016 Re:VIEW Developers
 # description: 説明
